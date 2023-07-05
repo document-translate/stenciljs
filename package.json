@@ -1,16 +1,17 @@
 {
-  "name": "template",
+  "name": "stenciljs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docs:dev": "vitepress dev src",
-    "docs:build": "vitepress build src",
-    "docs:preview": "vitepress preview src"
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
+    "preview": "vitepress preview src"
   },
   "keywords": [
     "docs",
-    "cn_zh"
+    "cn_zh",
+    "stenciljs"
   ],
   "author": "",
   "license": "MIT",
