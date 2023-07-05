@@ -23,8 +23,8 @@ To use the Shadow DOM in a Stencil component, you can set the `shadow` option to
 
 ```tsx
 @Component({
-  tag: 'shadow-component',
-  styleUrl: 'shadow-component.css',
+  tag: "shadow-component",
+  styleUrl: "shadow-component.css",
   shadow: true,
 })
 export class ShadowComponent {}
@@ -57,7 +57,7 @@ With the shadow DOM enabled, only these styles will be applied to the component.
 ### Shadow DOM QuerySelector
 
 When using Shadow DOM and you want to query an element inside your web component, you must first use the [`@Element` decorator](./host-element.md#element-decorator) to gain access to the host element, and then you can use the `shadowRoot` property to perform the query. This is because all of your DOM inside your web component is in a shadowRoot that Shadow DOM creates. For example:
-  
+
 ```tsx
 import { Component, Element } from '@stencil/core';
 
@@ -97,8 +97,8 @@ An alternative to using the shadow DOM is using scoped components. You can use s
 
 ```tsx
 @Component({
-  tag: 'scoped-component',
-  styleUrl: 'scoped-component.css',
+  tag: "scoped-component",
+  styleUrl: "scoped-component.css",
   scoped: true,
 })
 export class ScopedComponent {}
@@ -156,8 +156,8 @@ CSS custom properties can be helpful for customizing components from the light D
 
 ```tsx
 @Component({
-  tag: 'shadow-card',
-  styleUrl: 'shadow-card.css',
+  tag: "shadow-card",
+  styleUrl: "shadow-card.css",
   shadow: true,
 })
 export class ShadowCard {
@@ -190,8 +190,8 @@ If you have a Stencil component nested within another component, any `part` spec
 
 ```tsx
 @Component({
-  tag: 'outer-component',
-  styleUrl: 'outer-component.css',
+  tag: "outer-component",
+  styleUrl: "outer-component.css",
   shadow: true,
 })
 export class OuterComponent {
@@ -206,8 +206,8 @@ export class OuterComponent {
 }
 
 @Component({
-  tag: 'inner-component',
-  styleUrl: 'inner-component.css',
+  tag: "inner-component",
+  styleUrl: "inner-component.css",
   shadow: true,
 })
 export class InnerComponent {
@@ -250,15 +250,15 @@ In addition to CSS custom properties, other use cases for a global stylesheet in
 - App wide font-family
 - CSS resets
 
-To make the global styles available to all the components in your project, the `stencil.config.ts` file comes with an optional [`globalStyle` setting](../config/01-overview.md#globalstyle) that accepts the path to your global stylesheet.
+To make the global styles available to all the components in your project, the `stencil.config.ts` file comes with an optional [`globalStyle` setting](../config/overview#globalstyle) that accepts the path to your global stylesheet.
 
 ```tsx
 export const config: Config = {
-  namespace: 'app',
-  globalStyle: 'src/global/global.css',
+  namespace: "app",
+  globalStyle: "src/global/global.css",
   outputTarget: [
     {
-      type: 'www',
+      type: "www",
     },
   ],
 };

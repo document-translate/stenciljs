@@ -13,22 +13,24 @@ If you're a few versions behind, we recommend upgrading one major version at a t
 This will minimize the number of breaking changes you have to deal with at the same time.
 
 For breaking changes introduced in previous major versions of the library, see:
+
 - [Stencil v3 Breaking Changes](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-v300)
 - [Stencil v2 Breaking Changes](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-two)
 - [Stencil v1 Breaking Changes](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-one)
 
 For projects that are on Stencil v3, install the latest version of Stencil v4: `npm install @stencil/core@4`
 
-
 ## Updating Your Code
 
 ### New Configuration Defaults
+
 Starting with Stencil v4.0.0, the default configuration values have changed for a few configuration options.
 The following sections lay out the configuration options that have changed, their new default values, and ways to opt-out of the new behavior (if applicable).
 
 #### `transformAliasedImportPaths`
 
 TypeScript projects have the ability to specify a path aliases via the [`paths` configuration in their `tsconfig.json`](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping) like so:
+
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
@@ -39,14 +41,16 @@ TypeScript projects have the ability to specify a path aliases via the [`paths` 
   }
 }
 ```
+
 In the example above, `"@utils"` would be mapped to the string `"src/utils/index.ts"` when TypeScript performs type resolution.
 The TypeScript compiler does not however, transform these paths from their keys to their values as a part of its output.
 Instead, it relies on a bundler/loader to do the transformation.
 
 The ability to transform path aliases was introduced in [Stencil v3.1.0](https://github.com/ionic-team/stencil/releases/tag/v3.1.0) as an opt-in feature.
 Previously, users had to explicitly enable this functionality in their `stencil.config.ts` file with `transformAliasedImportPaths`:
+
 ```ts title="stencil.config.ts - enabling 'transformAliasedImportPaths' in Stencil v3.1.0"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   transformAliasedImportPaths: true,
@@ -59,8 +63,9 @@ Projects that had previously enabled this functionality that are migrating from 
 
 For users that run into issues with this new default, we encourage you to file a [new issue on the Stencil GitHub repo](https://github.com/ionic-team/stencil/issues/new?assignees=&labels=&projects=&template=bug_report.yml&title=bug%3A+).
 As a workaround, this flag can be set to `false` to disable the default functionality.
+
 ```ts title="stencil.config.ts - disabling 'transformAliasedImportPaths' in Stencil v4.0.0"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   transformAliasedImportPaths: false,
@@ -68,7 +73,7 @@ export const config: Config = {
 };
 ```
 
-For more information on this flag, please see the [configuration documentation](../config/01-overview.md#transformaliasedimportpaths)
+For more information on this flag, please see the [configuration documentation](../config/overview#transformaliasedimportpaths)
 
 #### `transformAliasedImportPathsInCollection`
 
@@ -81,17 +86,18 @@ Projects that had previously enabled this functionality that are migrating from 
 
 For users that run into issues with this new default, we encourage you to file a [new issue on the Stencil GitHub repo](https://github.com/ionic-team/stencil/issues/new?assignees=&labels=&projects=&template=bug_report.yml&title=bug%3A+).
 As a workaround, this flag can be set to `false` to disable the default functionality.
+
 ```ts title="stencil.config.ts - disabling 'transformAliasedImportPathsInCollection' in Stencil v4.0.0"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
     {
-      type: 'dist',
+      type: "dist",
       transformAliasedImportPathsInCollection: false,
     },
     // ...
-  ]
+  ],
   // ...
 };
 ```
@@ -114,6 +120,7 @@ Both of these APIs were deprecated in Stencil v1 and are now removed.
 @Prop({ context: 'config' }) config: Config;
 @Prop({ connect: 'ion-menu-controller' }) lazyMenuCtrl: Lazy<MenuController>;
 ```
+
 To migrate away from usages of `context`, please see [the original deprecation announcement](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#propcontext).
 To migrate away from usages of `connect`, please see [the original deprecation announcement](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#propconnect).
 
@@ -244,7 +251,7 @@ on the `Select` component in Ionic Framework:
 To ensure the proper functioning of other `@stencil/` packages, it is advisable for projects utilizing any of the packages mentioned below to upgrade to the minimum package version specified.
 
 | Package                          | Minimum Package Version                                                                                                  | GitHub                                                            | Documentation                                               |
-|----------------------------------|--------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------|
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- |
 | `@stencil-angular-output-target` | [0.7.1](https://github.com/ionic-team/stencil-ds-output-targets/releases/tag/%40stencil%2Fangular-output-target%400.7.1) | [GitHub](https://github.com/ionic-team/stencil-ds-output-targets) | [Stencil Doc Site](../framework-integration/angular.md)     |
 | `@stencil/sass`                  | [3.0.4](https://github.com/ionic-team/stencil-sass/releases/tag/v3.0.4)                                                  | [GitHub](https://github.com/ionic-team/stencil-sass)              | [GitHub README](https://github.com/ionic-team/stencil-sass) |
 | `@stencil/store`                 | [2.0.8](https://github.com/ionic-team/stencil-store/releases/tag/v2.0.8)                                                 | [GitHub](https://github.com/ionic-team/stencil-store)             | [Stencil Doc Site](../guides/store.md)                      |

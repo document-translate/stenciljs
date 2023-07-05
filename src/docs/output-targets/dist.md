@@ -12,11 +12,10 @@ The `dist` type is to generate the component(s) as a reusable library that can b
 ```tsx
 outputTargets: [
   {
-    type: 'dist'
-  }
-]
+    type: "dist",
+  },
+];
 ```
-
 
 ## How is this different from "dist-custom-elements" output target?
 
@@ -50,12 +49,12 @@ This flag defaults to `true` when omitted from a Stencil configuration file.
 
 _default: `false`_
 
-If `true`, this output target will be used to validate `package.json` fields for your project's distribution. See the overview of [primary package output target validation](./01-overview.md#primary-package-output-target-validation)
+If `true`, this output target will be used to validate `package.json` fields for your project's distribution. See the overview of [primary package output target validation](./overview#primary-package-output-target-validation)
 for more information.
 
 ### transformAliasedImportPathsInCollection
 
-*default: `true`*
+_default: `true`_
 
 This option will allow [path aliases](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping) defined in a project's `tsconfig.json` to be transformed into relative paths in the code output under the [collectionDir](#collectiondir) subdirectory for this output target. This does not affect imports for external packages.
 
@@ -63,10 +62,10 @@ An example of path transformation could look something like:
 
 ```ts
 // Source code
-import * as utils from '@utils';
+import * as utils from "@utils";
 
 // Output code
-import * as utils from '../path/to/utils';
+import * as utils from "../path/to/utils";
 ```
 
 :::tip
