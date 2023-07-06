@@ -6,7 +6,6 @@ export default defineComponent({
     const highlight = ref("none");
     const setHighlight = (val) => {
       highlight.value = val;
-      console.log(val, highlight.value);
     };
 
     return () => {
