@@ -25,8 +25,8 @@
 }
 
 /*重置默认主题的字体大小*/
-.theme-default-content {
-  font-size: 15px;
+body {
+  font-size: 14px;
 }
 /*reset sidebar style*/
 .sidebar-heading {
@@ -37,7 +37,7 @@ p.sidebar-item:not(.sidebar-heading) {
   color: var(--c-bg-arrow);
 }
 .sidebar-item:not(.sidebar-heading) {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 /** flex
