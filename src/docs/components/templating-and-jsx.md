@@ -1,5 +1,4 @@
 ---
-title: Using JSX
 sidebar_label: Using JSX
 description: Using JSX
 slug: /templating-jsx
@@ -7,11 +6,11 @@ slug: /templating-jsx
 
 # Using JSX
 
-Stencil components are rendered using JSX, a popular, declarative template syntax. Each component has a `render` function that returns a tree of components that are rendered to the DOM at runtime.
+模板组件使用 JSX 呈现，JSX 是一种流行的声明式模板语法。每个组件都有一个 `render` 函数，该函数返回在运行时渲染到 DOM 的组件树
 
-## Basics
+## 基础{#basics}
 
-The `render` function is used to output a tree of components that will be drawn to the screen.
+`render` 函数用于输出将被绘制到屏幕上的组件树。
 
 ```tsx
 class MyComponent {
@@ -26,13 +25,13 @@ class MyComponent {
 }
 ```
 
-In this example we're returning the JSX representation of a `div`, with two child elements: an `h1` and a `p`.
+在本例中，我们将返回 `div` 的 JSX 表示形式，并带有两个子元素 `h1` 和 `p`
 
-### Host Element
+### 宿主元素{#host-element}
 
-If you want to modify the host element itself, such as adding a class or an attribute to the component itself, use the `<Host>` functional component. Check for more details [here](./host-element.md)
+如果你想修改宿主元素本身，比如给组件本身添加一个类或一个属性，可以使用 `<host>` 函数组件。 [查看更多详情](./host-element)
 
-## Data Binding
+## 数据绑定{#data-binding}
 
 组件通常需要呈现动态数据。要在 JSX 中做到这一点，在变量周围使用 `{ }`:
 
@@ -44,8 +43,8 @@ render() {
 }
 ```
 
-:::note
-If you're familiar with ES6 template variables, JSX variables are very similar, just without the `$`:
+:::info 提示
+如果你熟悉 ES6 模板变量，JSX 变量非常相似，只是没有 `$`:
 :::
 
 ```tsx
@@ -56,10 +55,10 @@ If you're familiar with ES6 template variables, JSX variables are very similar, 
 Hello {this.name}
 ```
 
-## Conditionals
+## 条件{#conditionals}
 
-If we want to conditionally render different content, we can use JavaScript if/else statements:
-Here, if `name` is not defined, we can just render a different element.
+如果我们想有条件地渲染不同的内容，我们可以使用 JavaScript 的 If /else 语句:
+在这里，如果 `name` 没有定义，我们可以渲染一个不同的元素。
 
 ```tsx
 render() {
@@ -71,7 +70,7 @@ render() {
 }
 ```
 
-Additionally, inline conditionals can be created using the JavaScript ternary operator:
+此外，内联条件可以使用 JavaScript 三元操作符创建:
 
 ```tsx
 render() {
@@ -86,7 +85,7 @@ render() {
 }
 ```
 
-**Please note:** Stencil reuses DOM elements for better performance. Consider the following code:
+**请注意:** Stencil 重用 DOM 元素以获得更好的性能。考虑下面的代码:
 
 ```tsx
 {
@@ -98,15 +97,16 @@ render() {
 }
 ```
 
-The above code behaves exactly the same as the following code:
+以上代码的行为与下面的代码完全相同:
 
 ```tsx
 <my-counter initialValue={someCondition ? 2 : 5} />
 ```
 
-Thus, if `someCondition` changes, the internal state of `<my-counter>` won't be reset and its lifecycle methods such as `componentWillLoad()` won't fire. Instead, the conditional merely triggers an update to the very same component.
+因此，如果 `someCondition` 发生改变， `<my-counter>` 内部状态不会发生重置并且它的生命周期方法，比如 `componentWillLoad()` 不会触发。
+相反，条件语句仅仅触发对同一个组件的更新。
 
-If you want to destroy and recreate a component in a conditional, you can assign the `key` attribute. This tells Stencil that the components are actually different siblings:
+如果你想在一个条件中销毁或重新创建一个组件，你可以指定 `key` 属性。这告诉 Stencil 组件实际上是不同的兄弟元素:
 
 ```tsx
 {
@@ -118,13 +118,14 @@ If you want to destroy and recreate a component in a conditional, you can assign
 }
 ```
 
-This way, if `someCondition` changes, you get a new `<my-counter>` component with fresh internal state that also runs the lifecycle methods `componentWillLoad()` and `componentDidLoad()`.
+这样，如果 `someCondition` 改变了，你得到一个新的 `<my-counter>` 组件与新的内部状态，也运行生命周期方法 `componentWillLoad()` 和 `componentDidLoad()`
 
-## Slots
+## 插槽{#slots}
 
-Components often need to render dynamic children in specific locations in their component tree, allowing a developer to supply child content when using our component, with our component placing that child component in the proper location.
+组件通常需要在其组件树的特定位置呈现动态的子组件，允许开发人员在使用我们的组件时提供子内容，我们的组件将该子组件放置在适当的位置。
 
-To do this, you can use the [Slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) tag inside of your `my-component`.
+为此，你可以在 `my-component` 内部使用 [Slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)
+标签。
 
 ```tsx
 // my-component.tsx
@@ -140,8 +141,7 @@ render() {
 
 ```
 
-Then, if a user passes child components when creating our component `my-component`, then `my-component` will place that
-component inside of the second `<div>` above:
+然后，如果用户在创建组件 `my-component` 时传递了子组件，那么 `my-component` 将把该组件放在上面的第二个 `<div>` 中:
 
 ```tsx
 render(){
@@ -153,7 +153,7 @@ render(){
 }
 ```
 
-Slots can also have `name`s to allow for specifying slot output location:
+插槽也可以使用 `name` 属性来指定插槽的输出位置:
 
 ```tsx
 // my-component.tsx
@@ -180,12 +180,8 @@ render(){
 
 ## Dealing with Children
 
-The children of a node in JSX correspond at runtime to an array of nodes,
-whether they are created by mapping across an array with
-[`Array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
-or simply declared as siblings directly in JSX. This means that at runtime the
-children of the two top-level divs below (`.todo-one` and `.todo-two`) will be
-represented the same way:
+JSX 中节点的子节点在运行时对应于一个节点数组， 它们是通过使用 [`array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+创建或者直接在 JSX 中声明为兄弟。这意味着在运行时下面两个顶级 div 的子元素（`.Todo-one` 和 `.todo-two`）将是用同样的方式表示:
 
 ```tsx
 render() {
@@ -205,9 +201,7 @@ render() {
 }
 ```
 
-If this array of children is dynamic, i.e., if any nodes may be added,
-removed, or reordered, then it's a good idea to set a unique `key` attribute on
-each element like so:
+如果这个子数组是动态的，也就是说，如果任何节点可以被添加、删除或重新排序，那么在每个元素上设置一个唯一的 `key` 属性是一个好主意，像这样:
 
 ```tsx
 render() {
@@ -223,22 +217,19 @@ render() {
 }
 ```
 
-When nodes in a children array are rearranged Stencil makes an effort to
-preserve DOM nodes across renders but it isn't able to do so in all cases.
-Setting a `key` attribute lets Stencil ensure it can match up new and old
-children across renders and thereby avoid recreating DOM nodes unnecessarily.
+当子数组中的节点被重新排列时，Stencil 会努力在渲染中保留 DOM 节点，但它不能在所有情况下都这样做。设置一个 `key` 属性可以让 Stencil 确保它可以在渲染中匹配新的和旧的子节点，
+从而避免不必要地重新创建 DOM 节点。
 
-:::caution
-Do not use an array index or some other non-unique value as a key. Try to
-ensure that each child has a key which does not change and which is unique
-among all its siblings.
+:::warning 谨慎
+不要使用数组索引或其他非唯一值作为 `key`。尽量确保每个子节点都有一个不变的 `key`，并且在所有兄弟节点中是唯一的。
 :::
 
-## Handling User Input
+## 处理用户输入{#handling-user-input}
 
-Stencil uses native [DOM events](https://developer.mozilla.org/en-US/docs/Web/Events).
+Stencil 使用原生的 [DOM events](https://developer.mozilla.org/en-US/docs/Web/Events).
 
-Here's an example of handling a button click. Note the use of the [Arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+下面是一个处理按钮点击的示例。注意 [箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+的使用
 
 ```tsx
 ...
@@ -255,7 +246,8 @@ export class MyComponent {
 }
 ```
 
-Here's another example of listening to input `change`. Note the use of the [Arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+下面是另一个监听 input 元素 `change` 事件的例子。注意 [箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+的使用。
 
 ```tsx
 ...
@@ -272,17 +264,16 @@ export class MyComponent {
 }
 ```
 
-## Complex Template Content
+## 复杂的模板内容{#complex-template-content}
 
-So far we've seen examples of how to return only a single root element. We can also nest elements inside our root element
+到目前为止，我们已经看到了如何只返回单个根元素的示例。我们也可以在根元素中嵌套元素
 
-In the case where a component has multiple "top level" elements, the `render` function can return an array.
-Note the comma in between the `<div>` elements.
+如果组件有多个 "顶级" 元素，那么 `render` 函数可以返回一个数组。注意 `<div>` 元素之间的 ","。
 
 ```tsx
 render() {
   return ([
-  // first top level element
+  // 第一个顶级元素
   <div class="container">
     <ul>
       <li>Item 1</li>
@@ -291,7 +282,7 @@ render() {
     </ul>
   </div>,
 
-  // second top level element, note the , above
+  // 第二个顶级元素, 注意 “,”
   <div class="another-container">
     ... more html content ...
   </div>
@@ -299,7 +290,7 @@ render() {
 }
 ```
 
-Alternatively you can use the `Fragment` functional component, in which case you won't need to add commas:
+或者你可以使用 `Fragment` 功能组件，在这种情况下，你不需要添加逗号:
 
 ```tsx
 import { Fragment } from '@stencil/core';
@@ -322,15 +313,15 @@ render() {
 }
 ```
 
-It is also possible to use `innerHTML` to inline content straight into an element. This can be helpful when, for example, loading an svg dynamically and then wanting to render that inside of a `div`. This works just like it does in normal HTML:
+也可以使用 `innerHTML` 将内容直接内联到元素中。这在一下情况很有帮助，例如，动态加载一个 syg，然后想要在 `div` 中渲染它。这就像在普通的 HTML 中一样:
 
-```markup
+```tsx
 <div innerHTML={svgContent}></div>
 ```
 
-## Getting a reference to a DOM element
+## 获取对 DOM 元素的引用{#getting-a-reference-to-a-DOM-element}
 
-In cases where you need to get a direct reference to an element, like you would normally do with `document.querySelector`, you might want to use a `ref` in JSX. Lets look at an example of using a `ref` in a form:
+在需要获取对元素的直接引用的情况下，就像通常使用 `document.querySelector` 一样，您可能希望在 JSX 中使用 `ref`。让我们看一个在表单中使用 `ref` 的例子:
 
 ```tsx
 @Component({
@@ -363,33 +354,32 @@ export class AppHome {
 
 In this example we are using `ref` to get a reference to our input `ref={(el) => this.textInput = el as HTMLInputElement}`. We can then use that ref to do things such as grab the value from the text input directly `this.textInput.value`.
 
-## Avoid Shared JSX Nodes
+## 避免共享 JSX 节点{#avoid-shared-JSX-nodes}
 
-The renderer caches element lookups in order to improve performance. However, a side effect from this is that the exact same JSX node should not be shared within the same renderer.
+渲染器缓存元素查找是为了提高性能。然而，这样做的一个副作用是不应该在相同的呈现器中共享完全相同的 JSX 节点。
 
-In the example below, the `sharedNode` variable is reused multiple times within the `render()` function. The renderer is able to optimize its DOM element lookups by caching the reference, however, this causes issues when nodes are reused. Instead, it's recommended to always generate unique nodes like the changed example below.
+在下面的示例中，`sharedNode` 变量在 `render()` 函数中被重用多次。渲染器能够通过缓存引用来优化其 DOM 元素查找，但是，这在重用节点时会导致问题。相反，建议始终生成惟一的节点，如下面的更改示例所示。
 
-```diff
+```tsx
 @Component({
-  tag: 'my-cmp',
+  tag: "my-cmp",
 })
 export class MyCmp {
-
   render() {
--    const sharedNode = <div>Text</div>;
+    const sharedNode = <div>Text</div>; // [!code --]
     return (
       <div>
--        {sharedNode}
--        {sharedNode}
-+        <div>Text</div>
-+        <div>Text</div>
+        {sharedNode} // [!code --]
+        {sharedNode} // [!code --]
+        <div>Text</div> // [!code ++]
+        <div>Text</div> // [!code ++]
       </div>
     );
   }
 }
 ```
 
-Alternatively, creating a factory function to return a common JSX node could be used instead since the returned value would be a unique instance. For example:
+另外，可以使用创建一个工厂函数来返回一个公共 JSX 节点。示例如下
 
 ```tsx
 @Component({
@@ -411,6 +401,6 @@ export class MyCmp {
 }
 ```
 
-## Other Resources
+## 其它资源{#other-resources}
 
 - [Understanding JSX for StencilJS Applications](https://www.joshmorony.com/understanding-jsx-for-stencil-js-applications/)

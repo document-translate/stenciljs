@@ -21,5 +21,6 @@ export default defineConfig({
     search: {
       provider: "local",
     },
+    outlineTitle: "章节目录",
   },
 });
