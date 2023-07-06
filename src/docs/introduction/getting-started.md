@@ -1,52 +1,63 @@
 ---
-title: Getting Started
 sidebar_label: Getting Started
 description: Getting Started
 slug: /getting-started
 ---
 
-# Getting Started
+# 快速上手{#getting-started}
 
-## Starting a New Project
+## 开始一个新项目{#starting-a-new-project}
 
-### Prerequisites
-Stencil requires a recent LTS version of [NodeJS](https://nodejs.org/) and npm/yarn. 
-Make sure you've installed and/or updated Node before continuing.
+### 前置条件{#prerequisites}
+
+Stencil 需要最新的 LTS 版本的 [NodeJS](https://nodejs.org/) 和 npm/yarn。在继续之前，请确保已经安装或更新了 Node。
 
 ### Running the `create-stencil` CLI
-The `create-stencil` CLI can be used to scaffold a new Stencil project, and can be run using the following command:
 
-```bash npm2yarn
- npm init stencil
+`create-stencil` 命令行可以用来创建一个新的 Stencil 项目，可以使用以下命令运行:
+
+::: code-group
+
+```bash [npm]
+npm init stencil
 ```
 
-Stencil can be used to create standalone components, or entire apps.
-`create-stencil`, will provide a prompt so that you can choose the type of project to start:
+```bash [yarn]
+yarn create stencil
+```
 
-```text
+```bash [pnpm]
+pnpm create stencil
+```
+
+:::
+Stencil 可以用来创建独立组件，也可以用来创建整个应用程序。
+`create-stencil`将提供一个提示，以便您可以选择要创建的项目类型:
+
+```txt
 ? Select a starter project.
 
 Starters marked as [community] are developed by the Stencil
-Community, rather than Ionic. For more information on the 
+Community, rather than Ionic. For more information on the
 Stencil Community, please see github.com/stencil-community
 
 ❯   component                Collection of web components that can be
                              used anywhere
-    app [community]          Minimal starter for building a Stencil 
+    app [community]          Minimal starter for building a Stencil
                              app or website
     ionic-pwa [community]    Ionic PWA starter with tabs layout and routes
 ```
 
-Selecting the 'component' option will prompt you for the name of your project.
-Here, we'll name our project 'my-first-stencil-project':
+选择 'component' 选项将提示您输入项目的名称。
+这里，我们将我们的项目命名为 'my-first-stencil-project':
 
 ```bash
 ✔ Pick a starter › component
 ? Project name › my-first-stencil-project
 ```
 
-After hitting `ENTER` to confirm your choices, the CLI will scaffold a Stencil project for us in a directory that matches the provided project name.
-Upon successfully creating our project, the CLI will print something similar to the following to the console:
+在按下 `ENTER` 确认您的选择后，CLI 将在与提供的项目名称匹配的目录中为我们生成一个 Stencil 项目。
+成功创建项目后，CLI 将在控制台打印类似下面的内容:
 
 ```bash
 ✔ Project name › my-first-stencil-project
@@ -74,28 +85,25 @@ Upon successfully creating our project, the CLI will print something similar to 
   Happy coding! 🎈
 ```
 
-The first section describes a few commands required to finish getting your project bootstrapped.
+第一部分描述了完成项目引导所需的几个命令。
 
 ```bash
-    $ cd my-first-stencil-project
-    $ npm install
-    $ npm start
+$ cd my-first-stencil-project
+$ npm install
+$ npm start
 ```
 
-This will change your current directory to `my-first-stencil-project`, install your dependencies for you, and start the development server.
+这会将当前目录更改为 `my-first-stencil-project` ，为您安装依赖项，并启动开发服务器
 
-### Useful Initial Commands
+### 有用的初始命令{#useful-initial-commands}
 
-The second section of the `create-stencil` output describes a few useful commands available during the development process:
+`create-stencil` 输出的第二部分描述了开发过程中可用的一些有用命令
 
-- `npm start` starts a local development server. The development server will open a new browser tab containing your 
-project's components. The dev-server uses hot-module reloading to update your components in the browser as you modify
-them for a rapid feedback cycle.
+- `npm start` 启动本地开发服务器。开发服务器将打开一个新的浏览器选项卡，其中包含项目的组件。当你修改组件时，dev-server 使用热模块重载来更新浏览器中的组件，以获得快速的反馈周期。
 
-- `npm run build` creates a production-ready version of your components. The components generated in this step are not
-meant to be used in the local development server, but rather within a project that consumes your components.
+- `npm run build` 构建组件的生产版本。这一步生成的组件不能在本地开发服务器中使用，而是要在使用组件的项目中使用。
 
-- `npm test` runs your project's tests. The `create-stencil` CLI has created both end-to-end and unit tests when scaffolding your project.
+- `npm test` 运行项目的测试。`create-stencil` 命令行在搭建项目时创建了端到端测试和单元测试。
 
 At this time, Stencil does not interact with any version control systems (VCS) when running the `create-stencil` CLI.
 If you wish to place your project under version control, we recommend initializing your VCS now.
@@ -104,7 +112,7 @@ If you wish to use git, run the following after changing your current directory 
 ```bash
 $ git init
 $ git add -A
-$ git commit -m "initialize project using stencil cli" 
+$ git commit -m "initialize project using stencil cli"
 ```
 
 ## My First Component
@@ -115,12 +123,12 @@ The `.tsx` extension is required since Stencil components are built using [JSX](
 When we ran `create-stencil` above, it generated a component, `my-component.tsx`, that can be found in the `src/components/my-component` directory:
 
 ```tsx title="my-component.tsx"
-import { Component, Prop, h } from '@stencil/core';
-import { format } from '../../utils/utils';
+import { Component, Prop, h } from "@stencil/core";
+import { format } from "../../utils/utils";
 
 @Component({
-  tag: 'my-component',
-  styleUrl: 'my-component.css',
+  tag: "my-component",
+  styleUrl: "my-component.css",
   shadow: true,
 })
 export class MyComponent {
@@ -140,7 +148,7 @@ export class MyComponent {
 
 Once compiled, this component can be used in HTML just like any other tag.
 
-```markup
+```md
 <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
 ```
 
@@ -151,6 +159,7 @@ When rendered, the browser will display `Hello World! I'm Stencil 'Don't call me
 Let's dive in and describe what's happening in `my-component`, line-by-line.
 
 After the import statements, the first piece we see is the [`@Component` decorator](../components/component.md):
+
 ```tsx
 @Component({
   tag: 'my-component',
@@ -158,9 +167,11 @@ After the import statements, the first piece we see is the [`@Component` decorat
   shadow: true,
 })
 ```
+
 This decorator provides metadata about our component to the Stencil compiler.
 Information, such as the custom element name (`tag`) to use, can be set here.
 This decorator tells Stencil to:
+
 - Set the [element's name](../components/component.md#tag) to 'my-component'
 - [Apply the stylesheet](../components/component.md#styleurl) 'my-component.css' to the component
 - Enable [native Shadow DOM functionality](../components/component.md#shadow) for this component
@@ -175,11 +186,13 @@ Within this class is where you'll write the bulk of your code to bring your Sten
 
 Next, the component contains three class members, `first`, `middle` and `last`.
 Each of these class members have the [`@Prop()` decorator](../components/properties.md#the-prop-decorator-prop) applied to them:
+
 ```ts
   @Prop() first: string;
   @Prop() middle: string;
   @Prop() last: string;
 ```
+
 `@Prop()` tells Stencil that the property is public to the component, and allows Stencil to rerender when any of these public properties change.
 We'll see how this works after discussing the `render()` function.
 
@@ -192,7 +205,7 @@ The quick idea is that our render function needs to return a representation of t
   private getText(): string {
     return format(this.first, this.middle, this.last);
   }
-  
+
   render() {
     return <div>Hello, World! I'm {this.getText()}</div>;
   }
@@ -211,9 +224,21 @@ If a user of our component were to change the element's `first`, `middle`, or `l
 The `create-stencil` CLI can generate new components for you.
 If you used one of the starters, you can simply run the `generate` npm script in your project, which will start the interactive generator.
 
-```shell npm2yarn
+:::code-group
+
+```bash [npm]
 npm run generate
 ```
+
+```bash [yarn]
+yarn run generate
+```
+
+```bash [pnpm]
+pnpm run generate
+```
+
+:::
 
 You can invoke the Stencil CLI directly with the `generate` command (`g` for short).
 
@@ -225,20 +250,22 @@ stencil g
 
 If you would like to run `stencil generate` outside of a Stencil project, it can be installed globally.
 To do so, prefix the command above with [`npx`](https://docs.npmjs.com/cli/v9/commands/npx), like so:
+
 ```shell
 npx stencil generate
 ```
+
 Running a command prefixed with `npx` will fetch the package for you automatically and prompt you to install it.
 Once installed, Stencil will run the task to scaffold a new component.
 
 You can optionally pass the component tag name directly to the command.
 The component tag name needs to be lowercase and contain at least one dash ('-').
 
-```sh npm2yarn
+```sh
 stencil generate my-new-component
 ```
 
-The generator will ask you which files to generate. 
+The generator will ask you which files to generate.
 This allows you to bootstrap a stylesheet as well as spec and e2e tests along with the component file.
 
 All components will be generated within the `src/components` folder.
@@ -251,7 +278,7 @@ For example, if you specify `pages/page-home` as the component tag name, the fil
 stencil generate pages/page-home
 ```
 
-```plain
+```txt
 src
 └── components
     └── pages
@@ -262,11 +289,22 @@ src
             └── page-home.tsx
 ```
 
+## 更新 Stencil{#updating-stencil}
 
-## Updating Stencil
+要获得 `@stencil/core` 的最新版本，您可以运行:
 
-To get the latest version of @stencil/core you can run:
+:::code-group
 
-```bash npm2yarn
+```bash [npm]
 npm install @stencil/core@latest --save-exact
 ```
+
+```bash [yarn]
+yarn add @stencil/core@latest --save-exact
+```
+
+```bash [pnpm]
+pnpm add @stencil/core@latest --save-exact
+```
+
+:::
