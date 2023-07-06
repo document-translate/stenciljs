@@ -5,6 +5,13 @@
   "MD013": { "line_length": 100 },
   "MD030": { "ul_multi": 1, "ul_single": 1, "ol_multi": 1, "ol_single": 1 },
   "MD033": {
-    "allowed_elements": ["script", "style", "div", "ClientOnly", "br"]
+    "allowed_elements": [
+      "script",
+      "style",
+      "div",
+      "ClientOnly",
+      "br",
+      "LifecycleMethodsChart"
+    ]
   }
 }
