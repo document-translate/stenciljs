@@ -197,7 +197,7 @@ export const config: Config = {
 
 ## API Reference
 
-### getAssetPath
+### getAssetPath{#get-asset-path}
 
 `getAssetPath()` is an API provided by Stencil to build the path to an asset, relative to the asset base path.
 

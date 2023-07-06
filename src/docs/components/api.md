@@ -1,5 +1,4 @@
 ---
-title: Component API
 sidebar_label: API
 description: Component API
 slug: /api
@@ -7,9 +6,9 @@ slug: /api
 
 # Component API
 
-The whole API provided by stencil can be condensed in a set of decorators, lifecycles hooks and rendering methods.
+stencil 提供的整个 API 可以浓缩成一组装饰器、生命周期钩子和渲染方法。
 
-## Decorators
+## 装饰器{#decorators}
 
 Decorators are a pure compiler-time construction used by stencil to collect all the metadata about a component, the properties, attributes and methods it might expose, the events it might emit or even the associated stylesheets.
 Once all the metadata has been collected, all the decorators are removed from the output, so they don't incur any runtime overhead.
@@ -43,7 +42,7 @@ can be used by an implementation consuming your Stencil component to detect when
 
 This method returns a promise which resolves after `componentDidRender()` on the _first_ render cycle.
 
-:::note
+:::info
 `componentOnReady()` only resolves once per component lifetime. If you need to hook into subsequent render cycle, use
 `componentDidRender()` or `componentDidUpdate()`.
 :::
@@ -65,9 +64,9 @@ distribution types ([`dist`](../output-targets/dist) and [`www`](../output-targe
 [`dist-custom-elements`](../output-targets/custom-elements) output. If you want to simulate the behavior of `componentOnReady()` for non-lazy builds,
 you can implement a helper method to wrap the functionality similar to what the Ionic Framework does [here](https://github.com/ionic-team/ionic-framework/blob/main/core/src/utils/helpers.ts#L60-L79).
 
-## The appload event
+## appload 事件{#the-appload-event}
 
-In addition to component-specific lifecycle hooks, a special event called `appload` will be emitted when the app and all of its child components have finished loading. You can listen for it on the `window` object.
+除了特定于组件的生命周期钩子之外，当应用及其所有子组件完成加载时，一个名为 `appload` 的特殊事件将被触发。你可以在`window`对象上监听它。
 
 If you have multiple apps on the same page, you can determine which app emitted the event by checking `event.detail.namespace`. This will be the value of the [namespace config option](../config/overview#namespace) you've set in your Stencil config.
 
@@ -79,17 +78,19 @@ window.addEventListener("appload", (event) => {
 
 ## Other
 
-- [**Host**](./host-element): Host is a functional component that can be used at the root of the render function to set attributes and event listeners to the host element itself.
+- [**Host**](./host-element): Host 是一个函数组件，可以在 `render` 函数的根节点使用，为宿主元素本身设置属性和事件监听器。
 
-- [**h()**](./templating-and-jsx): It's used within the `render()` to turn the JSX into Virtual DOM elements.
+- [**h()**](./templating-and-jsx): 它在 `render()` 中用于将 JSX 转换为虚拟的 DOM 元素。
 
-- [**readTask()**](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing): Schedules a DOM-read task. The provided callback will be executed in the best moment to perform DOM reads without causing layout thrashing.
+- [**readTask()**](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing):
+  调度 DOM-read 任务。提供的回调函数将在执行 DOM 读取的最佳时机执行，而不会导致布局混乱。
 
-- [**writeTask()**](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing): Schedules a DOM-write task. The provided callback will be executed in the best moment to perform DOM mutations without causing layout thrashing.
+- [**writeTask()**](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing):
+  调度 DOM-write 任务。提供的回调函数将在执行 DOM 变化的最佳时机执行，而不会导致布局混乱。
 
-- **forceUpdate()**: Schedules a new render of the given instance or element even if no state changed. Notice `forceUpdate()` is not synchronous and might perform the DOM render in the next frame.
+- **forceUpdate()**: 即使状态没有改变，也调度给定实例或元素的新渲染。请注意 `forceUpdate()` 不是同步的，可能在下一帧执行 DOM 渲染。
 
-- getAssetPath(): Gets the path to local assets. Refer to the [Assets](../guides/assets#getassetpath) page for usage info.
+- getAssetPath(): 获取本地资源的路径。参考 [Assets](../guides/assets#get-asset-path) 页面获取使用信息。
 - setMode()
 - getMode()
 - getElement()

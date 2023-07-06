@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import sidebar from "./config/sidebar.js";
 
 export default defineConfig({
@@ -22,5 +23,9 @@ export default defineConfig({
       provider: "local",
     },
     outlineTitle: "章节目录",
+  },
+  vite: {
+    // Vite config options
+    plugins: [vueJsx()],
   },
 });
