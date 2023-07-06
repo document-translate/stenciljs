@@ -45,7 +45,7 @@ npm install --global lerna
 
 #### Creating a Monorepo
 
-:::note
+:::info 提示
 If you already have a monorepo, skip this section.
 :::
 
@@ -62,7 +62,7 @@ npm install typescript @types/node --save-dev
 
 #### Creating a Stencil Component Library
 
-:::note
+:::info 提示
 If you already have a Stencil component library, skip this section.
 :::
 
@@ -76,7 +76,7 @@ npm install
 
 #### Creating a Vue Component Library
 
-:::note
+:::info 提示
 If you already have a Vue component library, skip this section.
 :::
 
@@ -154,7 +154,7 @@ Update the generated `package.json` in your `vue-library`, adding the following 
 }
 ```
 
-:::note
+:::info 提示
 The `stencil-library` dependency is how Lerna knows to resolve the internal Stencil library dependency. See Lerna's documentation on
 [package dependency management](https://lerna.js.org/docs/getting-started#package-dependency-management) for more information.
 :::
@@ -171,22 +171,22 @@ npm install @stencil/vue-output-target --save-dev
 In your project's `stencil.config.ts`, add the `vueOutputTarget` configuration to the `outputTargets` array:
 
 ```ts
-import { vueOutputTarget } from '@stencil/vue-output-target';
+import { vueOutputTarget } from "@stencil/vue-output-target";
 
 export const config: Config = {
-  namespace: 'stencil-library',
+  namespace: "stencil-library",
   outputTargets: [
     // By default, the generated proxy components will
     // leverage the output from the `dist` target, so we
     // need to explicitly define that output alongside the
     // Vue target
     {
-      type: 'dist',
-      esmLoaderPath: '../loader',
+      type: "dist",
+      esmLoaderPath: "../loader",
     },
     vueOutputTarget({
-      componentCorePackage: 'stencil-library',
-      proxiesFile: '../vue-library/lib/components.ts',
+      componentCorePackage: "stencil-library",
+      proxiesFile: "../vue-library/lib/components.ts",
     }),
   ],
 };
@@ -215,8 +215,8 @@ To register your web components for the lazy-loaded (hydrated) bundle, you will 
 ```ts
 // packages/vue-library/lib/plugin.ts
 
-import { Plugin } from 'vue';
-import { applyPolyfills, defineCustomElements } from 'stencil-library/loader';
+import { Plugin } from "vue";
+import { applyPolyfills, defineCustomElements } from "stencil-library/loader";
 
 export const ComponentLibrary: Plugin = {
   async install() {
@@ -232,13 +232,13 @@ the `plugin.ts` file created in the previous step, as well as the file `proxiesF
 
 ```ts
 // packages/vue-library/lib/index.ts
-export * from './components';
-export * from './plugin';
+export * from "./components";
+export * from "./plugin";
 ```
 
 ### Link Your Packages (Optional)
 
-:::note
+:::info 提示
 If you are using a monorepo tool (Lerna, Nx, etc.), skip this section.
 :::
 
@@ -263,7 +263,7 @@ The name of your Stencil package should match the `name` property from the Stenc
 Your component libraries are now linked together. You can make changes in the Stencil component library and run `npm run build` to propagate the
 changes to the Vue component library.
 
-:::note
+:::info 提示
 As an alternative to `npm link`, you can also run `npm install` with a relative path to your Stencil component library. This strategy,
 however, will modify your `package.json` so it is important to make sure you do not commit those changes.
 :::
@@ -331,9 +331,9 @@ In your `main.js` file, import your component library plugin and use it:
 
 ```js
 // src/main.js
-import { ComponentLibrary } from 'vue-library';
+import { ComponentLibrary } from "vue-library";
 
-createApp(App).use(ComponentLibrary).mount('#app');
+createApp(App).use(ComponentLibrary).mount("#app");
 ```
 
 In your page or component, you can now import and use your component wrappers:
@@ -382,10 +382,10 @@ export const config: Config = {
 Which would result in an import path like:
 
 ```js
-import { defineCustomElement as defineMyComponent } from 'my-component-lib/components/my-component.js';
+import { defineCustomElement as defineMyComponent } from "my-component-lib/components/my-component.js";
 ```
 
-:::note
+:::info 提示
 Although this field is optional, it is _highly_ recommended that it always be defined to avoid potential issues with paths not being generated correctly
 when combining other API arguments.
 :::
@@ -404,19 +404,19 @@ which event will cause the target prop to change, and more.
 ```tsx
 const componentModels: ComponentModelConfig[] = [
   {
-    elements: ['my-input', 'my-textarea'],
-    event: 'v-on-change',
-    externalEvent: 'on-change',
-    targetAttr: 'value',
+    elements: ["my-input", "my-textarea"],
+    event: "v-on-change",
+    externalEvent: "on-change",
+    targetAttr: "value",
   },
 ];
 
 export const config: Config = {
-  namespace: 'stencil-library',
+  namespace: "stencil-library",
   outputTargets: [
     vueOutputTarget({
-      componentCorePackage: 'component-library',
-      proxiesFile: '{path to your proxy file}',
+      componentCorePackage: "component-library",
+      proxiesFile: "{path to your proxy file}",
       componentModels: componentModels,
     }),
   ],
@@ -536,18 +536,18 @@ In addition, all the Web Components will be automatically defined as the generat
 If you are using Vue CLI, update your `vue.config.js` to match your custom element selector as a custom element:
 
 ```js
-const { defineConfig } = require('@vue/cli-service');
+const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: (config) => {
     config.module
-      .rule('vue')
-      .use('vue-loader')
+      .rule("vue")
+      .use("vue-loader")
       .tap((options) => {
         options.compilerOptions = {
           ...options.compilerOptions,
           // The stencil-library components start with "my-"
-          isCustomElement: (tag) => tag.startsWith('my-'),
+          isCustomElement: (tag) => tag.startsWith("my-"),
         };
         return options;
       });
@@ -569,8 +569,8 @@ To resolve this issue, you need to import the component from `vue-library` (your
 </template>
 
 <script lang="ts">
-  import { MyComponent } from 'vue-library';
-  import { defineComponent } from 'vue';
+  import { MyComponent } from "vue-library";
+  import { defineComponent } from "vue";
 
   export default defineComponent({
     components: { MyComponent },
@@ -587,7 +587,7 @@ You will need to update your lint rules in `.eslintrc.js` to ignore this warning
 ```js
 module.exports = {
   rules: {
-    'vue/no-deprecated-slot-attribute': 'off',
+    "vue/no-deprecated-slot-attribute": "off",
   },
 };
 ```
@@ -619,30 +619,30 @@ npm i -D rollup rimraf
 Next, create a `rollup.config.js` in `/packages/vue-library/`:
 
 ```js
-const external = ['vue', 'vue-router'];
+const external = ["vue", "vue-router"];
 
 export default {
-  input: 'dist-transpiled/index.js',
+  input: "dist-transpiled/index.js",
   output: [
     {
-      dir: 'dist/',
-      entryFileNames: '[name].esm.js',
-      chunkFileNames: '[name]-[hash].esm.js',
-      format: 'es',
+      dir: "dist/",
+      entryFileNames: "[name].esm.js",
+      chunkFileNames: "[name]-[hash].esm.js",
+      format: "es",
       sourcemap: true,
     },
     {
-      dir: 'dist/',
-      format: 'commonjs',
+      dir: "dist/",
+      format: "commonjs",
       preferConst: true,
       sourcemap: true,
     },
   ],
-  external: (id) => external.includes(id) || id.startsWith('stencil-library'),
+  external: (id) => external.includes(id) || id.startsWith("stencil-library"),
 };
 ```
 
-:::info
+:::info 提示
 Update the `external` list for any external dependencies. Update the `stencil-library` to match your Stencil library's package name.
 :::
 

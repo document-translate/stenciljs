@@ -74,7 +74,7 @@ export const config: Config = {
 | `bundle`                      | A utility `defineCustomElements()` function is exported from the `index.js` file of the output directory. This function can be used to quickly define all Stencil components in a project on the custom elements registry.                                                      |
 | `single-export-module`        | All component and custom element definition helper functions will be exported from the `index.js` file in the output directory. This file can be used as the root module when distributing your component library, see [below](#distributing-custom-elements) for more details. |
 
-:::note
+:::info 提示
 At this time, components that do not use JSX cannot be automatically
 defined. This is a known limitation of Stencil that users should be aware of.
 :::
@@ -109,7 +109,7 @@ By default, Stencil will generate type declaration files (`.d.ts` files) as a pa
 
 Setting this flag to `false` will not generate type declaration files for the `dist-custom-elements` output target.
 
-:::note
+:::info 提示
 When set to generate type declarations, Stencil respects the export behavior selected via `customElementsExportBehavior` and generates type declarations specific to the content of the generated [output directory's](#dir) `index.js` file.
 :::
 
@@ -157,7 +157,7 @@ export {
 } from "@stencil/core/internal/client";
 ```
 
-:::note
+:::info 提示
 The contents may look different if [`customElementsExportBehavior`](#customelementsexportbehavior) is specified!
 :::
 
@@ -209,7 +209,7 @@ However, the `module` property in the `package.json` can be modified to point to
 }
 ```
 
-:::note
+:::info 提示
 Be sure to set `@stencil/core` as a dependency of the package as well.
 :::
 
@@ -219,7 +219,7 @@ As a result, components can alternatively be imported from the root of the publi
 import { MyComponent } from "best-web-components";
 ```
 
-:::note
+:::info 提示
 If you are distributing the output of both the
 [`dist`](./dist.md) and `dist-custom-elements` targets, then
 it's up to you to choose which one of them should be available in the
@@ -261,7 +261,7 @@ your package can find the type definitions, like so:
 }
 ```
 
-:::note
+:::info 提示
 If you set the `dir` property on the output target config, replace `dist/components` in the above snippet with the path set in the config.
 :::
 

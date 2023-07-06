@@ -50,7 +50,7 @@ npm install --global lerna
 
 #### Creating a Monorepo
 
-:::note
+:::info 提示
 If you already have a monorepo, skip this section.
 :::
 
@@ -67,7 +67,7 @@ npm install typescript @types/node --save-dev
 
 #### Creating a Stencil Component Library
 
-:::note
+:::info 提示
 If you already have a Stencil component library, skip this section.
 :::
 
@@ -82,7 +82,7 @@ npm install
 
 #### Creating an Angular Component Library
 
-:::note
+:::info 提示
 If you already have an Angular component library, skip this section.
 :::
 
@@ -113,7 +113,7 @@ You will also need to add your generated Stencil library as a peer-dependency so
 
 For more information, see the Lerna documentation on [package dependency management](https://lerna.js.org/docs/getting-started#package-dependency-management).
 
-:::note
+:::info 提示
 The Angular CLI will install Jasmine as a dependency to your Angular workspace. However, Stencil uses Jest as it's unit testing solution. To avoid
 type definition collisions when attempting to build your Stencil project, you can remove `jasmine-core` and `@types/jasmine` as dependencies in the Angular
 workspace `package.json` file:
@@ -122,6 +122,7 @@ workspace `package.json` file:
 # from `/packages/angular-workspace`
 npm uninstall jasmine-core @types/jasmine
 ```
+
 :::
 
 ### Adding the Angular Output Target
@@ -136,22 +137,24 @@ npm install @stencil/angular-output-target --save-dev
 In your project's `stencil.config.ts`, add the `angularOutputTarget` configuration to the `outputTargets` array:
 
 ```ts
-import { angularOutputTarget } from '@stencil/angular-output-target';
+import { angularOutputTarget } from "@stencil/angular-output-target";
 
 export const config: Config = {
-  namespace: 'stencil-library',
+  namespace: "stencil-library",
   outputTargets: [
     // By default, the generated proxy components will
     // leverage the output from the `dist` target, so we
     // need to explicitly define that output alongside the
     // Angular target
     {
-      type: 'dist',
+      type: "dist",
     },
     angularOutputTarget({
-      componentCorePackage: 'stencil-library',
-      directivesProxyFile: '../angular-workspace/projects/component-library/src/lib/stencil-generated/components.ts',
-      directivesArrayFile: '../angular-workspace/projects/component-library/src/lib/stencil-generated/index.ts',
+      componentCorePackage: "stencil-library",
+      directivesProxyFile:
+        "../angular-workspace/projects/component-library/src/lib/stencil-generated/components.ts",
+      directivesArrayFile:
+        "../angular-workspace/projects/component-library/src/lib/stencil-generated/index.ts",
     }),
   ],
 };
@@ -183,7 +186,7 @@ You can now finally import and export the generated component wrappers for your 
 ```ts
 // component-library.module.ts
 
-import { DIRECTIVES } from './stencil-generated';
+import { DIRECTIVES } from "./stencil-generated";
 
 @NgModule({
   declarations: [...DIRECTIVES],
@@ -199,9 +202,9 @@ automatically generated `public-api.ts` file:
 ```ts
 // public-api.ts
 
-export * from './lib/component-library.module';
-export { DIRECTIVES } from './lib/stencil-generated';
-export * from './lib/stencil-generated/components';
+export * from "./lib/component-library.module";
+export { DIRECTIVES } from "./lib/stencil-generated";
+export * from "./lib/stencil-generated/components";
 ```
 
 ### Registering Custom Elements
@@ -233,7 +236,7 @@ See the [documentation](../output-targets/dist.md#distribution-options) for more
 
 ### Link Your Packages (Optional)
 
-:::note
+:::info 提示
 If you are using a monorepo tool (Lerna, Nx, etc.), skip this section.
 :::
 
@@ -258,7 +261,7 @@ The name of your Stencil package should match the `name` property from the Stenc
 Your component libraries are now linked together. You can make changes in the Stencil component library and run `npm run build` to propagate the
 changes to the Angular component library.
 
-:::note
+:::info 提示
 As an alternative to `npm link` , you can also run `npm install` with a relative path to your Stencil component library. This strategy,
 however, will modify your `package.json` so it is important to make sure you do not commit those changes.
 :::
@@ -267,7 +270,7 @@ however, will modify your `package.json` so it is important to make sure you do 
 
 ### Creating a Consumer Angular App
 
-:::note
+:::info 提示
 If you already have an Angular app, skip this section.
 :::
 
@@ -294,7 +297,7 @@ simply import that module into an implementation to use your components.
 ```ts
 // app.module.ts
 
-import { ComponentLibraryModule } from 'component-library';
+import { ComponentLibraryModule } from "component-library";
 
 @NgModule({
   imports: [ComponentLibraryModule],
@@ -349,7 +352,7 @@ export const config: Config = {
 Which would result in an import path like:
 
 ```js
-import { MyComponent } from 'my-component-lib/components/my-component.js';
+import { MyComponent } from "my-component-lib/components/my-component.js";
 ```
 
 ### customElementsDir
@@ -434,24 +437,24 @@ which event will cause the target prop to change, and more.
 ```tsx
 const angularValueAccessorBindings: ValueAccessorConfig[] = [
   {
-    elementSelectors: ['my-input[type=text]'],
-    event: 'myChange',
-    targetAttr: 'value',
-    type: 'text',
+    elementSelectors: ["my-input[type=text]"],
+    event: "myChange",
+    targetAttr: "value",
+    type: "text",
   },
 ];
 
 export const config: Config = {
-  namespace: 'stencil-library',
+  namespace: "stencil-library",
   outputTargets: [
     angularOutputTarget({
-      componentCorePackage: 'component-library',
-      directivesProxyFile: '{path to your proxy file}',
+      componentCorePackage: "component-library",
+      directivesProxyFile: "{path to your proxy file}",
       valueAccessorConfigs: angularValueAccessorBindings,
     }),
     {
-      type: 'dist',
-      esmLoaderPath: '../loader',
+      type: "dist",
+      esmLoaderPath: "../loader",
     },
   ],
 };
@@ -497,7 +500,7 @@ As such, the generated Angular components can now be directly imported and decla
 ```ts
 // app.module.ts
 
-import { MyComponent } from 'component-library';
+import { MyComponent } from "component-library";
 
 @NgModule({
   declarations: [MyComponent],
@@ -520,14 +523,14 @@ components. Take a look at [valueAccessorConfig's option above](#valueaccessorco
 Once included, components could be referenced in your code using `ViewChild` and `ViewChildren` as in the following example:
 
 ```tsx
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from "@angular/core";
 
-import { TestComponent } from 'test-components';
+import { TestComponent } from "test-components";
 
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   template: `<test-components #test></test-components>`,
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent {
   @ViewChild(TestComponent) myTestComponent: ElementRef<TestComponent>;

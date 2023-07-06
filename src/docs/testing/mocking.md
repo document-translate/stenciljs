@@ -16,10 +16,10 @@ To create a mock for a library that is imported from `node_modules`, you can sim
 For example, if you want to mock `md5`, you'd create a file `__mocks__/md5.ts` with the following content:
 
 ```ts
-export default () => 'fakehash';
+export default () => "fakehash";
 ```
 
-:::note
+:::info 提示
 If you want to mock a scoped package like `@capacitor/core`, you'll have to create the file as `__mocks__/@capacitor/core.ts`.
 :::
 
@@ -39,7 +39,7 @@ export const getRandomInt = (min: number, max: number) =>
 ```tsx
 // src/services/foo.ts
 
-import { getRandomInt } from '../helpers/utils';
+import { getRandomInt } from "../helpers/utils";
 
 export const bar = () => getRandomInt(0, 10);
 ```
@@ -57,18 +57,18 @@ Because Jest only auto-mocks node modules, you'll also have to let your test kno
 ```tsx
 // src/foo.spec.ts
 
-jest.mock('./helpers/utils');
+jest.mock("./helpers/utils");
 
-import { bar } from './services/foo';
+import { bar } from "./services/foo";
 
-describe('Foo', () => {
-  it('bar()', () => {
+describe("Foo", () => {
+  it("bar()", () => {
     expect(bar()).toBe(42);
   });
 });
 ```
 
-:::note
+:::info 提示
 It's important that you call `jest.mock('...')` before your import.
 :::
 
@@ -77,14 +77,14 @@ Instead of creating a file in a `__mocks__` folder, there is an alternative appr
 ```tsx
 // src/foo.spec.ts
 
-jest.mock('./helpers/utils', () => ({
-	getRandomInt: () => 42,
+jest.mock("./helpers/utils", () => ({
+  getRandomInt: () => 42,
 }));
 
-import { foo } from './services/foo';
+import { foo } from "./services/foo";
 
-describe('Foo', () => {
-  it('bar()', () => {
+describe("Foo", () => {
+  it("bar()", () => {
     expect(bar()).toBe(42);
   });
 });
@@ -97,45 +97,45 @@ If you use `newE2EPage` in an end-to-end test, your component's code will be exe
 ```tsx
 // src/components/foo/foo.tsx
 
-import { h, Component, Method } from '@stencil/core';
-import { getRandomInt } from '../../helpers/utils';
+import { h, Component, Method } from "@stencil/core";
+import { getRandomInt } from "../../helpers/utils";
 
-@Component({ tag: 'foo-component' })
+@Component({ tag: "foo-component" })
 export class Foo {
-	@Method()
-	async bar() {
-		return getRandomInt(0, 10);
-	}
+  @Method()
+  async bar() {
+    return getRandomInt(0, 10);
+  }
 
-	render() {
-		return <div />;
-	}
+  render() {
+    return <div />;
+  }
 }
 ```
 
 ```tsx
 // src/foo.e2e.ts
 
-jest.mock('./helpers/utils', () => ({
-	getRandomInt: () => 42,
+jest.mock("./helpers/utils", () => ({
+  getRandomInt: () => 42,
 }));
 
-import { newSpecPage } from '@stencil/core/testing';
-import { Foo } from './components/foo/foo';
+import { newSpecPage } from "@stencil/core/testing";
+import { Foo } from "./components/foo/foo";
 
-describe('Foo', () => {
-	it('bar()', async () => {
-		const page = await newSpecPage({
-			components: [Foo],
-			html: '<foo-component></foo-component>',
-		});
-		const foo = page.body.querySelector('foo-component');
+describe("Foo", () => {
+  it("bar()", async () => {
+    const page = await newSpecPage({
+      components: [Foo],
+      html: "<foo-component></foo-component>",
+    });
+    const foo = page.body.querySelector("foo-component");
 
-		if (!foo) {
-			throw new Error('Could not find Foo component');
-		}
+    if (!foo) {
+      throw new Error("Could not find Foo component");
+    }
 
-		expect(await foo.bar()).toBe(42);
-	});
+    expect(await foo.bar()).toBe(42);
+  });
 });
 ```

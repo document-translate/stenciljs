@@ -42,7 +42,7 @@ can be used by an implementation consuming your Stencil component to detect when
 
 This method returns a promise which resolves after `componentDidRender()` on the _first_ render cycle.
 
-:::info
+:::info 提示
 `componentOnReady()` only resolves once per component lifetime. If you need to hook into subsequent render cycle, use
 `componentDidRender()` or `componentDidUpdate()`.
 :::

@@ -138,7 +138,7 @@ export class ToDoListItem {
 }
 ```
 
-:::note
+:::info 提示
 Children components should not know about or reference their parent components. This allows Stencil to
 efficiently re-render your components. Passing a reference to a component as a prop may cause unintended side effects.
 :::

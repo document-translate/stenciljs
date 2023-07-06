@@ -24,7 +24,7 @@ Lets run through the steps needed to enable service workers for your project:
 
 And that's it! You should now have an `sw.js` file in your `www` folder and the code to register the service worker in your `www/index.html` file.
 
-:::note
+:::info 提示
 The component starter by default does not have service workers enabled as a service worker is not needed for component collections
 :::
 
@@ -160,7 +160,7 @@ self.addEventListener("message", ({ data }) => {
 self.workbox.precaching.precacheAndRoute([]);
 ```
 
-:::note
+:::info 提示
 Don't forget to set `swSrc` in your Stencil config.
 :::
 

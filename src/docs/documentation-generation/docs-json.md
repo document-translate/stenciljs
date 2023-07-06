@@ -24,15 +24,15 @@ You can also add the `docs-json` output target to your project's configuration
 file in order to auto-generate this file every time you build:
 
 ```tsx title="stencil.config.ts"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
     {
-      type: 'docs-json',
-      file: 'path/to/docs.json'
-    }
-  ]
+      type: "docs-json",
+      file: "path/to/docs.json",
+    },
+  ],
 };
 ```
 
@@ -66,16 +66,16 @@ declarations](https://github.com/ionic-team/stencil/blob/main/src/declarations/s
 Using this option could look something like this:
 
 ```ts title="stencil.config.ts"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
     {
-      type: 'docs-json',
-      file: 'path/to/docs.json',
-      supplementalPublicTypes: 'src/public-interfaces.ts',
-    }
-  ]
+      type: "docs-json",
+      file: "path/to/docs.json",
+      supplementalPublicTypes: "src/public-interfaces.ts",
+    },
+  ],
 };
 ```
 
@@ -120,7 +120,7 @@ Then you'd get the following in the JSON output:
 ]
 ```
 
-:::note
+:::info 提示
 This functionality works with both standard CSS and with Sass, although for the
 latter you'll need to have the
 [@stencil/sass](https://github.com/ionic-team/stencil-sass) plugin installed
@@ -138,19 +138,23 @@ For instance, if you had a `my-button` component with a slot you might document
 it like so:
 
 ```tsx title="src/components/my-button/my-button.tsx"
-import { Component, h } from '@stencil/core';
+import { Component, h } from "@stencil/core";
 
 /**
  * @slot buttonContent - Slot for the content of the button
  */
 @Component({
-  tag: 'my-button',
-  styleUrl: 'my-button.css',
+  tag: "my-button",
+  styleUrl: "my-button.css",
   shadow: true,
 })
 export class MyButton {
   render() {
-    return <button><slot name="buttonContent"></slot></button>
+    return (
+      <button>
+        <slot name="buttonContent"></slot>
+      </button>
+    );
   }
 }
 ```
@@ -172,7 +176,6 @@ component's `render` function.
 It is up to you as the component author to ensure the `@slot` tags on a
 component are kept up to date.
 :::
-
 
 ## Usage
 
@@ -202,15 +205,13 @@ You could use it like this:
 ```
 ````
 
-
 You'd get the following in the JSON output under the `"usage"` key:
 
-```json
+````json
 "usage": {
   "a-usage-example": "# How to use `my-button`\n\nA button is often a great help in adding interactivity to an app!\n\nYou could use it like this:\n\n```html\n<my-button>My Button!</my-button>\n```\n"
 }
-```
-
+````
 
 ## Custom JSDocs Tags
 
@@ -223,19 +224,23 @@ This can be useful if your team has your own documentation conventions which you
 If, for example, we had a component with custom JSDoc tags like this:
 
 ```tsx
-import { Component, h } from '@stencil/core';
+import { Component, h } from "@stencil/core";
 
 /**
  * @customDescription This is just the best button around!
  */
 @Component({
-  tag: 'my-button',
-  styleUrl: 'my-button.css',
+  tag: "my-button",
+  styleUrl: "my-button.css",
   shadow: true,
 })
 export class MyButton {
   render() {
-    return <button><slot name="buttonContent"></slot></button>
+    return (
+      <button>
+        <slot name="buttonContent"></slot>
+      </button>
+    );
   }
 }
 ```

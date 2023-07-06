@@ -12,7 +12,7 @@ These types of files are referred to as 'assets', and include images, fonts, etc
 
 In this guide, we describe different strategies for resolving assets on the filesystem.
 
-:::info
+:::info 提示
 CSS files are handled differently than assets; for more on using CSS, please see the [styling documentation](../components/styling.md).
 :::
 

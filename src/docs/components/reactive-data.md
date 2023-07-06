@@ -22,10 +22,10 @@ A method decorated with `@Watch()` will automatically run when its associated cl
 ```tsx
 // We import Prop & State to show how `@Watch()` can be used on
 // class members decorated with either `@Prop()` or `@State()`
-import { Component, Prop, State, Watch } from '@stencil/core';
+import { Component, Prop, State, Watch } from "@stencil/core";
 
 @Component({
-  tag: 'loading-indicator' 
+  tag: "loading-indicator",
 })
 export class LoadingIndicator {
   // We decorate a class member with @Prop() so that we
@@ -37,27 +37,28 @@ export class LoadingIndicator {
 
   // Apply @Watch() for the component's `activated` member.
   // Whenever `activated` changes, this method will fire.
-  @Watch('activated')
+  @Watch("activated")
   watchPropHandler(newValue: boolean, oldValue: boolean) {
-    console.log('The old value of activated is: ', oldValue);
-    console.log('The new value of activated is: ', newValue);
+    console.log("The old value of activated is: ", oldValue);
+    console.log("The new value of activated is: ", newValue);
   }
 
   // Apply @Watch() for the component's `busy` member.
   // Whenever `busy` changes, this method will fire.
-  @Watch('busy')
+  @Watch("busy")
   watchStateHandler(newValue: boolean, oldValue: boolean) {
-    console.log('The old value of busy is: ', oldValue);
-    console.log('The new value of busy is: ', newValue);
+    console.log("The old value of busy is: ", oldValue);
+    console.log("The new value of busy is: ", newValue);
   }
-  
-  @Watch('activated')
-  @Watch('busy')
-  watchMultiple(newValue: boolean, oldValue: boolean, propName:string) {
+
+  @Watch("activated")
+  @Watch("busy")
+  watchMultiple(newValue: boolean, oldValue: boolean, propName: string) {
     console.log(`The new value of ${propName} is: `, newValue);
   }
 }
 ```
+
 In the example above, there are two `@Watch()` decorators.
 One decorates `watchPropHandler`, which will fire when the class member `activated` changes.
 The other decorates `watchStateHandler`, which will fire when the class member `busy` changes.
@@ -65,7 +66,7 @@ The other decorates `watchStateHandler`, which will fire when the class member `
 When fired, the `@Watch()`'ed method will receive the old and new values of the prop/state.
 This is useful for validation or the handling of side effects.
 
-:::info
+:::info 提示
 The `@Watch()` decorator does not fire when a component initially loads.
 :::
 
@@ -87,10 +88,10 @@ The value returned by `map()`, `filter()`, etc., should be assigned to the `@Pro
 For example, to push a new item to an array, create a new array with the existing values and the new value at the end:
 
 ```tsx
-import { Component, State, Watch, h } from '@stencil/core';
+import { Component, State, Watch, h } from "@stencil/core";
 
 @Component({
-  tag: 'rand-numbers'
+  tag: "rand-numbers",
 })
 export class RandomNumbers {
   // We decorate a class member with @State() so that we
@@ -102,10 +103,10 @@ export class RandomNumbers {
 
   // Apply @Watch() for the component's `randNumbers` member.
   // Whenever `randNumbers` changes, this method will fire.
-  @Watch('randNumbers')
+  @Watch("randNumbers")
   watchStateHandler(newValue: number[], oldValue: number[]) {
-    console.log('The old value of randNumbers is: ', oldValue);
-    console.log('The new value of randNumbers is: ', newValue);
+    console.log("The old value of randNumbers is: ", oldValue);
+    console.log("The new value of randNumbers is: ", newValue);
   }
 
   connectedCallback() {
@@ -128,25 +129,27 @@ export class RandomNumbers {
        * The reference to `randNumbers` has changed, which
        * will trigger `@Watch` and a re-render
        */
-      this.randNumbers = [...this.randNumbers, newVal]
-    }, 1000)
+      this.randNumbers = [...this.randNumbers, newVal];
+    }, 1000);
   }
 
   disconnectedCallback() {
     if (this.timer) {
-      clearInterval(this.timer)
+      clearInterval(this.timer);
     }
   }
 
   render() {
-    return(
+    return (
       <div>
         randNumbers contains:
         <ol>
-          {this.randNumbers.map((num) => <li>{num}</li>)}
+          {this.randNumbers.map((num) => (
+            <li>{num}</li>
+          ))}
         </ol>
       </div>
-    )
+    );
   }
 }
 ```
@@ -159,14 +162,14 @@ However, using the spread operator and assigning its return value to the `@Prop(
 Below is an example:
 
 ```tsx
-import { Component, State, Watch, h } from '@stencil/core';
+import { Component, State, Watch, h } from "@stencil/core";
 
 export type NumberContainer = {
-  val: number,
-}
+  val: number;
+};
 
 @Component({
-  tag: 'rand-numbers'
+  tag: "rand-numbers",
 })
 export class RandomNumbers {
   // We decorate a class member with @State() so that we
@@ -178,10 +181,10 @@ export class RandomNumbers {
 
   // Apply @Watch() for the component's `numberContainer` member.
   // Whenever `numberContainer` changes, this method will fire.
-  @Watch('numberContainer')
+  @Watch("numberContainer")
   watchStateHandler(newValue: NumberContainer, oldValue: NumberContainer) {
-    console.log('The old value of numberContainer is: ', oldValue);
-    console.log('The new value of numberContainer is: ', newValue);
+    console.log("The old value of numberContainer is: ", oldValue);
+    console.log("The new value of numberContainer is: ", newValue);
   }
 
   connectedCallback() {
@@ -204,13 +207,13 @@ export class RandomNumbers {
        * The reference to `numberContainer` has changed, which
        * will trigger `@Watch` and a re-render
        */
-      this.numberContainer = {...this.numberContainer, val: newVal};
-    }, 1000)
+      this.numberContainer = { ...this.numberContainer, val: newVal };
+    }, 1000);
   }
 
   disconnectedCallback() {
     if (this.timer) {
-      clearInterval(this.timer)
+      clearInterval(this.timer);
     }
   }
 

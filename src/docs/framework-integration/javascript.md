@@ -9,7 +9,7 @@ slug: /javascript
 
 Integrating a component built with Stencil to a project without a JavaScript framework is straight forward. If you're using a simple HTML page, you can add your component via a script tag. For example, if we published a component to npm, we could load the component through a CDN like this:
 
-```markup
+```html
 <html>
   <head>
     <script src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic.js"></script>
@@ -22,11 +22,11 @@ Integrating a component built with Stencil to a project without a JavaScript fra
 
 Alternatively, if you wanted to take advantage of ES Modules, you could include the components using an import statement.
 
-```markup
+```html
 <html>
   <head>
     <script type="module">
-      import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@ionic/core/loader/index.es2017.mjs';
+      import { defineCustomElements } from "https://cdn.jsdelivr.net/npm/@ionic/core/loader/index.es2017.mjs";
       defineCustomElements();
     </script>
   </head>
@@ -41,7 +41,7 @@ Alternatively, if you wanted to take advantage of ES Modules, you could include 
 ### Setting the prop manually
 
 ```tsx
-import { Prop } from '@stencil/core';
+import { Prop } from "@stencil/core";
 
 export class TodoList {
   @Prop() myObject: object;
@@ -49,10 +49,10 @@ export class TodoList {
 }
 ```
 
-```markup
+```html
 <todo-list></todo-list>
 <script>
-  const todoListElement = document.querySelector('todo-list');
+  const todoListElement = document.querySelector("todo-list");
   todoListElement.myObject = {};
   todoListElement.myArray = [];
 </script>
@@ -61,7 +61,7 @@ export class TodoList {
 ### Watching props changes
 
 ```tsx
-import { Prop, State, Watch } from '@stencil/core';
+import { Prop, State, Watch } from "@stencil/core";
 
 export class TodoList {
   @Prop() myObject: string;
@@ -74,12 +74,12 @@ export class TodoList {
     this.parseMyArrayProp(this.myArray);
   }
 
-  @Watch('myObject')
+  @Watch("myObject")
   parseMyObjectProp(newValue: string) {
     if (newValue) this.myInnerObject = JSON.parse(newValue);
   }
 
-  @Watch('myArray')
+  @Watch("myArray")
   parseMyArrayProp(newValue: string) {
     if (newValue) this.myInnerArray = JSON.parse(newValue);
   }

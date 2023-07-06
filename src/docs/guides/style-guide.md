@@ -9,11 +9,11 @@ slug: /style-guide
 
 This is a component style guide created and enforced internally by the core team of Stencil, for the purpose of standardizing Stencil components. This should only be used as a reference for other teams in creating their own style guides. Feel free to modify to your team's own preference.
 
-:::note
+:::info 提示
 In order to enforce this (or your team's) style guide, we recommend leveraging a static analysis tool like [ESLint](https://eslint.org/). [@stencil-community/eslint-plugin](https://www.npmjs.com/package/@stencil-community/eslint-plugin) provides rules specifically for writing Stencil components.
 :::
 
-:::note
+:::info 提示
 This guide once recommended TSLint as a static analysis tool. TSLint has been deprecated by its maintaining organization in favor of ESLint and is no longer recommended by the Stencil team.
 :::
 
@@ -46,23 +46,26 @@ Example from ionic-core:
 │   ├── my-card-title.css
 ```
 
-
 ## Naming
+
 ### HTML tag
 
 #### Prefix
+
 The prefix has a major role when you are creating a collection of components intended to be used across different projects, like [@ionic/core](https://www.npmjs.com/package/@ionic/core). Web Components are not scoped because they are globally declared within the webpage, which means a "unique" prefix is needed to prevent collisions. The prefix also helps to quickly identify the collection a component is part of. Additionally, web components are required to contain a "-" dash within the tag name, so using the first section to namespace your components is a natural fit.
 
 We do not recommend using "stencil" as prefix, since Stencil DOES NOT emit stencil components, but rather the output is standards compliant web components.
 
 DO NOT do this:
-```markup
+
+```md
 <stencil-component>
 <stnl-component>
 ```
 
 Instead, use your own naming or brand. For example, [Ionic](https://ionicframework.com/) components are all prefixed with `ion-`.
-```markup
+
+```md
 <ion-button>
 <ion-header>
 ```
@@ -71,17 +74,15 @@ Instead, use your own naming or brand. For example, [Ionic](https://ionicframewo
 
 Components are not actions, they are conceptually "things". It is better to use nouns instead of verbs, such as "animation" instead of "animating". "input", "tab", "nav", "menu" are some examples.
 
-
 #### Modifiers
 
 When several components are related and/or coupled, it is a good idea to share the name, and then add different modifiers, for example:
 
-```markup
+```md
 <ion-card>
 <ion-card-header>
 <ion-card-content>
 ```
-
 
 ### Component (TS class)
 
@@ -99,7 +100,6 @@ export class Button { ... }
 export class Menu { ... }
 ```
 
-
 ## TypeScript
 
 1. **Use private variables and methods as much possible:** They are useful to detect dead code and enforce encapsulation. Note that this is a feature which TypeScript provides to help harden your code, but using `private`, `public` or `protected` does not make a difference in the actual JavaScript output.
@@ -110,7 +110,7 @@ export class Menu { ... }
 
 **Newspaper Metaphor from The Robert C. Martin's _Clean Code_**
 
-:::note
+:::info 提示
 The source file should be organized like a newspaper article, with the highest level summary at the top, and more and more details further down. Functions called from the top function come directly below it, and so on down to the lowest level and most detailed functions at the bottom. This is a good way to organize the source code, even though IDEs make the location of functions less important, since it is so easy to navigate in and out of them.
 :::
 
@@ -118,15 +118,14 @@ The source file should be organized like a newspaper article, with the highest l
 
 ```tsx
 @Component({
-  tag: 'ion-something',
+  tag: "ion-something",
   styleUrls: {
-    ios: 'something.ios.css',
-    md: 'something.md.css',
-    wp: 'something.wp.css'
-  }
+    ios: "something.ios.css",
+    md: "something.md.css",
+    wp: "something.wp.css",
+  },
 })
 export class Something {
-
   /**
    * 1. Own Properties
    * Always set the type if a default value has not
@@ -137,7 +136,7 @@ export class Something {
    * publicly on the host element, but only used internally.
    */
   num: number;
-  someText = 'default';
+  someText = "default";
 
   /**
    * 2. Reference to host HTML element.
@@ -162,7 +161,7 @@ export class Something {
   @Prop() content: string;
   @Prop() enabled: boolean;
   @Prop() menuId: string;
-  @Prop() type = 'overlay';
+  @Prop() type = "overlay";
 
   /**
    * Prop lifecycle events SHOULD go just behind the Prop they listen to.
@@ -172,7 +171,7 @@ export class Something {
    */
   @Prop() swipeEnabled = true;
 
-  @Watch('swipeEnabled')
+  @Watch("swipeEnabled")
   swipeEnabledChanged(newSwipeEnabled: boolean, oldSwipeEnabled: boolean) {
     this.updateState();
   }
@@ -208,9 +207,9 @@ export class Something {
    * starting a listener method with "on".
    * Always use two lines.
    */
-  @Listen('click', { enabled: false })
+  @Listen("click", { enabled: false })
   onClick(ev: UIEvent) {
-    console.log('hi!')
+    console.log("hi!");
   }
 
   /**
@@ -253,13 +252,13 @@ export class Something {
     return (
       <Host
         attribute="navigation"
-        side={this.isRightSide ? 'right' : 'left'}
+        side={this.isRightSide ? "right" : "left"}
         type={this.type}
         class={{
-          'something-is-animating': this.isAnimating
+          "something-is-animating": this.isAnimating,
         }}
       >
-        <div class='menu-inner page-inner'>
+        <div class="menu-inner page-inner">
           <slot></slot>
         </div>
       </Host>

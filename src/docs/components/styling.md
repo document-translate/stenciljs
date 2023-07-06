@@ -48,7 +48,7 @@ div {
 }
 ```
 
-:::note
+:::info 提示
 The `:host` pseudo-class selector is used to select the [`Host` element](./host-element.md) of the component
 :::
 
@@ -138,7 +138,7 @@ CSS custom properties can allow the consumers of a component to customize a comp
 }
 ```
 
-:::note
+:::info 提示
 CSS custom properties must be declared on the `Host` element (`:host`) in order for them to be exposed to the consuming application.
 :::
 

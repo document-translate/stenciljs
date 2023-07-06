@@ -68,7 +68,7 @@ export const config: Config = {
 
 Will result in the following file structure:
 
-```tree
+```txt
 stencil-project-root
 └── .cache
     ├── .build <-- Where build related file caching is written
@@ -109,7 +109,7 @@ export default function () {
 }
 ```
 
-:::note
+:::info 提示
 The exported function can also be `async`.
 :::
 
@@ -162,7 +162,7 @@ _default: `true`_
 
 When `true`, `invisiblePrehydration` will visually hide components before they are hydrated by adding an automatically injected style tag to the document's head. Setting `invisiblePrehydration` to `false` will not inject the style tag into the head, allowing you to style your web components pre-hydration.
 
-:::note
+:::info 提示
 Setting `invisiblePrehydration` to `false` will cause everything to be visible when your page is loaded, causing a more prominent Flash of Unstyled Content (FOUC). However, you can style your web component's fallback content to your preference.
 :::
 

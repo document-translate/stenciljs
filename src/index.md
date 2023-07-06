@@ -8,8 +8,8 @@ hero:
   tagline: Stencil is a library for building reusable, scalable component libraries. Generate small, blazing fast Web Components that run everywhere.
   actions:
     - theme: brand
-      text: 查看文档
-      link: /docs/introduction/overview
+      text: 快速上手
+      link: /docs/introduction/getting-started
     - theme: alt
       text: Github
       link: https://github.com/document-translate/stenciljs

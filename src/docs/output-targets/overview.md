@@ -62,7 +62,7 @@ export const config: Config = {
 };
 ```
 
-:::note
+:::info 提示
 Stencil can only validate one of these output targets for your build. If multiple output targets are marked for validation, Stencil will use
 the first designated target in the array and ignore all others.
 :::

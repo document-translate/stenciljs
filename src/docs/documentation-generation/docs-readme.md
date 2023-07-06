@@ -17,12 +17,10 @@ To auto-generate readme files, add the `docs-readme` output target to your
 `stencil.config.ts` like so:
 
 ```tsx title="stencil.config.ts"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
-  outputTargets: [
-    { type: 'docs-readme' }
-  ]
+  outputTargets: [{ type: "docs-readme" }],
 };
 ```
 
@@ -35,7 +33,7 @@ stencil build --docs
 This will cause the Stencil compiler to perform a one-time generation of README
 files.
 
-:::note
+:::info 提示
 If you use the `--docs` flag and don't add the `docs-readme` output target to
 your Stencil configuration your documentation won't be automatically updated
 when you build your project and could get out of date.
@@ -54,15 +52,15 @@ the output target. This string is added to the generated Markdown files without
 modification, so you can use Markdown syntax in it for rich formatting.
 
 ```tsx title="stencil.config.ts"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
-    { 
-      type: 'docs-readme',
-      footer: '*Built with love!*',
-    }
-  ]
+    {
+      type: "docs-readme",
+      footer: "*Built with love!*",
+    },
+  ],
 };
 ```
 
@@ -74,15 +72,15 @@ property on the output target configuration. Specifying a directory will create
 the structure `{dir}/{component}/readme.md`.
 
 ```tsx title="stencil.config.ts"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
-    { 
-      type: 'docs-readme',
-      dir: 'output'
-    }
-  ]
+    {
+      type: "docs-readme",
+      dir: "output",
+    },
+  ],
 };
 ```
 
@@ -92,14 +90,14 @@ Adding `strict: true` to the output target configuration will cause Stencil to
 output a warning whenever the project is built with missing documentation.
 
 ```tsx title="stencil.config.ts"
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
-    { 
-      type: 'docs-readme',
-      strict: true
-    }
-  ]
+    {
+      type: "docs-readme",
+      strict: true,
+    },
+  ],
 };
 ```

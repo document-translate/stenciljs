@@ -46,7 +46,7 @@ npm install --global lerna
 
 #### Creating a Monorepo
 
-:::note
+:::info 提示
 If you already have a monorepo, skip this section.
 :::
 
@@ -63,7 +63,7 @@ npm install typescript @types/node --save-dev
 
 #### Creating a Stencil Component Library
 
-:::note
+:::info 提示
 If you already have a Stencil component library, skip this section.
 :::
 
@@ -78,7 +78,7 @@ npm install
 
 #### Creating a React Component Library
 
-:::note
+:::info 提示
 If you already have a React component library, skip this section.
 :::
 
@@ -164,7 +164,7 @@ Update the generated `package.json` in your `react-library`, adding the followin
 }
 ```
 
-:::note
+:::info 提示
 The `stencil-library` dependency is how Lerna knows to resolve the internal Stencil library dependency. See Lerna's documentation on
 [package dependency management](https://lerna.js.org/docs/getting-started#package-dependency-management) for more information.
 :::
@@ -181,22 +181,22 @@ npm install @stencil/react-output-target --save-dev
 In your project's `stencil.config.ts`, add the `reactOutputTarget` configuration to the `outputTargets` array:
 
 ```ts
-import { reactOutputTarget } from '@stencil/react-output-target';
+import { reactOutputTarget } from "@stencil/react-output-target";
 
 export const config: Config = {
-  namespace: 'stencil-library',
+  namespace: "stencil-library",
   outputTargets: [
     // By default, the generated proxy components will
     // leverage the output from the `dist` target, so we
     // need to explicitly define that output alongside the
     // React target
     {
-      type: 'dist',
-      esmLoaderPath: '../loader',
+      type: "dist",
+      esmLoaderPath: "../loader",
     },
     reactOutputTarget({
-      componentCorePackage: 'stencil-library',
-      proxiesFile: '../react-library/lib/components/stencil-generated/index.ts',
+      componentCorePackage: "stencil-library",
+      proxiesFile: "../react-library/lib/components/stencil-generated/index.ts",
     }),
   ],
 };
@@ -225,7 +225,7 @@ If the build is successful, you’ll see the new generated file in your React co
 In order to make the generated files available within your React component library and its consumers, you’ll need to export everything from within your entry file. First, rename `react-library.js` to `index.ts`. Then, modify the contents to match the following:
 
 ```tsx
-export * from './components/stencil-generated';
+export * from "./components/stencil-generated";
 ```
 
 ### Registering Custom Elements
@@ -242,7 +242,7 @@ export * from "./components/stencil-generated";
 
 ### Link Your Packages (Optional)
 
-:::note
+:::info 提示
 If you are using a monorepo tool (Lerna, Nx, etc.), skip this section.
 :::
 
@@ -276,7 +276,7 @@ modify your `package.json` so it is important to make sure you do not commit tho
 
 ### Creating a Consumer React App
 
-:::note
+:::info 提示
 If you already have a React app, skip this section.
 :::
 
@@ -322,8 +322,8 @@ To make use of your React component library in your React application, import yo
 
 ```tsx
 // App.tsx
-import './App.css';
-import { MyComponent, defineCustomElements } from 'react-library';
+import "./App.css";
+import { MyComponent, defineCustomElements } from "react-library";
 
 defineCustomElements();
 
@@ -376,10 +376,10 @@ export const config: Config = {
 Which would result in an import path like:
 
 ```js
-import { defineCustomElement as defineMyComponent } from 'my-component-lib/components/my-component.js';
+import { defineCustomElement as defineMyComponent } from "my-component-lib/components/my-component.js";
 ```
 
-:::note
+:::info 提示
 Although this field is optional, it is _highly_ recommended that it always be defined to avoid potential issues with paths not being generated correctly
 when combining other API arguments.
 :::
