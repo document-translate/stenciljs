@@ -1,22 +1,22 @@
 export default [
   {
-    text: "Introduction",
+    text: "简介",
     collapsed: false,
     items: [
       {
-        text: "Overview",
+        text: "概述",
         link: "/docs/introduction/overview",
       },
       {
-        text: "Goals and Objectives",
+        text: "目标与目的",
         link: "/docs/introduction/goals-and-objectives",
       },
       {
-        text: "Getting Started",
+        text: "快速上手",
         link: "/docs/introduction/getting-started",
       },
       {
-        text: "Upgrading to Stencil v4",
+        text: "升级到 Stencil v4",
         link: "/docs/introduction/upgrading-to-stencil-four",
       },
       // {
@@ -34,7 +34,7 @@ export default [
         link: "/docs/components/api",
       },
       {
-        text: "Lifecycle Methods",
+        text: "生命周期方法",
         link: "/docs/components/component-lifecycle",
       },
       {
@@ -46,11 +46,11 @@ export default [
         link: "/docs/components/events",
       },
       {
-        text: "Functional Components",
+        text: "函数式组件",
         link: "/docs/components/functional-components",
       },
       {
-        text: "Host Element",
+        text: "Host 元素",
         link: "/docs/components/host-element",
       },
       {
@@ -80,11 +80,11 @@ export default [
     ],
   },
   {
-    text: "Framework Integrations",
+    text: "框架集成",
     collapsed: true,
     items: [
       {
-        text: "Overview",
+        text: "概述",
         link: "/docs/framework-integration/overview",
       },
       {
@@ -114,11 +114,11 @@ export default [
     ],
   },
   {
-    text: "Static Site Generation",
+    text: "生成静态网站",
     collapsed: true,
     items: [
       {
-        text: "Overview",
+        text: "概述",
         link: "/docs/static-site-generation/overview",
       },
       {
@@ -148,11 +148,11 @@ export default [
     ],
   },
   {
-    text: "Config",
+    text: "配置",
     collapsed: true,
     items: [
       {
-        text: "Overview",
+        text: "概述",
         link: "/docs/config/overview",
       },
       {
@@ -174,11 +174,11 @@ export default [
     ],
   },
   {
-    text: "Output Targets",
+    text: "输出目标",
     collapsed: true,
     items: [
       {
-        text: "Overview",
+        text: "概述",
         link: "/docs/output-targets/overview",
       },
       {
@@ -200,11 +200,11 @@ export default [
     ],
   },
   {
-    text: "Documentation Generation",
+    text: "文档生成",
     collapsed: true,
     items: [
       {
-        text: "Overview",
+        text: "概述",
         link: "/docs/documentation-generation/overview",
       },
       {
@@ -230,7 +230,7 @@ export default [
     ],
   },
   {
-    text: "Guides",
+    text: "指南",
     collapsed: true,
     items: [
       {
@@ -288,7 +288,7 @@ export default [
     ],
   },
   {
-    text: "Core Compiler API",
+    text: "核心编译器 API",
     collapsed: true,
     items: [
       {
@@ -310,7 +310,7 @@ export default [
     collapsed: true,
     items: [
       {
-        text: "Overview",
+        text: "概述",
         link: "/docs/testing/overview",
       },
       {
