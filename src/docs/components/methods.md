@@ -1,5 +1,4 @@
 ---
-title: Methods
 sidebar_label: Methods
 description: methods
 slug: /methods
@@ -7,10 +6,10 @@ slug: /methods
 
 # Method Decorator
 
-The `@Method()` decorator is used to expose methods on the public API. Functions decorated with the `@Method()` decorator can be called directly from the element, i.e. they are intended to be callable from the outside!
+`@Method()` 装饰器用于在公共 API 上暴露方法。使用 `@Method()` 装饰器装饰的函数可以直接从元素中调用，即它们可以从外部调用!
 
 :::info 提示
-Developers should try to rely on publicly exposed methods as little as possible, and instead default to using properties and events as much as possible. As an app scales, we've found it's easier to manage and pass data through @Prop rather than public methods.
+开发者应该尽可能少地依赖公开的方法，而尽量默认地使用属性和事件。随着应用程序的扩展，我们发现通过@Prop 来管理和传递数据比使用公共方法更容易。
 :::
 
 ```tsx
@@ -24,10 +23,10 @@ export class TodoList {
 }
 ```
 
-Call the method like this:
+像这样调用这个方法：
 
 :::info 提示
-Developers should ensure that the component is defined by using the whenDefined method of the custom element registry before attempting to call public methods.
+在尝试调用公共方法之前，开发人员应该使用 `customElements.whenDefined` 方法来确保组件是已经被定义的。
 :::
 
 ```tsx
@@ -38,17 +37,18 @@ Developers should ensure that the component is defined by using the whenDefined 
 })();
 ```
 
-## Public methods must be async
+## 公共方法必须是异步的{#public-methods-must-be-async}
 
-Stencil's architecture is async at all levels which allows for many performance benefits and ease of use. By ensuring publicly exposed methods using the `@Method` decorator return a promise:
+Stencil 的架构在所有级别上都是异步的，这使得它具有许多性能优势和易用性。通过使用 `@Method` 装饰器的方法确保公有方法返回一个 Promise：
 
-- Developers can call methods before the implementation was downloaded without componentOnReady(), which queues the method calls and resolves after the component has finished loading.
+- 开发人员可以在下载实现之前调用方法，而不用 componentOnReady()，它会将方法调用排队，并在组件完成加载后解析。
 
-- Interaction with the component is the same whether it still needs to be lazy-loaded, or is already fully hydrated.
+- 无论组件是否仍然需要延迟加载，还是已经完全 hydrated，与组件的交互都是一样的。
 
-- By keeping a component's public API async, apps could move the components transparently to [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) and the API would still be the same.
+- 通过异步保持组件的公共 API，应用程序可以透明地将组件移动到 [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)，
+  而 API 仍然是相同的。
 
-- Returning a promise is only required for publicly exposed methods which have the `@Method` decorator. All other component methods are private to the component and are not required to be async.
+- 只有具有 `@Method` 装饰器的公开方法才需要返回一个 Promise。所有其他组件方法都是该组件私有的，不需要是异步的。
 
 ```tsx
 // VALID: using async
@@ -76,9 +76,9 @@ notOk() {
 }
 ```
 
-## Private methods
+## 私有方法{#private-methods}
 
-Non-public methods can still be used to organize the business logic of your component and they do NOT have to return a Promise.
+非公共方法仍然可以用来组织组件的业务逻辑，它们不必返回 Promise。
 
 ```tsx
 class Component {
