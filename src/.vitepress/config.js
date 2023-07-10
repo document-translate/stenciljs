@@ -11,6 +11,7 @@ export default defineConfig({
     nav: [
       { text: "首页", link: "/" },
       { text: "文档", link: "/docs/introduction/overview" },
+      { text: "官网文档（EN）", link: "https://stenciljs.com/" },
     ],
     sidebar,
     socialLinks: [
