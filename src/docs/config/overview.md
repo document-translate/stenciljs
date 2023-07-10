@@ -182,7 +182,7 @@ _default: `true` in production_
 
 When `true`, the browser JS files will be minified. Stencil uses [Terser](https://terser.org/) under-the-hood for file minification.
 
-## namespace
+## namespace{#namespace}
 
 _default: `App`_
 

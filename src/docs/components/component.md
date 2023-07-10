@@ -1,28 +1,26 @@
 ---
-title: Component Decorator
 sidebar_label: Component
 description: Documentation for the @Component decorator
 slug: /component
 ---
 
-# Component Decorator{#component-decorator}
+# Component 装饰器{#component-decorator}
 
-`@Component()` is a decorator that designates a TypeScript class as a Stencil component.
-Every Stencil component gets transformed into a web component at build time.
+`@Component()` 是一个将 TypeScript 类指定为 Stencil 组件的装饰器。每个 Stencil 组件在构建时都被转换为 web 组件。
 
 ```tsx
 import { Component } from "@stencil/core";
 
 @Component({
   tag: "todo-list",
-  // additional options
+  // 附加选项
 })
 export class TodoList {
   // implementation omitted
 }
 ```
 
-## Component Options
+## Component 选项{#component-options}
 
 The `@Component()` decorator takes one argument, an object literal containing configuration options for the component.
 This allows each component to be individually configured to suit the unique needs of each project.
@@ -36,12 +34,11 @@ Each option, its type, and whether it's required is described below.
 **Type: `string`**
 
 **Details:**<br/>
-This value sets the name of the custom element that Stencil will generate.
-To adhere to the [HTML spec](https://html.spec.whatwg.org/#valid-custom-element-name), the tag name must contain a dash ('-').
+这个值设置了 Stencil 将生成的自定义元素的名称。为了遵守[HTML 规范](https://html.spec.whatwg.org/#valid-custom-element-name)，标签名称必须包含一个破折号('-')。
 
-Ideally, the tag name is a globally unique value.
-Having a globally unique value helps prevent naming collisions with the global `CustomElementsRegistry`, where all custom elements are defined.
-It's recommended to choose a unique prefix for all your components within the same collection.
+理想情况下，标签名是全局唯一的值。
+拥有全局唯一的值有助于防止与全局的 `CustomElementsRegistry` 发生命名冲突，在全局 `CustomElementsRegistry` 中定义了所有自定义元素。
+建议为同一个集合中的所有组件选择唯一的前缀。
 
 **Example**:<br/>
 
@@ -56,7 +53,7 @@ export class TodoList {
 }
 ```
 
-After compilation, the component defined in `TodoList` can be used in HTML or another TSX file:
+编译后，`Todolist` 中定义的组件可以在 HTML 或其他 TSX 文件中使用:
 
 ```html
 <!-- Here we use the component in an HTML file -->
@@ -77,12 +74,12 @@ After compilation, the component defined in `TodoList` can be used in HTML or an
 **Type: `string[]`**
 
 **Details:**<br/>
-`assetsDirs` is an array of relative paths from the component to a directory containing the static files (assets) the component requires.
+`assetsDirs` 是包含组件所需的静态文件(assets)的目录的相对路径数组。
 
 **Example**:<br/>
-Below is an example project's directory structure containing an example component and assets directory.
+下面是一个示例项目的目录结构，其中包含一个示例组件和资产目录。
 
-```
+```txt
 src/
 └── components/
     ├── assets/
@@ -140,7 +137,7 @@ To use the native [shadow DOM](./styling.md#shadow-dom), see the configuration f
 
 This option cannot be set to `true` if `shadow` is enabled.
 
-**Example**:<br/>
+**示例**:<br/>
 
 ```tsx
 import { Component } from "@stencil/core";
@@ -163,7 +160,7 @@ export class TodoList {
 **Default: `false`**
 
 **Details:**<br/>
-If `true`, the component will use [native Shadow DOM encapsulation](./styling.md#shadow-dom).
+If `true`, the component will use [native Shadow DOM encapsulation](./styling#shadow-dom).
 It will fall back to `scoped` if the browser does not support shadow-dom natively.
 
 `delegatesFocus` is a property that [provides focus](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus) to the first focusable entry in a component using Shadow DOM.
@@ -180,7 +177,7 @@ If `shadow` is set to `false`, the component will not use native shadow DOM enca
 
 This option cannot be set to enabled if `scoped` is enabled.
 
-**Example 1**:<br/>
+**示例 1**:<br/>
 
 ```tsx
 import { Component } from "@stencil/core";
@@ -194,7 +191,7 @@ export class TodoList {
 }
 ```
 
-**Example 2**:<br/>
+**示例 2**:<br/>
 
 ```tsx
 import { Component } from "@stencil/core";
@@ -221,10 +218,10 @@ Relative URL to an external stylesheet containing styles to apply to your compon
 By out of the box, Stencil will only process CSS files (files ending with `.css`).
 Support for additional CSS variants, like Sass, can be added via [a plugin](https://stenciljs.com/docs/plugins#related-plugins).
 
-**Example**:<br/>
+**示例**:<br/>
 Below is an example project's directory structure containing an example component and stylesheet.
 
-```
+```txt
 src/
 └── components/
     ├── todo-list.css
@@ -260,10 +257,10 @@ This
 By out of the box, Stencil will only process CSS files (ending with `.css`).
 Support for additional CSS variants, like Sass, can be added via [a plugin](https://stenciljs.com/docs/plugins#related-plugins).
 
-**Example**:<br/>
+**示例**:<br/>
 Below is an example project's directory structure containing an example component and stylesheet.
 
-```
+```txt
 src/
 └── components/
     ├── todo-list-1.css
@@ -313,7 +310,7 @@ The performance characteristics of this feature are the same as using an externa
 When using `styles`, only CSS is permitted.
 See [`styleUrl`](#styleurl) if you need more advanced features.
 
-**Example**:<br/>
+**示例**:<br/>
 
 ```tsx
 import { Component } from "@stencil/core";

@@ -37,14 +37,12 @@ Once all the metadata has been collected, all the decorators are removed from th
 
 ## componentOnReady()
 
-This isn't a true "lifecycle" method that would be declared on the component class definition, but instead is a utility method that
-can be used by an implementation consuming your Stencil component to detect when a component has finished its first render cycle.
+这不是一个在组件类定义中声明的真正的 "生命周期" 方法，而是一个实用方法；它可以用来实现检测你的 Stencil 组件何时完成其第一个渲染周期。
 
-This method returns a promise which resolves after `componentDidRender()` on the _first_ render cycle.
+这个方法返回一个 Promise，该 Promise 在第一个渲染周期的 `componentDidRender()` 之后被调用。
 
 :::info 提示
-`componentOnReady()` only resolves once per component lifetime. If you need to hook into subsequent render cycle, use
-`componentDidRender()` or `componentDidUpdate()`.
+`componentOnReady()`在每个组件的生命周期中只解析一次。如果你需要挂钩到后续的渲染周期，请使用 `componentDidRender()` 或 `componentDidUpdate()`。
 :::
 
 Executing code after `componentOnReady()` resolves could look something like this:
@@ -66,9 +64,10 @@ you can implement a helper method to wrap the functionality similar to what the 
 
 ## appload 事件{#the-appload-event}
 
-除了特定于组件的生命周期钩子之外，当应用及其所有子组件完成加载时，一个名为 `appload` 的特殊事件将被触发。你可以在`window`对象上监听它。
+除了特定于组件的生命周期钩子之外，当应用及其所有子组件完成加载时，一个名为 `appload` 的特殊事件将被触发。你可以在 `window` 对象上监听它。
 
-If you have multiple apps on the same page, you can determine which app emitted the event by checking `event.detail.namespace`. This will be the value of the [namespace config option](../config/overview#namespace) you've set in your Stencil config.
+If you have multiple apps on the same page, you can determine which app emitted the event by checking `event.detail.namespace`.
+This will be the value of the [namespace config option](../config/overview#namespace) you've set in your Stencil config.
 
 ```tsx
 window.addEventListener("appload", (event) => {
