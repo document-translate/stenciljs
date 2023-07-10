@@ -22,10 +22,9 @@ export class TodoList {
 
 ## Component 选项{#component-options}
 
-The `@Component()` decorator takes one argument, an object literal containing configuration options for the component.
-This allows each component to be individually configured to suit the unique needs of each project.
+`@Component()`装饰器接受一个参数，一个包含组件配置选项的对象字面量。这允许对每个组件进行单独配置，以适应每个项目的独特需求。
 
-Each option, its type, and whether it's required is described below.
+下面描述了每个选项、其类型以及是否为必需选项。
 
 ### tag
 
@@ -40,7 +39,7 @@ Each option, its type, and whether it's required is described below.
 拥有全局唯一的值有助于防止与全局的 `CustomElementsRegistry` 发生命名冲突，在全局 `CustomElementsRegistry` 中定义了所有自定义元素。
 建议为同一个集合中的所有组件选择唯一的前缀。
 
-**Example**:<br/>
+**示例**:<br/>
 
 ```tsx
 import { Component } from "@stencil/core";
@@ -87,7 +86,8 @@ src/
     └── todo-list.tsx
 ```
 
-Below, the `todo-list` component will correctly load the `sunset.jpg` image from the `assets/` directory, using Stencil's [`getAssetPath()`](../guides/assets.md#getassetpath).
+下面，`todo-list` 组件将使用 Stencil 的 [`getAssetPath()`](../guides/assets.md#getassetpath) 从 `assets/` 目录中
+正确加载 `sunset.jpg` 图像。
 
 ```tsx
 import { Component, Prop, getAssetPath, h } from "@stencil/core";
@@ -110,13 +110,12 @@ export class TodoList {
 }
 ```
 
-In the example above, the following allows `todo-list` to display the provided asset:
+在上面的例子中，以下代码允许 `todo-list` 显示提供的资源:
 
-1. The `TodoList`'s `@Component()` decorator has the `assetsDirs` property, and lists the file's sibling directory, `assets/`.
-   This will copy the `assets` directory over to the distribution directory.
-2. Stencil's [`getAssetPath()`](../guides/assets.md#getassetpath) is used to retrieve the path to the image to be used in the `<img>` tag
+1. `TodoList`的`@Component()`装饰器具有`assetsDirs`属性，并列出文件的兄弟目录`assets/`。这将把`assets`目录复制到分发目录。
+2. Stencil 的 [`getAssetPath()`](../guides/assets#getAssetPath) 用于检索 `<img>` 标签中使用的图像的路径
 
-For more information on configuring assets, please see Stencil's [Assets Guide](../guides/assets.md)
+有关配置资产的更多信息，请参阅 Stencil 的 [Assets Guide](../guides/assets.md)
 
 ### scoped
 
@@ -127,13 +126,13 @@ For more information on configuring assets, please see Stencil's [Assets Guide](
 **Default: `false`**
 
 **Details:**<br/>
-If `true`, the component will use [scoped stylesheets](./styling.md#scoped-css).
+If `true`, the component will use [scoped stylesheets](./styling#scoped-css).
 
 Scoped CSS is an alternative to using the native [shadow DOM](./styling.md#shadow-dom) style encapsulation.
 It appends a data attribute to your styles to make them unique and thereby scope them to your component.
 It does not, however, prevent styles from the light DOM from seeping into your component.
 
-To use the native [shadow DOM](./styling.md#shadow-dom), see the configuration for [`shadow`](#shadow).
+To use the native [shadow DOM](./styling#shadow-dom), see the configuration for [`shadow`](#shadow).
 
 This option cannot be set to `true` if `shadow` is enabled.
 
@@ -151,7 +150,7 @@ export class TodoList {
 }
 ```
 
-### shadow
+### shadow{#shadow}
 
 **Optional**
 
