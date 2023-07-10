@@ -74,7 +74,7 @@ export default [
         link: "/docs/components/styling",
       },
       {
-        text: "Using JSX",
+        text: "使用 JSX",
         link: "/docs/components/templating-and-jsx",
       },
     ],

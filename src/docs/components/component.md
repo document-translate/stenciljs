@@ -75,7 +75,7 @@ export class TodoList {
 **Details:**<br/>
 `assetsDirs` 是包含组件所需的静态文件(assets)的目录的相对路径数组。
 
-**Example**:<br/>
+**示例**:<br/>
 下面是一个示例项目的目录结构，其中包含一个示例组件和资产目录。
 
 ```txt
@@ -126,15 +126,15 @@ export class TodoList {
 **Default: `false`**
 
 **Details:**<br/>
-If `true`, the component will use [scoped stylesheets](./styling#scoped-css).
+如果为 `true`，组件将使用 [scoped stylesheets](./styles#scoped-css)。
 
-Scoped CSS is an alternative to using the native [shadow DOM](./styling.md#shadow-dom) style encapsulation.
-It appends a data attribute to your styles to make them unique and thereby scope them to your component.
-It does not, however, prevent styles from the light DOM from seeping into your component.
+有作用域的 CSS 是使用原生的[shadow DOM](./styling#shadow-dom)风格封装的替代方案。它将数据属性添加到样式中，以使它们独一无二，从而将它们限定在组件的范围内。
+然而，它并不能阻止轻量级 DOM 的样式渗入到组件中。
 
-To use the native [shadow DOM](./styling#shadow-dom), see the configuration for [`shadow`](#shadow).
+要使用原生的 [shadow DOM](./styling#shadow-dom), 请查看
+[`shadow`](#shadow)。
 
-This option cannot be set to `true` if `shadow` is enabled.
+如果启用了 `shadow` ，则此选项不能设置为 `true`。
 
 **示例**:<br/>
 
@@ -159,22 +159,22 @@ export class TodoList {
 **Default: `false`**
 
 **Details:**<br/>
-If `true`, the component will use [native Shadow DOM encapsulation](./styling#shadow-dom).
-It will fall back to `scoped` if the browser does not support shadow-dom natively.
+如果为 `true`，组件将使用[原生 Shadow DOM 封装](./styles#Shadow-DOM)。如果浏览器原生不支持 shadow-dom，它将回退到 `scoped`。
 
-`delegatesFocus` is a property that [provides focus](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus) to the first focusable entry in a component using Shadow DOM.
-If an object literal containing `delegatesFocus` is provided, the component will use [native Shadow DOM encapsulation](./styling.md#shadow-dom), regardless of the value assigned to `delegatesFocus`.
+`delegatesFocus` 是一个使用 Shadow DOM 为组件中的第一个可聚焦条目[提供焦点](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus)的属性。
 
-When `delegatesFocus` is set to `true`, the component will have `delegatesFocus: true` added to its shadow DOM.
+如果提供了一个包含 `delegatesFocus` 的对象字面量，则组件将使用[原生 Shadow DOM 封装](./styling#shadow-dom)，而不管赋给 `delegatesFocus` 的值是什么。
 
-When `delegatesFocus` is `true` and a non-focusable part of the component is clicked:
+当 `delegatesFocus` 设置为 `true` 时，组件的影子 DOM 中会添加 `delegatesFocus: true`。
 
-- the first focusable part of the component is given focus
-- the component receives any available `focus` styling
+当 `delegatesFocus` 为 `true` 时，组件的不可聚焦部分被点击：
 
-If `shadow` is set to `false`, the component will not use native shadow DOM encapsulation.
+- 组件的第一个可聚焦部分被赋予焦点
+- 组件接收任何可用的 `focus` 样式
 
-This option cannot be set to enabled if `scoped` is enabled.
+如果 `shadow` 设置为 `false`，组件将不会使用原生的 shadow DOM 封装。
+
+如果启用了 `scoped` ，则不能将此选项设置为启用。
 
 **示例 1**:<br/>
 
@@ -218,7 +218,7 @@ By out of the box, Stencil will only process CSS files (files ending with `.css`
 Support for additional CSS variants, like Sass, can be added via [a plugin](https://stenciljs.com/docs/plugins#related-plugins).
 
 **示例**:<br/>
-Below is an example project's directory structure containing an example component and stylesheet.
+下面是一个示例项目的目录结构，其中包含一个示例组件和样式表。
 
 ```txt
 src/
@@ -257,7 +257,7 @@ By out of the box, Stencil will only process CSS files (ending with `.css`).
 Support for additional CSS variants, like Sass, can be added via [a plugin](https://stenciljs.com/docs/plugins#related-plugins).
 
 **示例**:<br/>
-Below is an example project's directory structure containing an example component and stylesheet.
+下面是一个示例项目的目录结构，其中包含一个示例组件和样式表。
 
 ```txt
 src/
@@ -269,7 +269,7 @@ src/
 
 By setting `styleUrls`, Stencil will apply both stylesheets to the `todo-list` component:
 
-```tsx title="Using an array of styles"
+```tsx
 import { Component } from "@stencil/core";
 
 @Component({
