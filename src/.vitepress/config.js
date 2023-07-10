@@ -20,10 +20,19 @@ export default defineConfig({
         link: "https://github.com/document-translate/stenciljs",
       },
     ],
+    docFooter: {
+      prev: "上一篇",
+      next: "下一篇",
+    },
     search: {
       provider: "local",
     },
     outlineTitle: "章节目录",
+    footer: {
+      message:
+        "此文档为非官方翻译版本 - <div class='vp-doc' style='display:inline-flex;'><a href='https://stenciljs.com/' target='__blank'>官方网站</a></div>",
+      copyright: "Copyright © 2023-present GuoJiKun",
+    },
   },
   vite: {
     // Vite config options
