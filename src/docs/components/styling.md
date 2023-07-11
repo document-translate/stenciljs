@@ -1,5 +1,4 @@
 ---
-title: Styling Components
 sidebar_label: Styling
 description: Styling Components
 slug: /styling
@@ -15,7 +14,7 @@ The [shadow DOM](https://developers.google.com/web/fundamentals/web-components/s
 
 When talking about the shadow DOM, we use the term "light DOM" to refer to the “regular” DOM. The light DOM encompasses any part of the DOM that does not use the shadow DOM.
 
-### Shadow DOM in Stencil
+### Shadow DOM in Stencil{#shadow-dom-in-stencil}
 
 The shadow DOM hides and separates the DOM of a component in order to prevent clashing styles or unwanted side effects. We can use the shadow DOM in our Stencil components to ensure our components won’t be affected by the applications in which they are used.
 

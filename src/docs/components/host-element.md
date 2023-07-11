@@ -1,17 +1,16 @@
 ---
-title: Working with host elements
 sidebar_label: Host Element
 description: Working with host elements
 slug: /host-element
 ---
 
-# Working with host elements
+# 使用宿主元素{#working-with-host-elements}
 
-Stencil components render their children declaratively in their `render` method [using JSX](./templating-and-jsx.md). Most of the time, the `render()` function describes the children elements that are about to be rendered, but it can also be used to render attributes of the host element itself.
+Stencil 组件在其 `render` 方法中[使用 JSX](./template-and-JSX.md)声明性地渲染它们的子组件。大多数情况下，`render()` 函数描述了将要被渲染的子元素，但它也可以用于渲染宿主元素本身的属性。
 
 ## `<Host>`
 
-The `Host` functional component can be used at the root of the render function to set attributes and event listeners to the host element itself. This works just like any other JSX:
+`Host` 函数组件可以在 render 函数的根节点使用，为宿主元素本身设置属性和事件监听器。它的工作原理和其他 JSX 一样:
 
 ```tsx
 // Host is imported from '@stencil/core'
@@ -34,25 +33,25 @@ export class TodoList {
 }
 ```
 
-If `this.open === true`, it will render:
+如果 `this.open === true`, 将渲染成：
 
 ```tsx
 <todo-list class="todo-list is-open" aria-hidden="false"></todo-list>
 ```
 
-similarly, if `this.open === false`:
+类似的， 如果 `this.open === false`：
 
 ```tsx
 <todo-list class="todo-list" aria-hidden="true"></todo-list>
 ```
 
-`<Host>` is a virtual component, a virtual API exposed by stencil to declaratively set the attributes of the host element, it will never be rendered in the DOM, i.e. you will never see `<Host>` in Chrome Dev Tools for instance.
+`<Host>` 是一个虚拟组件，一个由 stencil 公开的虚拟 API，用于声明性地设置宿主元素的属性，它永远不会在 DOM 中呈现，例如，你永远不会在 Chrome 开发者工具中看到 `<Host>`。
 
-### `<Host>` can work as a `<Fragment>`
+### `<Host>` 可以作为 `<Fragment>`{#host-can-work-as-a-fragment}
 
-`<Host>` can also be used when more than one component needs to be rendered at the root level for example:
+`<Host>` 也可以用于需要在根级渲染多个组件的情况，例如:
 
-It could be achieved by a `render()` method like this:
+它可以通过`render()`方法来实现：
 
 ```tsx
 @Component({ tag: "my-cmp" })
@@ -68,7 +67,7 @@ export class MyCmp {
 }
 ```
 
-This JSX would render the following HTML:
+这个 JSX 将渲染以下 HTML：
 
 ```html
 <my-cmp>
@@ -77,11 +76,11 @@ This JSX would render the following HTML:
 </my-cmp>
 ```
 
-Even if we don't use `<Host>` to render any attribute in the host element, it's a useful API to render many elements at the root level.
+即使我们不使用 `<Host>` 来呈现宿主元素中的任何属性，它也是一个有用的 API，可以在根级呈现许多元素。
 
-## Element Decorator
+## Element 装饰器{Element-Decorator}
 
-The `@Element()` decorator is how to get access to the host element within the class instance. This returns an instance of an `HTMLElement`, so standard DOM methods/events can be used here.
+`@Element()` 装饰器用于访问类实例中的宿主元素。这将返回一个 `HTMLElement` 的实例，因此可以在这里使用标准的 DOM 方法/事件。
 
 ```tsx
 import { Element } from '@stencil/core';
@@ -97,8 +96,7 @@ export class TodoList {
 }
 ```
 
-In order to reference the host element when initializing a class member you'll need to use TypeScript's definite assignment assertion modifier to avoid a
-type error:
+为了在初始化类成员时引用宿主元素，你需要使用 TypeScript 的确定赋值断言修饰符来避免类型错误：
 
 ```tsx
 import { Element } from '@stencil/core';
@@ -112,13 +110,13 @@ export class TodoList {
 }
 ```
 
-If you need to update the host element in response to prop or state changes, you should do so in the `render()` method using the `<Host>` element.
+如果你需要在 prop 或 state 改变时更新宿主元素，你应该在 `render()` 方法中使用 `<Host>` 元素执行此操作。
 
 ## Styling
 
-See full information about styling on the [Styling page](./styling.md#shadow-dom-in-stencil).
+在 [Styling page](./styling#shadow-dom-in-stencil) 你可以看到有关样式设置的完整信息。
 
-CSS can be applied to the `<Host>` element by using its component tag defined in the `@Component` decorator.
+通过使用 `@Component` 装饰器中定义的组件 tag，可以将 CSS 应用到 `<Host>` 元素上。
 
 ```tsx
 @Component({
@@ -136,9 +134,9 @@ my-cmp {
 }
 ```
 
-### Shadow DOM
+### Shadow DOM{#shadow-dom}
 
-Something to beware of is that Styling the `<Host>` element when using shadow DOM does not work quite the same. Instead of using the `my-cmp` element selector you must use `:host`.
+需要注意的是，当使用 shadow DOM 时，`<Host>` 元素的样式并不完全相同。你必须使用 `:host` 而不是 `my-cmp` 元素选择器。
 
 ```tsx
 @Component({
