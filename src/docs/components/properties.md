@@ -1,18 +1,10 @@
----
-title: Properties
-sidebar_label: Properties
-description: Properties
-slug: /properties
----
-
 # Properties
 
-Props are custom attributes/properties exposed publicly on an HTML element. They allow developers to pass data to a
-component to render or otherwise use.
+Props 是在 HTML 元素上公开的自定义 attributes/properties。它们允许开发人员将数据传递给组件来渲染或以其他方式使用。
 
-## The Prop Decorator (`@Prop()`){#the-prop-decorator-prop}
+## Prop 装饰器{#the-prop-decorator-prop}
 
-Props are declared on a component using Stencil's `@Prop()` decorator, like so:
+Props 使用 Stencil 的`@Prop()`装饰器在组件上声明，如下所示：
 
 ```tsx
 // First, we import Prop from '@stencil/core'
@@ -34,25 +26,23 @@ export class TodoList {
 }
 ```
 
-In the example above, `@Prop()` is placed before (decorates) the `name` class member, which is a string. By adding
-`@Prop()` to `name`, Stencil will expose `name` as an attribute on the element, which can be set wherever the component
-is used:
+在上面的例子中，`@Prop()` 放在(装饰) `name` 类成员之前，它是一个字符串。
+通过给 `name` 添加 `@Prop()`， Stencil 将把 `name` 暴露为元素上的一个属性，这个属性可以在组件使用的任何地方设置:
 
 ```tsx
 {
-  /* Here we use the component in a TSX file */
+  /* 在 TSX 文件中使用组件 */
 }
 <todo-list name={"Tuesday's To-Do List"}></todo-list>;
 ```
 
 ```html
-<!-- Here we use the component in an HTML file -->
+<!-- 在 HTML 文件中使用组件 -->
 <todo-list name="Tuesday's To-Do List"></todo-list>
 ```
 
-In the example above the `todo-list` component is used almost identically in TSX and HTML. The only difference between
-the two is that in TSX, the value assigned to a prop (in this case, `name`) is wrapped in curly braces. In some cases
-however, the way props are passed to a component differs slightly between HTML and TSX.
+在上面的例子中，`todo-list` 组件在 TSX 和 HTML 中的使用几乎相同。两者之间的唯一区别是在 TSX 中，赋值给 prop(在这个例子中是 `name`)的值被包裹在大括号中。
+然而，在某些情况下，HTML 和 TSX 将属性传递给组件的方式略有不同。
 
 ## Variable Casing
 
@@ -143,16 +133,15 @@ Children components should not know about or reference their parent components. 
 efficiently re-render your components. Passing a reference to a component as a prop may cause unintended side effects.
 :::
 
-## Mutability
+## 可变性{#mutability}
 
 A Prop is by default immutable from inside the component logic. Once a value is set by a user, the component cannot
 update it internally. For more advanced control over the mutability of a prop, please see the
 [mutable option](#prop-mutability-mutable) section of this document.
 
-## Types
+## 类型{#types}
 
-Props can be a `boolean`, `number`, `string`, or even an `Object` or `Array`. The example below expands the
-`todo-list-item` to add a few more props with different types.
+Props 可以是`boolean`、`number`、`string`，甚至是`Object`或`Array`。下面的例子展示了`todo-list-item`来添加更多不同类型的 props。
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -170,9 +159,9 @@ export class ToDoListItem {
 }
 ```
 
-### Boolean Props
+### 布尔类型 prop{#boolean-prop}
 
-A property on a Stencil component that has a type of `boolean` may be declared as:
+Stencil 组件的 prop 可以被声明为 `boolean` 类型：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -185,34 +174,34 @@ export class ToDoListItem {
 }
 ```
 
-To use this version of `todo-list-item` in HTML, we pass the string `"true"`/`"false"` to the component:
+要在 HTML 中使用这个版本的 `todo-list-item`，我们将字符串 `"true"`/`"false"` 传递给组件：
 
 ```html
-<!-- Set isComplete to 'true' -->
+<!-- 设置 isComplete 为 'true' -->
 <todo-list-item is-complete="true"></todo-list-item>
-<!-- Set isComplete to 'false' -->
+<!-- 设置 isComplete 为 'false' -->
 <todo-list-item is-complete="false"></todo-list-item>
 ```
 
-To use this version of `todo-list-item` in TSX, `true`/`false` is used, surrounded by curly braces:
+要在 TSX 中使用这个版本的 `todo-list-item`，需要使用 `true`/`false` ，并用花括号括起来：
 
 ```tsx
-// Set isComplete to 'true'
+// 设置 isComplete 为 'true'
 <todo-list-item isComplete={true}></todo-list-item>
-// Set isComplete to 'false'
+// 设置 isComplete 为 'false'
 <todo-list-item isComplete={false}></todo-list-item>
 ```
 
-There are a few ways in which Stencil treats props that are of type `boolean` that are worth noting:
+Stencil 处理`boolean`类型属性的几种方式值得注意：
 
-1. The value of a boolean prop will be `false` if provided the string `"false"` in HTML
+1. 如果在 HTML 中提供字符串 `"false"`，布尔属性的值将为 `false`
 
 ```html
 <!-- The 'todo-list-item' component will have an isComplete value of `false` -->
 <todo-list-item is-complete="false"></todo-list-item>
 ```
 
-2. The value of a boolean prop will be `true` if provided a string that is not `"false"` in HTML
+2. 如果在 HTML 中提供的字符串不是 `"false"`，布尔属性的值将为 `true`
 
 ```html
 <!-- The 'todo-list-item' component will have an isComplete value of -->
@@ -222,10 +211,9 @@ There are a few ways in which Stencil treats props that are of type `boolean` th
 <todo-list-item is-complete="False"></todo-list-item>
 ```
 
-3. The value of a boolean prop will be `undefined` if it has no [default value](#default-values) and one of
-   the following applies:
-   1. the prop is not included when using the component
-   2. the prop is included when using the component, but is not given a value
+3. 如果布尔属性没有[默认值](#default-values)，并且满足以下条件之一，那么它的值将是 `undefined`：
+   1. 在使用组件时，不包含 prop
+   1. 在使用组件时包含了 prop，但没有赋值
 
 ```html
 <!-- Both examples using the 'todo-list-item' component will have an -->
@@ -234,9 +222,9 @@ There are a few ways in which Stencil treats props that are of type `boolean` th
 <todo-list-item is-complete></todo-list-item>
 ```
 
-### Number Props
+### 数字类型 prop{#number-prop}
 
-A property on a Stencil component that has a type of `number` may be declared as:
+Stencil 组件的 prop 可以被声明为 `number` 类型：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -249,27 +237,27 @@ export class ToDoListItem {
 }
 ```
 
-To use this version of `todo-list-item` in HTML, we pass the numeric value as a string to the component:
+要在 HTML 中使用这个版本的 `todo-list-item`，我们将数值作为字符串传递给组件:
 
 ```html
-<!-- Set timesCompletedInPast to '0' -->
+<!-- 设置 timesCompletedInPast 为 '0' -->
 <todo-list-item times-completed-in-past="0"></todo-list-item>
-<!-- Set timesCompletedInPast to '23' -->
+<!-- 设置 timesCompletedInPast 为 '23' -->
 <todo-list-item times-completed-in-past="23"></todo-list-item>
 ```
 
-To use this version of `todo-list-item` in TSX, a number surrounded by curly braces is passed to the component:
+要在 TSX 中使用这个版本的 `todo-list-item`，需要将一个由大括号括起来的数字传递给组件:
 
 ```tsx
-// Set timesCompletedInPast to '0'
+// 设置 timesCompletedInPast 为 '0'
 <todo-list-item timesCompletedInPast={0}></todo-list-item>
-// Set timesCompletedInPast to '23'
+// 设置 timesCompletedInPast 为 '23'
 <todo-list-item timesCompletedInPast={23}></todo-list-item>
 ```
 
-### String Props
+### 字符串类型 Prop{#string-prop}
 
-A property on a Stencil component that has a type of `string` may be declared as:
+Stencil 组件的 prop 可以被声明为 `string` 类型：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -282,7 +270,7 @@ export class ToDoListItem {
 }
 ```
 
-To use this version of `todo-list-item` in HTML, we pass the value as a string to the component:
+要在 HTML 中使用这个版本的 `todo-list-item`，我们将值作为字符串传递给组件:
 
 ```html
 <!-- Set thingToDo to 'Learn about Stencil Props' -->
@@ -293,8 +281,7 @@ To use this version of `todo-list-item` in HTML, we pass the value as a string t
 ></todo-list-item>
 ```
 
-To use this version of `todo-list-item` in TSX, we pass the value as a string to the component. Curly braces aren't
-required when providing string values to props in TSX, but are permitted:
+要在 TSX 中使用这个版本的`todo-list-item`，我们将值作为字符串传递给组件。在 TSX 中向 props 提供字符串值时，大括号不是必需的:
 
 ```tsx
 // Set thingToDo to 'Learn about Stencil Props'
@@ -307,7 +294,7 @@ required when providing string values to props in TSX, but are permitted:
 
 ### Object Props
 
-A property on a Stencil component that has a type of `Object` may be declared as:
+Stencil 组件的 prop 可以被声明为 `Object` 类型：
 
 ```tsx
 // TodoListItem.tsx
@@ -330,12 +317,11 @@ export class MyHttpService {
 }
 ```
 
-In TypeScript, `MyHttpService` is both an `Object` and a 'type'. When using user-defined types like `MyHttpService`, the
-type must always be exported using the `export` keyword where it is declared. The reason for this is Stencil needs to
-know what type the prop `httpService` is when passing an instance of `MyHttpService` to `TodoListItem` from a parent
-component.
+在 TypeScript 中，`MyHttpService` 既是一个 `对象` 也是一个 `类型`。
+当使用像 `MyHttpService` 这样的用户定义类型时，类型必须始终在声明时使用 `export` 关键字导出。
+这样做的原因是当从父组件传递`MyHttpService`的实例给`TodoListItem`时，Stencil 需要知道`httpService`是什么类型的 prop。
 
-To set `httpService` in TSX, assign the property name in the custom element's tag to the desired value like so:
+要在 TSX 中设置 `httpService`，请将自定义元素标签中的属性名称分配给所需的值，如下所示:
 
 ```tsx
 // TodoList.tsx
@@ -356,9 +342,9 @@ export class ToDoList {
 }
 ```
 
-Note that the prop name is using `camelCase`, and the value is surrounded by curly braces.
+注意，属性名使用了 `camelCase`，值被大括号括起来。
 
-It is not possible to set `Object` props via an HTML attribute like so:
+不能像下面这样通过 HTML 属性来设置 `Object` 类型的 prop:
 
 ```html
 <!-- this will not work -->
@@ -367,11 +353,11 @@ It is not possible to set `Object` props via an HTML attribute like so:
 ></todo-list-item>
 ```
 
-The reason for this is that Stencil will not attempt to serialize object-like strings written in HTML into a JavaScript object.
-Similarly, Stencil does not have any support for deserializing objects from JSON.
-Doing either can be expensive at runtime, and runs the risk of losing references to other nested JavaScript objects.
+这样做的原因是，Stencil 不会尝试将 HTML 中类似对象的字符串序列化为 JavaScript 对象。
+类似地，Stencil 不支持从 JSON 反序列化对象。
+执行这两种操作在运行时都很昂贵，并且有丢失对其他嵌套 JavaScript 对象的引用的风险。
 
-Instead, properties may be set via `<script>` tags in a project's HTML:
+相反，可以通过 HTML 中的 `<script>` 标签设置属性：
 
 ```html
 <script>
@@ -383,7 +369,7 @@ Instead, properties may be set via `<script>` tags in a project's HTML:
 
 ### Array Props
 
-A property on a Stencil component that is an Array may be declared as:
+Stencil 组件的 prop 可以被声明为 `Array` 类型：
 
 ```tsx
 // TodoList.tsx
@@ -397,7 +383,7 @@ export class ToDoListItem {
 }
 ```
 
-To set `itemLabels` in TSX, assign the prop name in the custom element's tag to the desired value like so:
+要在 TSX 中设置 `itemLabels`，需要在自定义元素的标签中指定所需的值，如下所示：
 
 ```tsx
 // TodoList.tsx
@@ -418,19 +404,19 @@ export class ToDoList {
 }
 ```
 
-Note that the prop name is using `camelCase`, and the value is surrounded by curly braces.
+注意，属性名使用了 `camelCase`，值被大括号括起来。
 
-It is not possible to set `Array` props via an HTML attribute like so:
+不能通过 HTML 属性来设置 `Array` 类型的 prop:
 
 ```html
 <!-- this will not work -->
 <todo-list-item item-labels="['non-urgent', 'weekend-only']"></todo-list-item>
 ```
 
-The reason for this is that Stencil will not attempt to serialize array-like strings written in HTML into a JavaScript object.
-Doing so can be expensive at runtime, and runs the risk of losing references to other nested JavaScript objects.
+这样做的原因是，Stencil 不会尝试将 HTML 中类似数组的字符串序列化为 JavaScript 对象。
+这样做在运行时开销很大，并且有丢失对其他嵌套 JavaScript 对象的引用的风险。
 
-Instead, properties may be set via `<script>` tags in a project's HTML:
+相反，可以通过 HTML 中的 `<script>` 标签设置属性：
 
 ```html
 <script>
@@ -441,14 +427,12 @@ Instead, properties may be set via `<script>` tags in a project's HTML:
 </script>
 ```
 
-### Advanced Prop Types
+### 高级的 Prop 类型{#advanced-prop-type}
 
-#### `any` Type
+#### `any` 类型
 
-TypeScript's [`any` type](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any) is a special type
-that may be used to prevent type checking of a specific value. Because `any` is a valid type in TypeScript, Stencil
-props can also be given a type of `any`. The example below demonstrates three different ways of using props with type
-`any`:
+TypeScript 的[' any '类型](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any)是一种特殊类型，可用于防止对特定值进行类型检查。
+因为`any`是 TypeScript 中的有效类型，所以 Stencil props 也可以被指定为 `any` 类型。下面的例子演示了三种使用类型为 `any` 的 props 的不同方式:
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -457,8 +441,8 @@ import { Component, Prop, h } from "@stencil/core";
   tag: "todo-list-item",
 })
 export class ToDoListItem {
-  // isComplete has an explicit type annotation
-  // of `any`, and no default value
+  // isComplete有一个显式的类型注解 `any`，
+  // 并且没有默认值
   @Prop() isComplete: any;
   // label has an explicit type annotation of
   // `any` with a default value of 'urgent',
@@ -490,9 +474,8 @@ export class ToDoListItem {
 }
 ```
 
-When using a Stencil prop typed as `any` (implicitly or explicitly), the value that is provided to a prop retains its
-own type information. Neither Stencil nor TypeScript will try to change the type of the prop. To demonstrate, let's use
-`todo-list-item` twice, each with different prop values:
+当使用类型为 `any` 的模板属性时(隐式或显式)，提供给属性的值保留自己的类型信息。Stencil 和 TypeScript 都不会尝试改变属性的类型。
+为了演示，让我们使用两次 `todo-list-item`，每次使用不同的 prop 值:
 
 ```tsx
 {/* Using todo-list-item in TSX using differnt values each time */}
@@ -500,7 +483,7 @@ own type information. Neither Stencil nor TypeScript will try to change the type
 <todo-list-item isComplete={"42"} label={1} thingToDo={"Learn about any-typed props"}></todo-list-item>
 ```
 
-The following will rendered from the usage example above:
+以下内容将根据上面的用法示例渲染:
 
 ```md
 - isComplete has a value of - 42 - and a typeof value of "number"
@@ -512,14 +495,11 @@ The following will rendered from the usage example above:
 - thingToDo has a value of - Learn about any-typed props - and a typeof value of "string"
 ```
 
-In the first usage of `todo-list-item`, `isComplete` is provided a number value of 42, whereas in the second usage it
-receives a string containing "42". The types on `isComplete` reflect the type of the value it was provided, 'number' and
-'string', respectively.
+在 `todo-list-item` 的第一次使用中，给 `isComplete` 提供了一个 42 的数值，而在第二次使用中，它接收了一个包含"42"的字符串。
+`isComplete` 上的类型分别反映了它提供的值的类型 `number` 和 `string`。
 
-Looking at `label`, it is worth noting that although the prop has a [default value](#default-values), it does
-not narrow the type of `label` to be of type 'string'. In the first usage of `todo-list-item`, `label` is provided a
-value of null, whereas in the second usage it receives a number value of 1. The types of the values stored in `label`
-are correctly reported as 'object' and 'number', respectively.
+看看`label`，值得注意的是，尽管属性有一个[默认值](#default-values)，但它并没有将 `label` 的类型缩小为 `string` 类型。
+在 `todo-list-item` 的第一次使用中，`label` 的值是 null，而在第二次使用中，它的值是 1。存储在 `label` 中的值的类型分别正确地报告为 `object` 和 `number`。
 
 #### Optional Types
 
@@ -636,7 +616,7 @@ and TSX:
 <todo-list-item isComplete={false}></todo-list-item>
 ```
 
-## Default Values
+## 默认值{#default-values}
 
 Stencil props can be given a default value as a fallback in the event a prop is not provided:
 
