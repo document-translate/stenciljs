@@ -24,10 +24,6 @@
   }
 }
 
-/*重置默认主题的字体大小*/
-body {
-  font-size: 15px;
-}
 /*reset sidebar style*/
 .sidebar-heading {
   font-weight: 500;

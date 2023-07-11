@@ -213,9 +213,9 @@ export class TodoList {
 **Type: `string`**
 
 **Details:**<br/>
-Relative URL to an external stylesheet containing styles to apply to your component.
-By out of the box, Stencil will only process CSS files (files ending with `.css`).
-Support for additional CSS variants, like Sass, can be added via [a plugin](https://stenciljs.com/docs/plugins#related-plugins).
+外部样式表的相对 URL，其中包含要应用于组件的样式。
+默认情况下，Stencil 将只处理 CSS 文件(以`.css`结尾的文件)。
+对其他 CSS 变体的支持，如 Sass，可以通过[插件](https://stenciljs.com/docs/plugins#related-plugins)添加。
 
 **示例**:<br/>
 下面是一个示例项目的目录结构，其中包含一个示例组件和样式表。
@@ -227,7 +227,7 @@ src/
     └── todo-list.tsx
 ```
 
-By setting `styleUrl`, Stencil will apply the `todo-list.css` stylesheet to the `todo-list` component:
+通过设置 `styleUrl`， Stencil 将把 `todo-list.css` 样式表应用到 `todo-list` 组件上:
 
 ```tsx
 import { Component } from "@stencil/core";
@@ -248,13 +248,11 @@ export class TodoList {
 **Type: `string[] | { [modeName: string]: string | string[]; }`**
 
 **Details:**<br/>
-A list of relative URLs to external stylesheets containing styles to apply to your component.
+外部样式表的相对 url 列表，其中包含要应用于组件的样式。
+此外，还可以提供一个对象，将命名的 "mode" 映射到一个或多个样式表。
 
-Alternatively, an object can be provided that maps a named "mode" to one or more stylesheets.
-This
-
-By out of the box, Stencil will only process CSS files (ending with `.css`).
-Support for additional CSS variants, like Sass, can be added via [a plugin](https://stenciljs.com/docs/plugins#related-plugins).
+默认情况下，Stencil 将只处理 CSS 文件(以`.css`结尾的文件)。
+对其他 CSS 变体的支持，如 Sass，可以通过[插件](https://stenciljs.com/docs/plugins#related-plugins)添加。
 
 **示例**:<br/>
 下面是一个示例项目的目录结构，其中包含一个示例组件和样式表。
@@ -267,7 +265,7 @@ src/
     └── todo-list.tsx
 ```
 
-By setting `styleUrls`, Stencil will apply both stylesheets to the `todo-list` component:
+通过设置 `styleUrls`， Stencil 将把这两个样式表应用到' todo-list'组件上：
 
 ```tsx
 import { Component } from "@stencil/core";
@@ -303,11 +301,11 @@ export class TodoList {
 **Type: `string | { [modeName: string]: any }`**
 
 **Details:**<br/>
-A string that contains inlined CSS instead of using an external stylesheet.
-The performance characteristics of this feature are the same as using an external stylesheet.
+包含内联 CSS 而不是使用外部样式表的字符串。
+这个特性的性能特征与使用外部样式表相同。
 
-When using `styles`, only CSS is permitted.
-See [`styleUrl`](#styleurl) if you need more advanced features.
+当使用 `styles` 时，只允许使用 CSS。
+如果你需要更多高级功能，请参阅 [`styleUrl`](# styleUrl)。
 
 **示例**:<br/>
 
@@ -323,11 +321,11 @@ export class TodoList {
 }
 ```
 
-## Embedding or Nesting Components
+## 嵌入或嵌套组件{#embedding-or-nesting-components}
 
-Components can be composed easily by adding the HTML tag to the JSX code. Since the components are just HTML tags, nothing needs to be imported to use a Stencil component within another Stencil component.
+通过向 JSX 代码中添加 HTML 标记，可以轻松地组合组件。由于组件只是 HTML 标记，所以不需要在另一个 Stencil 组件中导入 Stencil 组件。
 
-Here's an example of using a component within another component:
+下面是在一个组件中使用另一个组件的例子：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -361,4 +359,4 @@ export class MyParentComponent {
 }
 ```
 
-The `my-parent-component` includes a reference to the `my-embedded-component` in the `render()` function.
+`my-parent-component` 的 `render()` 函数中包含了 `my-embedded-component` 的引用。

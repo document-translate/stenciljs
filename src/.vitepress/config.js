@@ -29,9 +29,8 @@ export default defineConfig({
     },
     outlineTitle: "章节目录",
     footer: {
-      message:
-        "此文档为非官方翻译版本 - <div class='vp-doc' style='display:inline-flex;'><a href='https://stenciljs.com/' target='__blank'>官方网站</a></div>",
-      copyright: "Copyright © 2023-present GuoJiKun",
+      message: "此文档为非官方翻译版本",
+      copyright: "Copyright © 2023-现在 GuoJiKun",
     },
   },
   vite: {
