@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import sidebar from "./config/sidebar.js";
+import genSitemap from "./config/gen-sitemap.js";
 
 export default defineConfig({
   lang: "zh-CN",
@@ -32,6 +33,17 @@ export default defineConfig({
       message: "此文档为非官方翻译版本",
       copyright: "Copyright © 2023-现在 GuoJiKun",
     },
+  },
+  buildEnd: (siteConfig) => {
+    console.log("buildEnd", siteConfig);
+    const { pages, outDir } = siteConfig;
+    const routes = siteConfig.pages;
+    const conf = {
+      host: "https://stenciljs.jikun.dev/",
+      pages,
+      outDir,
+    };
+    genSitemap(conf);
   },
   vite: {
     // Vite config options

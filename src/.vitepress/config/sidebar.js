@@ -66,7 +66,7 @@ export default [
         link: "/docs/components/reactive-data",
       },
       {
-        text: "Internal State",
+        text: "内部状态",
         link: "/docs/components/state",
       },
       {

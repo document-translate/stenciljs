@@ -51,7 +51,7 @@ export interface EventOptions {
 }
 ```
 
-Example:
+示例:
 
 ```tsx
 import { Event, EventEmitter } from '@stencil/core';

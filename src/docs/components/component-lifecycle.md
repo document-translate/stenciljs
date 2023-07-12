@@ -14,7 +14,7 @@ slug: /component-lifecycle
 <LifecycleMethodsChart />
 </ClientOnly>
 
-## connectedCallback()
+## connectedCallback(){#connectedCallback}
 
 每次组件连接到 DOM 时调用。当组件第一次被连接时，这个方法在 `componentWillLoad` 之前被调用。
 
