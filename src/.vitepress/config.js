@@ -7,6 +7,30 @@ export default defineConfig({
   lang: "zh-CN",
   title: "StencilJS",
   description: "StencilJS 中文文档",
+  head: [
+    [
+      "meta",
+      {
+        name: "keywords",
+        content:
+          "StencilJS, StencilJS 中文文档, StencilJS 中文手册, StencilJS 中文教程, StencilJS 中文帮助, StencilJS 中文资源, StencilJS 中文",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "application-name",
+        content: "StencilJS 中文文档",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "generator",
+        content: "vitepress v1.0.0-beta5",
+      },
+    ],
+  ],
   ignoreDeadLinks: true,
   themeConfig: {
     nav: [
@@ -35,9 +59,7 @@ export default defineConfig({
     },
   },
   buildEnd: (siteConfig) => {
-    console.log("buildEnd", siteConfig);
     const { pages, outDir } = siteConfig;
-    const routes = siteConfig.pages;
     const conf = {
       host: "https://stenciljs.jikun.dev/",
       pages,
