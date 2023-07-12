@@ -72,10 +72,10 @@ export class CurrentTime {
 }
 ```
 
-上面的例子使用了 [connectedCallback() 生命周期方法](./component-lifeccycle#connectedCallback) 每 1000 毫秒(或者每一秒)将
+上面的例子使用了 [connectedCallback() 生命周期方法](./component-lifecycle#connectedCallback) 每 1000 毫秒(或者每一秒)将
 `currentTime` 设置为 `Date.now()` 的值。因为 `currentTime` 的值每秒都在变化，所以 Stencil 在 `current-time` 上调用 `render` 函数，它会漂亮地打印出当前时间。
 
-上面的例子还利用了 [disconnectedCallback()生命周期方法](./component-lifeccycle#disconnectedCallback) 来正确地清理在 `connectedCallback()`
+上面的例子还利用了 [disconnectedCallback()生命周期方法](./component-lifecycle#disconnectedCallback) 来正确地清理在 `connectedCallback()`
 中使用 `setInterval` 创建的定时器。这对于使用 `@State` 来说不是必需的，但在使用 `setInterval` 时是一个很好的实践。
 
 ## 何时使用 `@State()`?{#when-the-use-state}
@@ -238,6 +238,6 @@ this.items.push(newTodo);
 this.items[this.items.length - 1] = newTodo;
 ```
 
-与上面的例子类似，这个代码示例使用了 [connectedCallback()生命周期方法](./component-lifeccycle#connectedcallback)
-来创建一个新的 `Item` 并每 2000 毫秒(每两秒)将其添加到 `items` 中。上面的例子还利用了 [disconnectedCallback()生命周期方法](./component-lifeccycle#disconnectedCallback)
+与上面的例子类似，这个代码示例使用了 [connectedCallback()生命周期方法](./component-lifecycle#connectedcallback)
+来创建一个新的 `Item` 并每 2000 毫秒(每两秒)将其添加到 `items` 中。上面的例子还利用了 [disconnectedCallback()生命周期方法](./component-lifecycle#disconnectedCallback)
 来正确地清理在 `connectedCallback()` 中使用 `setInterval` 创建的定时器。
