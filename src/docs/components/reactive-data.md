@@ -1,23 +1,15 @@
----
-title: Reactive Data, Handling arrays and objects
-sidebar_label: Reactive Data
-description: Reactive Data, Handling arrays and objects
-slug: /reactive-data
----
+# 响应式数据{#reactive-data}
 
-# Reactive Data
+当组件的 prop 或 state 发生变化时，Stencil 组件也会更新。
 
-Stencil components update when props or state on a component change.
+## 渲染方法{#rendering-methods}
 
-## Rendering methods
+当组件的 props 或 state 发生变化时，[`render()` 方法](./template-and-jsx) 将按计划运行。
 
-When a props or state change on a component, the [`render()` method](./templating-and-jsx.md) is scheduled to run.
+## Watch 装饰器{#watch-decorator}
 
-## The Watch Decorator (`@Watch()`)
-
-`@Watch()` is a decorator that is applied to a method of a Stencil component.
-The decorator accepts a single argument, the name of a class member that is decorated with `@Prop()` or `@State()`.
-A method decorated with `@Watch()` will automatically run when its associated class member changes.
+`@Watch()` 是一个应用于 Stencil 组件的方法的装饰器。该装饰器接受一个参数，即用 `@Prop()` 或 `@State()` 装饰的类成员的名称。
+使用 `@Watch()` 修饰的方法将在其关联的类成员发生更改时自动运行。
 
 ```tsx
 // We import Prop & State to show how `@Watch()` can be used on
@@ -59,33 +51,29 @@ export class LoadingIndicator {
 }
 ```
 
-In the example above, there are two `@Watch()` decorators.
-One decorates `watchPropHandler`, which will fire when the class member `activated` changes.
-The other decorates `watchStateHandler`, which will fire when the class member `busy` changes.
+在上面的例子中，有两个 `@Watch()` 装饰器。一个修饰了 `watchPropHandler`，当类成员 `activated` 发生变化时，这个修饰就会被触发。
+另一个修饰了 `watchStateHandler`，它将在类成员 `busy` 发生变化时触发。
 
-When fired, the `@Watch()`'ed method will receive the old and new values of the prop/state.
-This is useful for validation or the handling of side effects.
+当触发时，`@Watch()` 的方法将接收 prop/state 的新旧值。这对于验证或处理副作用很有用。
 
 :::info 提示
-The `@Watch()` decorator does not fire when a component initially loads.
+`@Watch()` 装饰器不会在组件初始加载时触发。
 :::
 
-## Handling Arrays and Objects
+## 处理数组和对象{#handling-arrays-and-objects}
 
-When Stencil checks if a class member decorated with `@Prop()` or `@State()` has changed, it checks if the reference to the class member has changed.
-When a class member is an object or array, and is marked with `@Prop()` or `@State`, in-place mutation of an existing entity will _not_ cause `@Watch()` to fire, as it does not change the _reference_ to the class member.
+当 Stencil 检查使用 `@Prop()` 或 `@State()` 修饰的类成员是否发生变化时，它会检查对类成员的引用是否发生了变化。
+当一个类成员是一个对象或数组，并且被 `@Prop()` 或 `@State` 标记时，对现有实体内容的改变不会导致 `@Watch()` 被触发，因为它不会改变对类成员的引用。
 
-### Updating Arrays
+### 更新数组{#updating-arrays}
 
-For arrays, the standard mutable array operations such as `push()` and `unshift()` won't trigger a component update.
-These functions will change the content of the array, but won't change the reference to the array itself.
+对于数组，标准的可变数组操作，如 `push()` 和 `unshift()` 不会触发组件更新。这些函数会改变数组的内容，但不会改变对数组本身的引用。
 
-In order to make changes to an array, non-mutable array operators should be used.
-Non-mutable array operators return a copy of a new array that can be detected in a performant manner.
-These include `map()` and `filter()`, and the [spread operator syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
-The value returned by `map()`, `filter()`, etc., should be assigned to the `@Prop()` or `@State()` class member being watched.
+为了修改数组，应该使用非可变数组运算符。不可变数组操作符返回一个新数组的副本，可以高效地检测。
+这些包括 `map()` 和 `filter()`，以及[展开运算符语法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
+由 `map()`、`filter()` 等返回的值应该被分配给正在被 `@Prop()` 或 `@State()` 修饰的类成员。
 
-For example, to push a new item to an array, create a new array with the existing values and the new value at the end:
+例如，要将一个新元素推送到数组中，可以使用已有的值创建一个新数组，并在末尾添加新值：
 
 ```tsx
 import { Component, State, Watch, h } from "@stencil/core";
@@ -154,12 +142,12 @@ export class RandomNumbers {
 }
 ```
 
-### Updating an object
+### 更新对象{updating-an-object}
 
-The spread operator should be used to update objects.
-As with arrays, mutating an object will not trigger a view update in Stencil.
-However, using the spread operator and assigning its return value to the `@Prop()` or `@State()` class member being watched will.
-Below is an example:
+应该使用展开运算符来更新对象。
+与数组一样，在 Stencil 中修改对象不会触发视图更新。
+但是，使用展开运算符并将其返回值赋值给正在被 `@Prop()` 或 `@State()` 修饰的类成员将会触发视图更新。
+下面是一个例子:
 
 ```tsx
 import { Component, State, Watch, h } from "@stencil/core";

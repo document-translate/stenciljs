@@ -1,9 +1,3 @@
----
-sidebar_label: Styling
-description: Styling Components
-slug: /styling
----
-
 # Styling Components
 
 ## Shadow DOM

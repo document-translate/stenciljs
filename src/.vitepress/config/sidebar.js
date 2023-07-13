@@ -62,7 +62,7 @@ export default [
         link: "/docs/components/properties",
       },
       {
-        text: "Reactive Data",
+        text: "响应式数据",
         link: "/docs/components/reactive-data",
       },
       {
