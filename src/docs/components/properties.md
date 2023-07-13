@@ -429,7 +429,7 @@ export class ToDoList {
 
 ### 高级的 Prop 类型{#advanced-prop-type}
 
-#### `any` 类型
+#### `any` 类型{#any-type}
 
 TypeScript 的[' any '类型](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any)是一种特殊类型，可用于防止对特定值进行类型检查。
 因为`any`是 TypeScript 中的有效类型，所以 Stencil props 也可以被指定为 `any` 类型。下面的例子演示了三种使用类型为 `any` 的 props 的不同方式:
@@ -501,10 +501,9 @@ export class ToDoListItem {
 看看`label`，值得注意的是，尽管属性有一个[默认值](#default-values)，但它并没有将 `label` 的类型缩小为 `string` 类型。
 在 `todo-list-item` 的第一次使用中，`label` 的值是 null，而在第二次使用中，它的值是 1。存储在 `label` 中的值的类型分别正确地报告为 `object` 和 `number`。
 
-#### Optional Types
+#### 可选类型{#optional-types}
 
-TypeScript allows members to be marked optional by appending a `?` at the end of the member's name. The example below
-demonstrates making each a component's props optional:
+TypeScript 允许通过在成员名称的末尾附加 "?" 将成员标记为可选。下面的示例演示了使每个组件的道具都是可选的：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -513,15 +512,13 @@ import { Component, Prop, h } from "@stencil/core";
   tag: "todo-list-item",
 })
 export class ToDoListItem {
-  // completeMsg is optional, has an explicit type
-  // annotation of `string`, and no default value
+  // completeMsg 是可选的，有一个显式的
+  //  `string` 类型注解，并且没有默认值
   @Prop() completeMsg?: string;
-  // label is optional, has no explicit type
-  // annotation, but does have a default value
-  // of 'urgent'
+  // label 是可选的，没有显式类型注释
+  // 但有默认值 'urgent'
   @Prop() label? = "urgent";
-  // thingToDo has no type annotation and no
-  // default value
+  // thingToDo 没有类型注释也没有默认值
   @Prop() thingToDo?;
 
   render() {
@@ -545,18 +542,17 @@ export class ToDoListItem {
 }
 ```
 
-When using a Stencil prop that is marked as optional, Stencil will try to infer the type of the prop if a type is
-not explicitly given. In the example above, Stencil is able to understand that:
+当使用标记为可选的 Stencil prop 时，如果没有明确指定类型，Stencil 将尝试推断 prop 的类型。在上面的例子中，Stencil 能够理解:
 
-- `completeMsg` is of type string, because it has an explicit type annotation
-- `label` is of type string, because it has a [default value](#default-values) that is of type string
-- `thingToDo` [is of type `any`](#any-type), because it has no explicit type annotation, nor default value
+- `completeMsg` 是字符串类型，因为它有一个显式的类型注释
+- `label` 是字符串类型，因为它有一个字符串类型的[默认值](#default-values)
+- `thingToDo` 是 [`any`](#any-type) 类型，因为它没有明确的类型注释，也没有默认值
 
-Because Stencil can infer the type of `label`, the following will fail to compile due to a type mismatch:
+因为 Stencil 可以推断出 `label` 的类型，下面的代码会因为类型不匹配而编译失败：
 
 ```tsx
 {
-  /* This fails to compile with the error "Type 'number' is not assignable to type 'string'" for the label prop. */
+  /* 这将导致编译失败，并出现标签 prop 的错误 "Type 'number' is not assignable to type 'string'"。 */
 }
 <todo-list-item
   completeMsg={"true"}
@@ -565,11 +561,10 @@ Because Stencil can infer the type of `label`, the following will fail to compil
 ></todo-list-item>;
 ```
 
-It is worth noting that when using a component in an HTML file, such type checking is unavailable. This is a constraint
-on HTML, where all values provided to attributes are of type string:
+值得注意的是，当在 HTML 文件中使用组件时，这种类型检查是不可用的。这是 HTML 的一个约束，提供给属性的所有值的类型都是 string:
 
 ```html
-<!-- using todo-list-item in HTML -->
+<!-- 在 html 中使用 todo-list-item -->
 <todo-list-item
   complete-msg="42"
   label="null"
@@ -577,7 +572,7 @@ on HTML, where all values provided to attributes are of type string:
 ></todo-list-item>
 ```
 
-renders:
+渲染成：
 
 ```md
 - completeMsg has a value of - 42 - and a typeof value of "string"
@@ -587,9 +582,9 @@ renders:
 
 #### Union Types
 
-Stencil allows props types be [union types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types),
-which allows you as the developer to combine two or more pre-existing types to create a new one. The example below shows
-a `todo-list-item` who accepts a `isComplete` prop that can be either a string or boolean.
+Stencil 允许 props 类型为 [union types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types)，
+这允许开发人员将两个或多个现有类型组合起来创建一个新的类型。
+下面的例子展示了一个 `todo-list-item` 对象，它接受一个 `isComplete` 属性，该属性可以是字符串或布尔值。
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -602,14 +597,14 @@ export class ToDoListItem {
 }
 ```
 
-This component can be used in both HTML:
+这个组件可以在 HTML 中使用:
 
 ```html
 <todo-list-item is-complete="true"></todo-list-item>
 <todo-list-item is-complete="false"></todo-list-item>
 ```
 
-and TSX:
+和 TSX:
 
 ```tsx
 <todo-list-item isComplete={true}></todo-list-item>
@@ -618,7 +613,7 @@ and TSX:
 
 ## 默认值{#default-values}
 
-Stencil props can be given a default value as a fallback in the event a prop is not provided:
+Stencil props 可以被赋予一个默认值，作为未提供 prop 的回退:
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -640,24 +635,23 @@ export class ComponentWithSomeProps {
 }
 ```
 
-Regardless of if we use this component in HTML or TSX, "The number is 42 and the string is defaultValue" is displayed
-when no values are passed to our component:
+无论我们是在 HTML 还是 TSX 中使用这个组件，当没有值传递给我们的组件时，都会显示 "number is 42 and The string is defaultValue"：
 
 ```html
 <component-with-some-props></component-with-some-props>
 ```
 
-The default values on a component can be overridden by specifying a value for a prop with a default value. For the
-example below, "The number is 7 and the string is defaultValue" is rendered. Note how the value provided to `aNumber`
-overrides the default value, but the default value of `aString` remains the same:
+可以通过为带有默认值的 prop 指定值来覆盖组件上的默认值。
+对于下面的例子, 将渲染成 "The number is 7 and the string is defaultValue"。
+注意，提供给 `aNumber` 的值覆盖了默认值，但 `aString` 的默认值仍然保持不变。
 
 ```html
 <component-with-some-props a-number="7"></component-with-some-props>
 ```
 
-### Inferring Types from Default Values
+### 从默认值推断类型{#inferring-types-from-default-values}
 
-When a default value is provided, Stencil is able to infer the type of the prop from the default value:
+当提供默认值时，Stencil 能够从默认值推断出 prop 的类型:
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -665,24 +659,23 @@ import { Component, Prop, h } from "@stencil/core";
   tag: "component-with-many-props",
 })
 export class ComponentWithManyProps {
-  // both props below are of type 'boolean'
+  // 下面两个 prop 的类型都是 'boolean'
   @Prop() boolean1: boolean;
   @Prop() boolean2 = true;
 
-  // both props below are of type 'number'
+  // 下面两个 prop 的类型都是 'number'
   @Prop() number1: number;
   @Prop() number2 = 42;
 
-  // both props below are of type 'string'
+  // 下面两个 prop 的类型都是 'string'
   @Prop() string1: string;
   @Prop() string2 = "defaultValue";
 }
 ```
 
-## Required Properties
+## 必填的 prop{#required-property}
 
-By placing a `!` after a prop name, Stencil mark that the attribute/property as required. This ensures that when the
-component is used in TSX, the property is used:
+通过在 prop 名称之后附加 `!`，Stencil 根据需要标记该 attribute/property 为必填。这样可以确保在 TSX 中使用组件时，将使用该属性：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -696,9 +689,9 @@ export class ToDoListItem {
 }
 ```
 
-## Prop Validation
+## Prop 校验{#prop-validation}
 
-To do validation of a Prop, you can use the [@Watch()](./reactive-data.md#the-watch-decorator-watch) decorator:
+要校验 Prop, 可以使用 [@Watch()](./reactive-data#the-watch-decorator-watch) 装饰器：
 
 ```tsx
 import { Component, Prop, Watch, h } from "@stencil/core";
@@ -729,8 +722,7 @@ export class TodoList {
 
 ## @Prop() Options
 
-The `@Prop()` decorator accepts an optional argument to specify certain options to modify how a prop on a component
-behaves. `@Prop()`'s optional argument is an object literal containing one or more of the following fields:
+`@Prop()` 装饰器接受一个可选参数来指定特定的选项，以修改组件上 prop 的行为。`@Prop()` 的可选参数是一个对象字面量，包含以下一个或多个字段：
 
 ```tsx
 export interface PropOptions {
@@ -742,14 +734,11 @@ export interface PropOptions {
 
 ### Attribute Name (`attribute`)
 
-Properties and component attributes are strongly connected but not necessarily the same thing. While attributes are an
-HTML concept, properties are a JavaScript concept inherent to Object-Oriented Programming.
+Properties 和组件 attributes 是强关联的，但不一定是同一件事。attributes 是一个 HTML 概念，但 properties 是 JavaScript 中面向对象编程固有的概念。
 
-In Stencil, the `@Prop()` decorator applied to a **property** will instruct the Stencil compiler to also listen for
-changes in a DOM attribute.
+在 Stencil 中，应用于 **property** 的 `@Prop()` 装饰器将指示 Stencil 编译器也监听 DOM 属性的变化。
 
-Usually, the name of a property is the same as the attribute, but this is not always the case. Take the following
-component as example:
+通常，property 名与 attribute 名相同，但情况并不总是如此。以下面的组件为例：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -766,22 +755,19 @@ export class ToDoListItem {
 }
 ```
 
-This component has **3 properties**, but the compiler will create **only 2 attributes**: `is-complete` and
-`thing-to-do`.
+这个组件有 **3 properties**, 但是编译器只会创建 **2 attributes**: `is-complete` 和 `thing-to-do`.
 
 ```html
 <todo-list-item is-complete="false" thing-to-do="Read Attribute Naming Section of Stencil Docs"></my-cmp>
 ```
 
-Notice that the `httpService` type is not a primitive (e.g. not a `number`, `boolean`, or `string`). Since DOM
-attributes can only be strings, it does not make sense to have an associated DOM attribute called `"http-service"`.
-Stencil will not attempt to serialize object-like strings written in HTML into a JavaScript object.
-See [Object Props](#object-props) for guidance as to how to configure `httpService`.
+请注意，`httpService` 类型不是原始类型(例如，不是 `number`、`boolean` 或 `string`)。由于 DOM 属性只能是字符串，因此使用 `"http-service"`
+作为 DOM 属性是没有意义的。Stencil 不会尝试将 HTML 中类似对象的字符串序列化为 JavaScript 对象。
+关于如何配置 `httpService`，请参阅 [Object Props](#object-props)。
 
-At the same time, the `isComplete` & `thingToDo` properties follow 'camelCase' naming, but attributes are
-case-insensitive, so the attribute names will be `is-complete` & `thing-to-do` by default.
+同时，`isComplete`和 `thingToDo` properties 遵循 `camelCase` 命名，但 attributes 不区分大小写，因此 attributes 名称默认为 `is-complete` 和 `thing-to-do`。
 
-Fortunately, this "default" behaviour can be changed using the `attribute` option of the `@Prop()` decorator:
+幸运的是，这种“默认”行为可以使用 `@Prop()` 装饰器的 `attribute` 选项来改变:
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -798,8 +784,7 @@ export class ToDoListItem {
 }
 ```
 
-By using this option, we are being explicit about which properties have an associated DOM attribute and the name of it
-when using the component in HTML.
+通过使用这个选项，当在 HTML 中使用组件时，我们可以明确地知道哪些 property 有关联的 DOM attribute 以及 attribute 的名称。
 
 ```html
 <todo-list-item complete="false" thing="Read Attribute Naming Section of Stencil Docs" my-service="{}"></my-cmp>
@@ -807,8 +792,7 @@ when using the component in HTML.
 
 ### Prop Mutability (`mutable`)
 
-A Prop is by default immutable from inside the component logic.
-However, it's possible to explicitly allow a Prop to be mutated from inside the component, by declaring it as mutable, as in the example below:
+默认情况下，Prop 在组件内部是不可变的。然而，通过将 Prop 声明为可变的，可以显式地允许在组件内部改变 Prop，如下面的例子所示：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -827,11 +811,11 @@ export class ToDoListItem {
 
 #### Mutable Arrays and Objects
 
-Stencil compares Props by reference in order to efficiently rerender components.
-Setting `mutable: true` on a Prop that is an object or array allows the _reference_ to the Prop to change inside the component and trigger a render.
-It does not allow a mutable change to an existing object or array to trigger a render.
+Stencil 通过引用来比较 Props，以便高效地重新渲染组件。
+在一个对象或数组的 Prop 上设置 `mutable: true` 允许组件内部对该 Prop 的引用发生改变并触发渲染。
+它不允许通过对现有对象或数组的可变更改来触发渲染。
 
-For example, to update an array Prop:
+例如，要更新数组 Prop：
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -873,14 +857,14 @@ export class MyComponent {
 }
 ```
 
-In the example above, updating the Prop in place using `this.contents.push('Stencil')` would have no effect.
-Stencil does not see the change to `this.contents`, since it looks at the _reference_ of the Prop, and sees that it has not changed.
-This is done for performance reasons.
-If Stencil had to walk every slot of the array to determine if it changed, it would incur a performance hit.
-Rather, it is considered better for performance and more idiomatic to re-assign the Prop (in the example above, we use the spread operator).
+在上面的例子中，使用 `this.contents.push('Stencil')` 原地更新 prop 是没有效果的。
+Stencil 看不到对 `this.contents` 的更改。因为它查看了 prop 的引用并发现它没有改变。
+这样做是出于性能考虑。
+如果 Stencil 必须遍历数组中的每个值来确定它是否发生了变化，则会导致性能下降。
+相反，重新为 prop 赋值(在上面的例子中，我们使用扩展运算符)被认为是更好的性能和更习惯的做法。
 
-The same holds for objects as well.
-Rather than mutating an existing object in-place, a new object should be created using the spread operator. This object will be different-by-reference and therefore will trigger a re-render:
+这同样适用于对象。
+应该使用展开运算符创建一个新对象，而不是原地改变现有对象。这个对象会因引用而不同，因此会触发重新渲染:
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -926,10 +910,10 @@ export class MyComponent {
 
 ### Reflect Properties Values to Attributes (`reflect`)
 
-In some cases it may be useful to keep a Prop in sync with an attribute. In this case you can set the `reflect` option
-in the `@Prop()` decorator to `true`. When a prop is reflected, it will be rendered in the DOM as an HTML attribute.
+在某些情况下，让 prop 和 attribute 保持同步可能很有用。在这种情况下，你可以将 `@Prop()` 装饰器中的 `reflect` 选项设置为 `true`。
+当一个 prop 被反射时，它会作为一个 HTML 属性呈现在 DOM 中。
 
-Take the following component as example:
+以下面的组件为例:
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -945,14 +929,14 @@ export class ToDoListItem {
 }
 ```
 
-The component in the example above uses [default values](#default-values), and can be used in HTML like so:
+上面示例中的组件使用了[默认值](#default-values)，可以像这样在 HTML 中使用:
 
 ```html
 <!-- Example of using todo-list-item in HTML -->
 <todo-list-item></todo-list-item>
 ```
 
-When rendered in the DOM, the properties configured with `reflect: true` will be reflected in the DOM:
+当在 DOM 中渲染时，配置了 `reflect: true` 的 prop 将作为 HTML 属性在 DOM 中反映:
 
 ```html
 <todo-list-item
@@ -961,8 +945,7 @@ When rendered in the DOM, the properties configured with `reflect: true` will be
 ></todo-list-item>
 ```
 
-While the properties not set to "reflect", such as `isComplete`, are not rendered as attributes, it does not mean it's
-not there - the `isComplete` property still contains the `false` value as assigned:
+虽然没有设置为 "reflect" 的属性，例如 `isComplete`，没有被渲染为 DOM 属性，但这并不意味着它不存在——`isComplete` 属性仍然包含被赋值的 `false` 值:
 
 ```tsx
 const cmp = document.querySelector("todo-list-item");

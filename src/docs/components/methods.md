@@ -1,10 +1,4 @@
----
-sidebar_label: Methods
-description: methods
-slug: /methods
----
-
-# Method Decorator
+# Method 装饰器
 
 `@Method()` 装饰器用于在公共 API 上暴露方法。使用 `@Method()` 装饰器装饰的函数可以直接从元素中调用，即它们可以从外部调用!
 
