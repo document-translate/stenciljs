@@ -52,6 +52,7 @@ export default defineConfig({
     search: {
       provider: "local",
     },
+    outline: [2, 3],
     outlineTitle: "章节目录",
     footer: {
       message: "此文档为非官方翻译版本",
