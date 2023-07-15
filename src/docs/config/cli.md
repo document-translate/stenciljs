@@ -8,10 +8,6 @@ description: 命令行接口-Stencil CLI
 
 生成一个 Stencil 项目。下面的标志是 `build` 命令的可用选项。
 
-添加额外的运行时代码以帮助调试，并为更详细的输出设置日志级别。
-
-将项目的统计信息写入 `template-stats.json`。stats 文件的位置与配置相同的位置。
-
 | Flag            | 描述                                                                                                                                                                                                                | 别名 |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
 | `--ci`          | Run a build using recommended settings for a Continuous Integration (CI) environment. Defaults the number of workers to 4, allows for extra time if taking screenshots via the tests and modifies the console logs. | -    |
@@ -54,4 +50,4 @@ description: 命令行接口-Stencil CLI
 
 ## `stencil generate <sub-folder>`{#stencil-generate-sub-folder}
 
-Starts the interactive component generator. You can specify one or more sub-folders to generate the component in.
+启动交互式组件生成器。您可以指定一个或多个子文件夹来生成组件。
