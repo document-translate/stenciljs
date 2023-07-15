@@ -1,15 +1,12 @@
 ---
-title: Config
-sidebar_label: Overview
-description: Config
-slug: /config
+description: Stencil Config
 ---
 
 # Stencil Config
 
 In most cases, the `stencil.config.ts` file does not require any customization since Stencil comes with great default values out-of-the-box. In general, it's preferred to keep the config as minimal as possible. In fact, you could even delete the `stencil.config.ts` file entirely and an app would compile just fine. But at the same time, the compiler can be configured at the lowest levels using this config. Below are the many _optional_ config properties.
 
-Example `stencil.config.ts`:
+例如 `stencil.config.ts`:
 
 ```tsx
 import { Config } from "@stencil/core";
@@ -92,7 +89,7 @@ enableCache: true;
 
 ## extras
 
-Please see the [Extras docs](./extras.md).
+请查看 [Extras docs](./extras).
 
 ## globalScript
 
@@ -113,7 +110,7 @@ export default function () {
 The exported function can also be `async`.
 :::
 
-## globalStyle
+## globalStyle{#globalstyle}
 
 Stencil is traditionally used to compile many components into an app, and each component comes with its own compartmentalized styles. However, it's still common to have styles which should be "global" across all components and the website. A global CSS file is often useful to set [CSS Variables](../components/styling.md).
 
