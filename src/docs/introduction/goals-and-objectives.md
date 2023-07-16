@@ -2,7 +2,7 @@
 description: Stencil旨在将最流行的前端框架的最佳概念结合到编译时工具中，而不是运行时工具。
 ---
 
-# Stencil 的目标和目标{#stencil-goals-and-objectives}
+# Stencil 的目标和目的{#stencil-goals-and-objectives}
 
 Stencil 旨在将最流行的前端框架的最佳概念结合到编译时工具中，而不是运行时工具。
 需要强调的是，Stencil 的目标不是成为或被视为一个“框架”，而是提供一个框架所期望的优秀开发人员体验和工具，同时在运行时在浏览器中使用 web 标准。
