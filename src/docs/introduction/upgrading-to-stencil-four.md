@@ -1,37 +1,37 @@
 ---
-title: Upgrading to Stencil v4.0.0
-description: Upgrading to Stencil v4.0.0
-url: /docs/upgrading-to-stencil-4
+description: 升级到 Stencil v4.0.0
 ---
 
-# Upgrading to Stencil v4.0.0
+# 升级到 Stencil v4.0.0
 
-## Getting Started
+## 快速上手{#getting-started}
 
-We recommend that you only upgrade to Stencil v4 from Stencil v3.
-If you're a few versions behind, we recommend upgrading one major version at a time (from v1 to v2, then v2 to v3, finally v3 to v4).
-This will minimize the number of breaking changes you have to deal with at the same time.
+我们建议您只从 Stencil v3 升级到 Stencil v4。
+如果你落后了几个版本，我们建议每次升级一个主要版本(从 v1 到 v2，然后 v2 到 v3，最后 v3 到 v4)。
+这将减少你必须同时处理的破坏性更改的数量。
 
-For breaking changes introduced in previous major versions of the library, see:
+有关该库之前主要版本中引入的重大更改，请参见：
 
-- [Stencil v3 Breaking Changes](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-v300)
-- [Stencil v2 Breaking Changes](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-two)
-- [Stencil v1 Breaking Changes](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-one)
+- [Stencil v3 破坏性变更](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-v300)
+- [Stencil v2 破坏性变更](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-two)
+- [Stencil v1 破坏性变更](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-one)
 
-For projects that are on Stencil v3, install the latest version of Stencil v4: `npm install @stencil/core@4`
+对于使用 Stencil v3 的项目，请安装最新版本的 Stencil v4： `npm install @stencil/core@4`
 
-## Updating Your Code
+## 更新代码{#updating-your-code}
 
-### New Configuration Defaults
+### 新的配置默认值{#new-configuration-defaults}
 
-Starting with Stencil v4.0.0, the default configuration values have changed for a few configuration options.
-The following sections lay out the configuration options that have changed, their new default values, and ways to opt-out of the new behavior (if applicable).
+从 Stencil v4.0.0 开始，一些配置选项的默认配置值发生了变化。
+下面几节将介绍已更改的配置选项、它们的新默认值，以及退出新行为(如果适用)的方法。
 
 #### `transformAliasedImportPaths`
 
-TypeScript projects have the ability to specify a path aliases via the [`paths` configuration in their `tsconfig.json`](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping) like so:
+TypeScript 项目可以通过[`tsconfig.json` 配置文件中的 `paths`](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping)来指定路径别名，如下所示：
 
-```json title="tsconfig.json"
+:::code-group
+
+```json [tsconfig.json]
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -42,14 +42,19 @@ TypeScript projects have the ability to specify a path aliases via the [`paths` 
 }
 ```
 
-In the example above, `"@utils"` would be mapped to the string `"src/utils/index.ts"` when TypeScript performs type resolution.
-The TypeScript compiler does not however, transform these paths from their keys to their values as a part of its output.
-Instead, it relies on a bundler/loader to do the transformation.
+:::
 
-The ability to transform path aliases was introduced in [Stencil v3.1.0](https://github.com/ionic-team/stencil/releases/tag/v3.1.0) as an opt-in feature.
-Previously, users had to explicitly enable this functionality in their `stencil.config.ts` file with `transformAliasedImportPaths`:
+在上面的例子中，当 TypeScript 执行类型解析时， `"@utils"` 将被映射为字符串 `"src/utils/index.ts"`。
+然而，TypeScript 编译器不会将这些路径从键转换为值，作为输出的一部分。
+相反，它依赖于打包/加载器来完成转换。
 
-```ts title="stencil.config.ts - enabling 'transformAliasedImportPaths' in Stencil v3.1.0"
+转换路径别名的能力是在 [Stencil v3.1.0](https://github.com/ionic-team/stencil/releases/tag/v3.1.0) 中作为一个可选特性引入的。
+以前，用户必须在他们的 `stencil.config.ts` 文件中使用 `transformAliasedImportPaths` 显式启用此功能:
+
+:::code-group
+
+```ts [stencil.config.ts]
+// 在 Stencil v3.1.0 启用 'transformAliasedImportPaths'
 import { Config } from "@stencil/core";
 
 export const config: Config = {
@@ -58,13 +63,19 @@ export const config: Config = {
 };
 ```
 
-Starting with Stencil v4.0.0, this feature is enabled by default.
-Projects that had previously enabled this functionality that are migrating from Stencil v3.1.0+ may safely remove the flag from their Stencil configuration file(s).
+:::
 
-For users that run into issues with this new default, we encourage you to file a [new issue on the Stencil GitHub repo](https://github.com/ionic-team/stencil/issues/new?assignees=&labels=&projects=&template=bug_report.yml&title=bug%3A+).
-As a workaround, this flag can be set to `false` to disable the default functionality.
+从 Stencil v4.0.0 开始，默认启用此功能。
+以前启用此功能的项目从 Stencil v3.1.0 以上迁移，可以安全地从其 Stencil 配置文件中删除该标志。
 
-```ts title="stencil.config.ts - disabling 'transformAliasedImportPaths' in Stencil v4.0.0"
+对于使用此新默认值时遇到问题的用户，我们鼓励您[在 Stencil GitHub repo 上提交一个新问题](https://github.com/ionic-team/stencil/issues/new?assignees=&labels=&projects=&template=bug_report.yml&title=bug%3A+)。
+
+作为一种变通方法，可以将此标志设置为 `false` 以禁用默认功能。
+
+:::code-group
+
+```ts [stencil.config.ts]
+// 在 Stencil v4.0.0 中 禁用 'transformAliasedImportPaths'
 import { Config } from "@stencil/core";
 
 export const config: Config = {
@@ -73,21 +84,27 @@ export const config: Config = {
 };
 ```
 
-For more information on this flag, please see the [configuration documentation](../config/overview#transformaliasedimportpaths)
+:::
+
+有关此标志的更多信息，请参阅[配置文档](../config/overview#transformaliasedimportpaths)
 
 #### `transformAliasedImportPathsInCollection`
 
-Introduced in [Stencil v2.18.0](https://github.com/ionic-team/stencil/releases/tag/v2.18.0), `transformAliasedImportPathsInCollection` is a configuration flag on the [`dist` output target](../output-targets/dist.md#transformaliasedimportpathsincollection).
-`transformAliasedImportPathsInCollection` transforms import paths, similar to [`transformAliasedImportPaths`](#transformaliasedimportpaths).
-This flag however, only enables the functionality of `transformAliasedImportPaths` for collection output targets.
+在 [Stencil v2.18.0](https://github.com/ionic-team/stencil/releases/tag/v2.18.0) 中引入的 `transformAliasedImportPathsInCollection`
+是 [`dist` 输出目标](../output-targets/dist#transformAliasedImportPathsInCollection) 上的配置标志。
+`transformAliasedImportPathsInCollection` 转换导入路径，类似于[`transformAliasedImportPaths`](# transformAliasedImportPaths)。
+然而，此标志仅为收集输出目标是否启用 `transformAliasedImportPaths` 功能。
 
-Starting with Stencil v4.0.0, this flag is enabled by default.
-Projects that had previously enabled this functionality that are migrating from Stencil v2.18.0+ may safely remove the flag from their Stencil configuration file(s).
+从 Stencil v4.0.0 开始，默认启用此标志。
+以前启用此功能的项目，如果从 Stencil v2.18.0+ 迁移，则可以安全地从其 Stencil 配置文件中删除该标志。
 
-For users that run into issues with this new default, we encourage you to file a [new issue on the Stencil GitHub repo](https://github.com/ionic-team/stencil/issues/new?assignees=&labels=&projects=&template=bug_report.yml&title=bug%3A+).
-As a workaround, this flag can be set to `false` to disable the default functionality.
+对于使用此新默认值时遇到问题的用户，我们鼓励您[在 Stencil GitHub repo 上提交一个新问题](https://github.com/ionic-team/stencil/issues/new?assignees=&labels=&projects=&template=bug_report.yml&title=bug%3A+)。
+作为一种变通方法，可以将此标志设置为 `false` 以禁用默认功能。
 
-```ts title="stencil.config.ts - disabling 'transformAliasedImportPathsInCollection' in Stencil v4.0.0"
+:::code-group
+
+```ts [stencil.config.ts]
+// 在 Stencil v4.0.0 禁用 'transformAliasedImportPathsInCollection'
 import { Config } from "@stencil/core";
 
 export const config: Config = {
@@ -102,14 +119,16 @@ export const config: Config = {
 };
 ```
 
-For more information on this flag, please see the [`dist` output target's documentation](../output-targets/dist.md#transformaliasedimportpathsincollection).
+:::
 
-### In Browser Compilation Support Removed
+有关此标志的更多信息，请参阅[`dist` 输出目标的文档](../output-targets/dist#transformaliasedimportpathsincollection)。
 
-Prior to Stencil v4.0.0, components could be compiled from TSX to JS in the browser.
-This feature was seldom used, and has been removed from Stencil.
-At this time, there is no replacement functionality.
-For additional details, please see the [request-for-comment](https://github.com/ionic-team/stencil/discussions/4134) on the Stencil GitHub Discussions page.
+### 移除浏览器内编译支持删除{#in-browser-compilation-support-removed}
+
+在 Stencil v4.0.0 之前，组件可以在浏览器中从 TSX 编译为 JS。
+这个功能很少使用，已经从 Stencil 中删除了。
+目前，还没有替代功能。
+有关更多详细信息，请参阅 Stencil GitHub 讨论页面的[评论请求](https://github.com/ionic-team/stencil/discussions/4134)。
 
 ### Legacy Context and Connect APIs Removed
 
@@ -124,67 +143,58 @@ Both of these APIs were deprecated in Stencil v1 and are now removed.
 To migrate away from usages of `context`, please see [the original deprecation announcement](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#propcontext).
 To migrate away from usages of `connect`, please see [the original deprecation announcement](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#propconnect).
 
-### Legacy Browser Support Removed
+### 移除对旧版浏览器的支持{#legacy-browser-support-removed}
 
-In Stencil v3.0.0, we announced [the deprecation of IE 11, pre-Chromium Edge, and Safari 10 support](https://github.com/ionic-team/stencil/blob/1a8ff39073a88d1372beaa98434dbe2247f68a85/BREAKING_CHANGES.md?plain=1#L78).
-In Stencil v4.0.0, support for these browsers has been dropped (for a full list of supported browsers, please see our [Browser Support policy](../reference/support-policy.md#browser-support)).
+在 Stencil v3.0.0 中，我们宣布[不再支持 IE 11、非 Chromium 内核 Edge 和 Safari 10](https://github.com/ionic-team/stencil/blob/1a8ff39073a88d1372beaa98434dbe2247f68a85/BREAKING_CHANGES.md?plain=1#L78)。
+在 Stencil v4.0.0 中，对这些浏览器的支持已被放弃(有关受支持浏览器的完整列表，请参阅我们的[浏览器支持策略](../reference/support-policy#browser-support))。
 
-By dropping these browsers, a few configuration options are no longer valid in a Stencil configuration file:
+取消这些浏览器后，Stencil 配置文件中的一些配置选项将不再有效：
 
 #### `__deprecated__cssVarsShim`
 
-The `extras.__deprecated__cssVarsShim` option caused Stencil to include a polyfill for [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*).
-This field should be removed from a project's Stencil configuration file (`stencil.config.ts`).
+`extras.__deprecated__cssVarsShim` 选项导致 Stencil 包含一个 [CSS 变量](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)。
+这个字段应该从项目的 Stencil 配置文件(`stencil.config.ts`)中删除。
 
 #### `__deprecated__dynamicImportShim`
 
-The `extras.__deprecated__dynamicImportShim` option caused Stencil to include a polyfill for
-the [dynamic `import()` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)
-for use at runtime.
-This field should be removed from a project's Stencil configuration file (`stencil.config.ts`).
+`extras.__deprecated__dynamicImportShim` 选项导致 Stencil 包含一个
+[动态 `import()` 函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)
+的 polyfill 在运行时使用。
+这个字段应该从项目的 Stencil 配置文件(`stencil.config.ts`)中删除。
 
 #### `__deprecated__safari10`
 
-The `extras.__deprecated__safari10` option would patch ES module support for Safari 10.
-This field should be removed from a project's Stencil configuration file (`stencil.config.ts`).
+`extras.__deprecated__safari10` 选项将为 Safari 10 的 ES 模块支持打补丁。
+这个字段应该从项目的 Stencil 配置文件(`stencil.config.ts`)中删除。
 
 #### `__deprecated__shadowDomShim`
 
-The `extras.__deprecated__shadowDomShim` option would check whether a shim for [shadow
-DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM)
-was needed in the current browser, and include one if so.
-This field should be removed from a project's Stencil configuration file (`stencil.config.ts`).
+`extras.__deprecated__shadowDomShim` 选项将检查当前浏览器中需要是否需要 [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM)
+垫片，如果需要，就包含。
+这个字段应该从项目的 Stencil 配置文件(`stencil.config.ts`)中删除。
 
-### Legacy Cache Stats Config Flag Removed
+### 移除了旧缓存统计配置标志{#legacy-cache-stats-config-flag-removed}
 
-The `enableCacheStats` flag was used in legacy behavior for caching, but has not been used for some time. This
-flag has been removed from Stencil's API and should be removed from a project's Stencil configuration file (`stencil.config.ts`).
+`enableCacheStats` 标志用于缓存的遗留行为，但已经有一段时间没有使用了。
+这标记已从 Stencil 的 API 中删除，应该从项目的 Stencil (`stencil.config.ts`) 配置文件中删除。
 
-### Drop Node 14 Support
+### 移除 Node 14 支持{#drop-node-14-support}
 
-Stencil no longer supports Node 14.
-Please upgrade local development machines, continuous integration pipelines, etc. to use Node v16 or higher.
-For the full list of supported runtimes, please see [our Support Policy](../reference/support-policy.md#javascript-runtime).
+Stencil 不再支持 Node 14。
+请升级本地开发机器、持续集成管道等，以使用 Node v16 或更高版本。
+有关支持的运行时的完整列表，请参阅[我们的支持策略](../reference/support-policy#javascript-runtime)。
 
 ## Information Included in `docs-json` Expanded
 
-For Stencil v4 the information included in the output of the `docs-json` output
-target was expanded to include more information about the types of properties
-and methods on Stencil components.
+在 Stencil v4 中对 `docs-json` 输出目标中包含的信息进行了扩展，以包含有关 Stencil 组件属性和方法类型的更多信息。
 
-For more context on this change, see the [documentation for the new
-`supplementalPublicTypes`](../documentation-generation/docs-json.md#supplementalpublictypes)
-option for the JSON documentation output target.
+有关此更改的更多内容，请参阅 JSON 文档输出目标的 [文档中新的 `supplementalpublictypes`](../documentation-generation/docs-json#supplementalpublictypes) 选项。
 
 ### `JsonDocsEvent`
 
-The JSON-formatted documentation for an `@Event` now includes a field called
-`complexType` which includes more information about the types referenced in the
-type declarations for that property.
+`@Event` 的 json 格式的文档现在包含了一个名为 `complexType` 的字段，它包含了该属性的类型声明中引用的类型的更多信息。
 
-Here's an example of what this looks like for the [ionBreakpointDidChange
-event](https://github.com/ionic-team/ionic-framework/blob/1f0c8049a339e3a77c468ddba243041d08ead0be/core/src/components/modal/modal.tsx#L289-L292)
-on the `Modal` component in Ionic Framework:
+这是 Ionic 框架中 `Modal` 组件上的 [ionBreakpointDidChange 事件](https://github.com/ionic-team/ionic-framework/blob/1f0c8049a339e3a77c468ddba243041d08ead0be/core/src/components/modal/modal.tsx#L289-L292)的示例:
 
 ```json
 {
@@ -204,13 +214,13 @@ on the `Modal` component in Ionic Framework:
 
 ### `JsonDocsMethod`
 
-The JSON-formatted documentation for a `@Method` now includes a field called
-`complexType` which includes more information about the types referenced in
-the type declarations for that property.
+`@Method` 的 json 格式文档现在包含了一个名为 `complexType` 的字段，它包含了该属性的类型声明中引用的类型的更多信息。
 
 Here's an example of what this looks like for the [open
 method](https://github.com/ionic-team/ionic-framework/blob/1f0c8049a339e3a77c468ddba243041d08ead0be/core/src/components/select/select.tsx#L261-L313)
 on the `Select` component in Ionic Framework:
+
+这是 Ionic 框架中 `Select` 组件上的 [open 方法](https://github.com/ionic-team/ionic-framework/blob/1f0c8049a339e3a77c468ddba243041d08ead0be/core/src/components/select/select.tsx#L261-L313)的示例:
 
 ```json
 {
@@ -246,11 +256,11 @@ on the `Select` component in Ionic Framework:
 }
 ```
 
-## Additional Packages
+## 其它的包{#additional-packages}
 
-To ensure the proper functioning of other `@stencil/` packages, it is advisable for projects utilizing any of the packages mentioned below to upgrade to the minimum package version specified.
+为了确保其他 `@stencil/` 包的正常运行，建议使用到下面提到的任何包的项目都将包升级到指定的最小包版本。
 
-| Package                          | Minimum Package Version                                                                                                  | GitHub                                                            | Documentation                                               |
+| Package                          | 最小软件包版本                                                                                                           | GitHub                                                            | 文档                                                        |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- |
 | `@stencil-angular-output-target` | [0.7.1](https://github.com/ionic-team/stencil-ds-output-targets/releases/tag/%40stencil%2Fangular-output-target%400.7.1) | [GitHub](https://github.com/ionic-team/stencil-ds-output-targets) | [Stencil Doc Site](../framework-integration/angular.md)     |
 | `@stencil/sass`                  | [3.0.4](https://github.com/ionic-team/stencil-sass/releases/tag/v3.0.4)                                                  | [GitHub](https://github.com/ionic-team/stencil-sass)              | [GitHub README](https://github.com/ionic-team/stencil-sass) |
@@ -258,8 +268,8 @@ To ensure the proper functioning of other `@stencil/` packages, it is advisable 
 | `@stencil-react-output-target`   | [0.5.1](https://github.com/ionic-team/stencil-ds-output-targets/releases/tag/%40stencil%2Freact-output-target%400.5.1)   | [GitHub](https://github.com/ionic-team/stencil-ds-output-targets) | [Stencil Doc Site](../framework-integration/react.md)       |
 | `@stencil-vue-output-target`     | [0.8.6](https://github.com/ionic-team/stencil-ds-output-targets/releases/tag/%40stencil%2Fvue-output-target%400.8.6)     | [GitHub](https://github.com/ionic-team/stencil-ds-output-targets) | [Stencil Doc Site](../framework-integration/vue.md)         |
 
-## Need Help Upgrading?
+## 需要帮助升级？{#need-help-upgrading}
 
-Be sure to look at the Stencil [v4.0.0 Breaking Changes Guide](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-v400).
+请务必查看 Stencil [v4.0.0 破坏性变更指南](https://github.com/ionic-team/stencil/blob/main/BREAKING_CHANGES.md#stencil-v400)。
 
-If you need help upgrading, please post a thread on the [Stencil Discord](https://chat.stenciljs.com).
+如果您需要帮助升级，请在 [Stencil Discord](https://chat.stenciljs.com) 上发帖。
