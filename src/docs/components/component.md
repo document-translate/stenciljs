@@ -1,7 +1,5 @@
 ---
-sidebar_label: Component
-description: Documentation for the @Component decorator
-slug: /component
+description: \@Component 装饰器文档
 ---
 
 # Component 装饰器{#component-decorator}
@@ -26,7 +24,7 @@ export class TodoList {
 
 下面描述了每个选项、其类型以及是否为必需选项。
 
-### tag
+### tag{#tag}
 
 **Required**
 
@@ -206,7 +204,7 @@ export class TodoList {
 }
 ```
 
-### styleUrl
+### styleUrl{#styleurl}
 
 **Optional**
 

@@ -1,10 +1,8 @@
 ---
-sidebar_label: Using JSX
-description: Using JSX
-slug: /templating-jsx
+description: 使用 JSX
 ---
 
-# Using JSX
+# 使用 JSX
 
 模板组件使用 JSX 呈现，JSX 是一种流行的声明式模板语法。每个组件都有一个 `render` 函数，该函数返回在运行时渲染到 DOM 的组件树
 

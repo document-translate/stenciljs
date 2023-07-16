@@ -1,7 +1,5 @@
 ---
-sidebar_label: Getting Started
-description: Getting Started
-slug: /getting-started
+description: 快速上手
 ---
 
 # 快速上手{#getting-started}
@@ -12,7 +10,7 @@ slug: /getting-started
 
 Stencil 需要最新的 LTS 版本的 [NodeJS](https://nodejs.org/) 和 npm/yarn。在继续之前，请确保已经安装或更新了 Node。
 
-### Running the `create-stencil` CLI
+### 运行 `create-stencil` CLI{#running-the-create-stencil-cli}
 
 `create-stencil` 命令行可以用来创建一个新的 Stencil 项目，可以使用以下命令运行:
 
@@ -115,14 +113,16 @@ $ git add -A
 $ git commit -m "initialize project using stencil cli"
 ```
 
-## My First Component
+## 我的第一个组件{#my-first-component}
 
-Stencil components are created by adding a new file with a `.tsx` extension, such as `my-component.tsx`.
-The `.tsx` extension is required since Stencil components are built using [JSX](../components/templating-and-jsx.md) and TypeScript.
+通过添加一个后缀为 `.tsx` 的新文件来创建 Stencil 组件。例如 `my-component.tsx`。
+因为 Stencil 组件是使用 [JSX](../components/templating-and-jsx) 和 TypeScript 构建的，所以需要 tsx 的扩展。
 
-When we ran `create-stencil` above, it generated a component, `my-component.tsx`, that can be found in the `src/components/my-component` directory:
+当我们运行上面的 `create-stencil` 时，它生成了一个组件 `my-component.tsx`。你可以在 `src/components/my-component` 目录下找到它：
 
-```tsx title="my-component.tsx"
+:::code-group
+
+```tsx [my-component.tsx]
 import { Component, Prop, h } from "@stencil/core";
 import { format } from "../../utils/utils";
 
@@ -146,19 +146,21 @@ export class MyComponent {
 }
 ```
 
-Once compiled, this component can be used in HTML just like any other tag.
+:::
+
+编译后，这个组件就可以像其他标签一样在 HTML 中使用。
 
 ```md
 <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
 ```
 
-When rendered, the browser will display `Hello World! I'm Stencil 'Don't call me a framework' JS`.
+渲染后，浏览器将显示 `Hello World! I'm Stencil 'Don't call me a framework' JS`.
 
-### Anatomy of `my-component`
+### `my-component` 剖析{#anatomy-of-my-component}
 
-Let's dive in and describe what's happening in `my-component`, line-by-line.
+让我们深入了解并逐行分析 `my-component` 中发生了什么。
 
-After the import statements, the first piece we see is the [`@Component` decorator](../components/component.md):
+import 语句之后，我们看到的第一个部分是 [`@Component` 装饰器](../components/component):
 
 ```tsx
 @Component({
@@ -168,61 +170,61 @@ After the import statements, the first piece we see is the [`@Component` decorat
 })
 ```
 
-This decorator provides metadata about our component to the Stencil compiler.
-Information, such as the custom element name (`tag`) to use, can be set here.
-This decorator tells Stencil to:
+这个装饰器为 Stencil 编译器提供了组件的元数据。
+例如要使用的自定义元素名称( `tag` )等信息可以在这里设置。
+这个装饰器告诉 Stencil：
 
-- Set the [element's name](../components/component.md#tag) to 'my-component'
-- [Apply the stylesheet](../components/component.md#styleurl) 'my-component.css' to the component
-- Enable [native Shadow DOM functionality](../components/component.md#shadow) for this component
+- 设置 [元素名字](../components/component#tag) 为 'my-component'
+- [应用样式表](../components/component#styleurl) 'my-component.css' 到组件
+- 为该组件启用 [原生 Shadow DOM 功能](../components/component.md#shadow)
 
-Below the `@Component()` decorator, we have a standard JavaScript class declaration:
+在 `@Component()` 装饰器下面，我们有一个标准的 JavaScript 类声明:
 
 ```tsx
 export class MyComponent {
 ```
 
-Within this class is where you'll write the bulk of your code to bring your Stencil component to life.
+在这个类中，您将编写大量代码，以使 Stencil 组件栩栩如生。
 
-Next, the component contains three class members, `first`, `middle` and `last`.
-Each of these class members have the [`@Prop()` decorator](../components/properties.md#the-prop-decorator-prop) applied to them:
+接下来，该组件包含三个类成员：`first`、 `middle` 和 `last`。
+这些类的每个成员都应用了 [`@Prop()` 装饰器](../components/properties#the-prop-decorator-prop)：
 
 ```ts
-  @Prop() first: string;
-  @Prop() middle: string;
-  @Prop() last: string;
+@Prop() first: string;
+@Prop() middle: string;
+@Prop() last: string;
 ```
 
-`@Prop()` tells Stencil that the property is public to the component, and allows Stencil to rerender when any of these public properties change.
-We'll see how this works after discussing the `render()` function.
+`@Prop()` 告诉 Stencil 该属性对组件是公共的，并允许 Stencil 在这些公共属性发生变化时重新渲染。
+在讨论完 `render()` 函数后，我们将看到它是如何工作的。
 
-In order for the component to render something to the screen, we must declare a [`render()` function](../components/templating-and-jsx.md#basics) that returns JSX.
-If you're not sure what JSX is, be sure to reference the [Using JSX](../components/templating-and-jsx.md) docs.
+为了让组件在屏幕上渲染一些东西，我们必须声明一个返回 JSX 的 [`render()` 函数](../components/templating-and-jsx#basics)。
+如果你不确定 JSX 是什么，请务必参考 [使用 JSX](../components/templating-and-jsx) 文档。
 
-The quick idea is that our render function needs to return a representation of the HTML we want to push to the DOM.
+简单地说，我们的呈现函数需要返回我们想要推送到 DOM 的 HTML 的表示形式。
 
 ```tsx
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
-  }
+private getText(): string {
+  return format(this.first, this.middle, this.last);
+}
 
-  render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
-  }
+render() {
+  return <div>Hello, World! I'm {this.getText()}</div>;
+}
 ```
 
-This component's `render()` returns a `<div>` element, containing text to render to the screen.
+这个组件的 `render()` 返回一个 `<div>` 元素，包含要渲染到屏幕上的文本。
 
-The `render()` function uses all three class members decorated with `@Prop()`, through the `getText` function.
-Declaring private functions like `getText` helps pull logic out of the `render()` function's JSX.
+`render()` 函数通过 `getText` 函数使用了所有三个用 `@Prop()` 修饰的类成员。
+声明像 `getText` 这样的私有函数有助于将逻辑从 `render()` 函数的 JSX 中提取出来。
 
-Any property decorated with `@Prop()` is also automatically watched for changes.
-If a user of our component were to change the element's `first`, `middle`, or `last` properties, our component would fire its `render()` function again, updating the displayed content.
+任何用 `@Prop()` 修饰的属性也会被自动监视变化。
+如果我们组件的用户要更改元素的 `first`、`middle` 或 `last` 属性，我们的组件将再次触发它的 `render()` 函数，更新显示的内容。
 
-## Component Generator
+## 组件生成器{#component-generator}
 
-The `create-stencil` CLI can generate new components for you.
-If you used one of the starters, you can simply run the `generate` npm script in your project, which will start the interactive generator.
+`create-stencil` CLI 可以为你生成新组件。
+如果使用了其中一个启动器，则可以简单地在项目中运行名为 `generate` 的 npm 脚本，该脚本将启动交互式生成器。
 
 :::code-group
 
@@ -240,7 +242,7 @@ pnpm run generate
 
 :::
 
-You can invoke the Stencil CLI directly with the `generate` command (`g` for short).
+你可以直接使用 `generate` 命令(简称 `g`) 调用 Stencil CLI。
 
 ```shell
 stencil generate
@@ -248,31 +250,31 @@ stencil generate
 stencil g
 ```
 
-If you would like to run `stencil generate` outside of a Stencil project, it can be installed globally.
-To do so, prefix the command above with [`npx`](https://docs.npmjs.com/cli/v9/commands/npx), like so:
+如果你想在 stencil 项目之外运行 `stencil generate`，它可以全局安装。
+要做到这一点，请在上面的命令前加上 [`npx`](https://docs.npmjs.com/cli/v9/commands/npx)，就像这样:
 
 ```shell
 npx stencil generate
 ```
 
-Running a command prefixed with `npx` will fetch the package for you automatically and prompt you to install it.
-Once installed, Stencil will run the task to scaffold a new component.
+运行以 `npx` 为前缀的命令会自动为你获取包并提示你安装它。
+安装后，Stencil 将运行任务来脚手架一个新组件。
 
-You can optionally pass the component tag name directly to the command.
-The component tag name needs to be lowercase and contain at least one dash ('-').
+您可以选择将组件标签名称直接传递给命令。
+组件标签名必须是小写的，并且至少包含一个破折号(`-`)。
 
 ```sh
 stencil generate my-new-component
 ```
 
-The generator will ask you which files to generate.
-This allows you to bootstrap a stylesheet as well as spec and e2e tests along with the component file.
+生成器会询问你要生成哪些文件。
+这允许您创建样式表、 spec 和 e2e 测试以及组件文件。
 
-All components will be generated within the `src/components` folder.
-Within that directory, a folder will be created with the same name as the component tag name you provided, and within that folder the files will be generated.
-It is also possible to specify one or multiple sub-folders to generate the component in.
+所有组件都将在 `src/components` 文件夹中生成。
+在该目录中，将创建一个与您提供的组件标签名称相同的文件夹，文件将在该文件夹中生成。
+也可以指定一个或多个子文件夹来生成组件。
 
-For example, if you specify `pages/page-home` as the component tag name, the files will be generated in `src/components/pages/page-home`.
+例如，如果指定 `pages/page-home` 作为组件标签名，则文件将在 `src/components/pages/page-home` 中生成。
 
 ```shell
 stencil generate pages/page-home
