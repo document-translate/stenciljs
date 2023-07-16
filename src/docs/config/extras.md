@@ -1,5 +1,5 @@
 ---
-description: Extras Config
+description: Extras 配置
 ---
 
 # Extras
@@ -20,7 +20,7 @@ By default, the runtime does not polyfill `cloneNode()` when cloning a component
 
 ### experimentalImportInjection
 
-:::caution
+:::warning 警告
 This flag has been deprecated in favor of [`enableImportInjection`](#enableimportinjection), which provides the same
 functionality. `experimentalImportInjection` will be removed in a future major version of Stencil.
 :::
@@ -64,7 +64,7 @@ Defaults to `false`.
 
 Dispatches component lifecycle events. By default these events are not dispatched, but by enabling this to `true` these events can be listened for on `window`. Mainly used for testing.
 
-| Event Name                    | Description                                            |
+| 事件名称                      | 描述                                                   |
 | ----------------------------- | ------------------------------------------------------ |
 | `stencil_componentWillLoad`   | Dispatched for each component's `componentWillLoad`.   |
 | `stencil_componentWillUpdate` | Dispatched for each component's `componentWillUpdate`. |
