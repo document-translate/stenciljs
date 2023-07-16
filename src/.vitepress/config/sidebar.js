@@ -168,7 +168,7 @@ export default [
         link: "/docs/config/extras",
       },
       {
-        text: "Plugins",
+        text: "插件",
         link: "/docs/config/plugins",
       },
     ],

@@ -135,7 +135,7 @@ export const config = {
 
 As a rule of thumb, plugins that need to resolve modules, should be place in `before`, while code transform plugins like: `node-polyfills`, `replace`... should be placed in `after`. Follow the plugin's documentation to make sure it's executed in the right order.
 
-## Node Polyfills
+## Node Polyfills{#node-polyfills}
 
 Depending on which libraries a project is dependent on, the [rollup-plugin-node-polyfills](https://www.npmjs.com/package/rollup-plugin-node-polyfills) plugin may be required. In such cases, an error message similar to the following will be displayed at build time.
 
