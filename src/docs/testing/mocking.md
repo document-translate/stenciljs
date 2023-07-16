@@ -1,8 +1,5 @@
 ---
-title: Mocking
-sidebar_label: Mocking
 description: Mocking
-slug: /mocking
 ---
 
 # Mocking

@@ -1,8 +1,5 @@
 ---
-title: Web Workers
-sidebar_label: Web Workers
 description: Web Workers
-slug: /web-workers
 ---
 
 # Web Workers

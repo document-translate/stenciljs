@@ -1,8 +1,5 @@
 ---
-title: Typed Components
-sidebar_label: Typed Components
 description: Typed Components
-slug: /typed-components
 ---
 
 # Typed Components
@@ -31,8 +28,8 @@ This means developers DO NOT have to import them explicitly, just like `HTMLElem
 - `ion-menu-controller` => `HTMLIonMenuControllerElement`
 
 ```tsx
-const button: HTMLIonButtonElement = document.queryElement('ion-button');
-button.fill = 'outline';
+const button: HTMLIonButtonElement = document.queryElement("ion-button");
+button.fill = "outline";
 ```
 
 **IMPORTANT**: always use the `HTML{}Element` interfaces in order to hold references to components.

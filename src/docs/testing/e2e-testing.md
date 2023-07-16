@@ -1,8 +1,5 @@
 ---
-title: End-to-end Testing
-sidebar_label: End-to-end Testing
 description: End-to-end Testing
-slug: /end-to-end-testing
 ---
 
 # End-to-end Testing
@@ -29,13 +26,13 @@ Most methods are async and return Promises. Use `async` and `await` to declutter
 An example E2E test might have the following boilerplate:
 
 ```typescript
-import { newE2EPage } from '@stencil/core/testing';
+import { newE2EPage } from "@stencil/core/testing";
 
-describe('example', () => {
-  it('should render a foo-component', async () => {
+describe("example", () => {
+  it("should render a foo-component", async () => {
     const page = await newE2EPage();
     await page.setContent(`<foo-component></foo-component>`);
-    const el = await page.find('foo-component');
+    const el = await page.find("foo-component");
     expect(el).not.toBeNull();
   });
 });
@@ -44,32 +41,32 @@ describe('example', () => {
 ## Example End-to-end Test
 
 ```typescript
-import { newE2EPage } from '@stencil/core/testing';
+import { newE2EPage } from "@stencil/core/testing";
 
-it('should create toggle, unchecked by default', async () => {
+it("should create toggle, unchecked by default", async () => {
   const page = await newE2EPage();
 
   await page.setContent(`
     <ion-toggle class="pretty-toggle"></ion-toggle>
   `);
 
-  const ionChange = await page.spyOnEvent('ionChange');
+  const ionChange = await page.spyOnEvent("ionChange");
 
-  const toggle = await page.find('ion-toggle');
+  const toggle = await page.find("ion-toggle");
 
-  expect(toggle).toHaveClasses(['pretty-toggle', 'hydrated']);
+  expect(toggle).toHaveClasses(["pretty-toggle", "hydrated"]);
 
-  expect(toggle).not.toHaveClass('toggle-checked');
+  expect(toggle).not.toHaveClass("toggle-checked");
 
-  toggle.setProperty('checked', true);
+  toggle.setProperty("checked", true);
 
   await page.waitForChanges();
 
-  expect(toggle).toHaveClass('toggle-checked');
+  expect(toggle).toHaveClass("toggle-checked");
 
   expect(ionChange).toHaveReceivedEventDetail({
     checked: true,
-    value: 'on'
+    value: "on",
   });
 });
 ```
@@ -81,7 +78,7 @@ it('should create toggle, unchecked by default', async () => {
 Use the "piercing" selector `>>>` to query for an object inside a component's shadow root:
 
 ```typescript
-const el = await page.find('foo-component >>> .close-button');
+const el = await page.find("foo-component >>> .close-button");
 ```
 
 #### Set a @Prop() on a component
@@ -97,11 +94,11 @@ await page.setContent(`
 
 // select the "prop-cmp" element
 // and run the callback in the browser's context
-await page.$eval('prop-cmp', (elm: any) => {
+await page.$eval("prop-cmp", (elm: any) => {
   // within the browser's context
   // let's set new property values on the component
-  elm.first = 'Marty';
-  elm.lastName = 'McFly';
+  elm.first = "Marty";
+  elm.lastName = "McFly";
 });
 
 // we just made a change and now the async queue need to process it
@@ -115,30 +112,30 @@ Because `page.$eval` has an isolated scope, you’ll have to explicitly pass in 
 
 ```typescript
 const props = {
-  first: 'Marty',
-  lastName: 'McFly',
+  first: "Marty",
+  lastName: "McFly",
 };
 
 await page.setContent(`<prop-cmp></prop-cmp>`);
 
-await page.$eval('prop-cmp',
+await page.$eval(
+  "prop-cmp",
   (elm: any, { first, lastName }) => {
     elm.first = first;
     elm.lastName = lastName;
   },
-  props 
+  props
 );
 
 await page.waitForChanges();
 ```
 
-
 #### Call a @Method() on a component
 
 ```typescript
-const elm = await page.find('method-cmp');
-elm.setProperty('someProp', 88);
-const methodRtnValue = await elm.callMethod('someMethod');
+const elm = await page.find("method-cmp");
+elm.setProperty("someProp", 88);
+const methodRtnValue = await elm.callMethod("someMethod");
 ```
 
 #### Type inside an input field
@@ -147,23 +144,23 @@ const methodRtnValue = await elm.callMethod('someMethod');
 const page = await newE2EPage({
   html: `
       <dom-interaction></dom-interaction>
-    `
+    `,
 });
 
-const input = await page.find('dom-interaction >>> .input');
+const input = await page.find("dom-interaction >>> .input");
 
-let value = await input.getProperty('value');
-expect(value).toBe('');
+let value = await input.getProperty("value");
+expect(value).toBe("");
 
-await input.press('8');
-await input.press('8');
-await input.press(' ');
+await input.press("8");
+await input.press("8");
+await input.press(" ");
 
-await page.keyboard.down('Shift');
-await input.press('KeyM');
-await input.press('KeyP');
-await input.press('KeyH');
-await page.keyboard.up('Shift');
+await page.keyboard.down("Shift");
+await input.press("KeyM");
+await input.press("KeyP");
+await input.press("KeyH");
+await page.keyboard.up("Shift");
 ```
 
 #### Checking the text of a rendered component
@@ -173,8 +170,8 @@ await page.setContent(`
       <prop-cmp first="Marty" last-name="McFly"></prop-cmp>
     `);
 
-const elm = await page.find('prop-cmp >>> div');
-expect(elm).toEqualText('Hello, my name is Marty McFly');
+const elm = await page.find("prop-cmp >>> div");
+expect(elm).toEqualText("Hello, my name is Marty McFly");
 ```
 
 #### Checking a component's HTML
@@ -209,21 +206,21 @@ Example of a config you might need in a Gitlab CI environment :
 
 ```typescript
 export const config: Config = {
-  namespace: 'Foo',
+  namespace: "Foo",
   testing: {
     /**
      * Gitlab CI doesn't allow sandbox, therefor this parameters must be passed to your Headless Chrome
      * before it can run your tests
      */
-    browserArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
+    browserArgs: ["--no-sandbox", "--disable-setuid-sandbox"],
   },
   outputTargets: [
-    { type: 'dist' },
+    { type: "dist" },
     {
-      type: 'www',
+      type: "www",
     },
   ],
 };
 ```
 
-Check [the testing config docs](./config.md) to learn more about the possibilities on this matter. 
+Check [the testing config docs](./config.md) to learn more about the possibilities on this matter.

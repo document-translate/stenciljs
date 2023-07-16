@@ -1,8 +1,5 @@
 ---
-title: Extras Config
-sidebar_label: Extras
 description: Extras Config
-slug: /config-extras
 ---
 
 # Extras

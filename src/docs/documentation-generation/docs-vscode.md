@@ -1,8 +1,5 @@
 ---
-title: VS Code Documentation
-sidebar_label: VS Code (docs-vscode)
 description: VS Code Documentation
-slug: /docs-vscode
 ---
 
 # VS Code Documentation
@@ -11,7 +8,7 @@ One of the core features of web components is the ability to create [custom elem
 which allow developers to reuse custom functionality defined in their components.
 When Stencil compiles a project, it generates a custom element for each component in the project.
 Each of these [custom elements has an associated `tag` name](../components/component.md#component-options) that allows the custom
-element to be used in HTML files. 
+element to be used in HTML files.
 
 By default, integrated development environments (IDEs) like VS Code are not aware of a project's custom elements when
 authoring HTML.
@@ -30,19 +27,19 @@ features similar to TSX files.
 To generate custom element information for VS Code, add the `docs-vscode` output target to your `stencil.config.ts`:
 
 ```tsx
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
-    { 
-        type: 'docs-vscode',
-        file: 'vscode-data.json',
-    }
-  ]
+    {
+      type: "docs-vscode",
+      file: "vscode-data.json",
+    },
+  ],
 };
 ```
 
-where `file` is the name & location of the file to be generated. 
+where `file` is the name & location of the file to be generated.
 By default, Stencil assumes that the file will be generated in the project's root directory.
 
 To generate the JSON file, have Stencil build your project.
@@ -53,13 +50,10 @@ Once the `docs-vscode` output target has been enabled and the JSON file generate
 
 Recent versions of VS Code have a settings option named `html.customData`, which resolves to a list of JSON files to
 use when augmenting the default list of HTML elements.
-Add the path to the generated JSON file for your project's types to be added: 
+Add the path to the generated JSON file for your project's types to be added:
 
 ```json
 {
-  "html.customData": [
-    "./vscode-data.json"
-  ]
+  "html.customData": ["./vscode-data.json"]
 }
 ```
-

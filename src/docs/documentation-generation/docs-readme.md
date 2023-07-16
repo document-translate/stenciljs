@@ -1,8 +1,5 @@
 ---
-title: Docs Readme Auto-Generation
-sidebar_label: README Docs (docs-readme)
 description: README Docs
-slug: /docs-readme
 ---
 
 # Docs Readme Markdown File Auto-Generation

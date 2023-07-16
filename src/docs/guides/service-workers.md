@@ -1,8 +1,5 @@
 ---
-title: Service Workers
-sidebar_label: Service Workers
 description: Service Workers
-slug: /service-workers
 ---
 
 # Service Workers

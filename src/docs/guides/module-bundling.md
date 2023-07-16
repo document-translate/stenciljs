@@ -1,8 +1,5 @@
 ---
-title: Module Bundling
-sidebar_label: Bundling
 description: Module Bundling
-slug: /module-bundling
 ---
 
 # Module Bundling

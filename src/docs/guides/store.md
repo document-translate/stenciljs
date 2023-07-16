@@ -1,8 +1,5 @@
 ---
-title: 'Store'
-sidebar_label: Stencil Store
 description: Store
-slug: /stencil-store
 ---
 
 # @stencil/store
@@ -30,10 +27,10 @@ import { createStore } from "@stencil/store";
 const { state, onChange } = createStore({
   clicks: 0,
   seconds: 0,
-  squaredClicks: 0
+  squaredClicks: 0,
 });
 
-onChange('clicks', value => {
+onChange("clicks", (value) => {
   state.squaredClicks = value ** 2;
 });
 
@@ -43,14 +40,13 @@ export default state;
 **component.tsx:**
 
 ```tsx
-import { Component, h } from '@stencil/core';
-import state from '../store';
+import { Component, h } from "@stencil/core";
+import state from "../store";
 
 @Component({
-  tag: 'app-profile',
+  tag: "app-profile",
 })
 export class AppProfile {
-
   componentWillLoad() {
     setInterval(() => state.seconds++, 1000);
   }
@@ -72,11 +68,7 @@ export class AppProfile {
 }
 
 const MyGlobalCounter = () => {
-  return (
-    <button onClick={() => state.clicks++}>
-      {state.clicks}
-    </button>
-  );
+  return <button onClick={() => state.clicks++}>{state.clicks}</button>;
 };
 ```
 
@@ -116,14 +108,13 @@ Reset the store to its initial state.
 
 Use the given subscriptions in the store. A subscription is an object that defines one or more of the properties `get`, `set` or `reset`.
 
-
 ## Testing
 
 Like any global state library, state should be reset between each spec test.
 Use the `dispose()` API in the `beforeEach` hook.
 
 ```ts
-import store from '../store';
+import store from "../store";
 
 beforeEach(() => {
   store.dispose();

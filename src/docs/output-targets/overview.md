@@ -1,8 +1,5 @@
 ---
-title: Stencil Output Targets
-sidebar_label: Overview
 description: Stencil Output Targets
-slug: /output-targets
 ---
 
 # Output Targets

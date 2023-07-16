@@ -1,8 +1,5 @@
 ---
-title: Forms
-sidebar_label: Forms
 description: Forms
-slug: /forms
 ---
 
 # Forms
@@ -13,15 +10,14 @@ Here is an example of a component with a basic form:
 
 ```tsx
 @Component({
-  tag: 'my-name',
-  styleUrl: 'my-name.css'
+  tag: "my-name",
+  styleUrl: "my-name.css",
 })
 export class MyName {
-
   @State() value: string;
 
   handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     console.log(this.value);
     // send data to our backend
   }
@@ -35,7 +31,11 @@ export class MyName {
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <label>
           Name:
-          <input type="text" value={this.value} onInput={(event) => this.handleChange(event)} />
+          <input
+            type="text"
+            value={this.value}
+            onInput={(event) => this.handleChange(event)}
+          />
         </label>
         <input type="submit" value="Submit" />
       </form>
@@ -46,15 +46,14 @@ export class MyName {
 
 Let's go over what is happening here. First we bind the value of the input to a state variable, in this case `this.value`. We then set our state variable to the new value of the input with the `handleChange` method we have bound to `onInput`. `onInput` will fire every keystroke that the user types into the input.
 
-
 ## Advanced forms
 
 Here is an example of a component with a more advanced form:
 
 ```tsx
 @Component({
-  tag: 'my-name',
-  styleUrl: 'my-name.css'
+  tag: "my-name",
+  styleUrl: "my-name.css",
 })
 export class MyName {
   selectedReceiverIds = [102, 103];
@@ -62,8 +61,8 @@ export class MyName {
   @State() selectValue: string;
   @State() secondSelectValue: string;
   @State() avOptions: any[] = [
-    { 'id': 101, 'name': 'Mark' },
-    { 'id': 102, 'name': 'Smith' }
+    { id: 101, name: "Mark" },
+    { id: 102, name: "Smith" },
   ];
 
   handleSubmit(e) {
@@ -75,7 +74,7 @@ export class MyName {
     this.value = event.target.value;
 
     if (event.target.validity.typeMismatch) {
-      console.log('this element is not valid')
+      console.log("this element is not valid");
     }
   }
 
@@ -94,19 +93,36 @@ export class MyName {
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <label>
           Email:
-          <input type="email" value={this.value} onInput={(e) => this.handleChange(e)} />
+          <input
+            type="email"
+            value={this.value}
+            onInput={(e) => this.handleChange(e)}
+          />
         </label>
 
         <select onInput={(event) => this.handleSelect(event)}>
-          <option value="volvo" selected={this.selectValue === 'volvo'}>Volvo</option>
-          <option value="saab" selected={this.selectValue === 'saab'}>Saab</option>
-          <option value="mercedes" selected={this.selectValue === 'mercedes'}>Mercedes</option>
-          <option value="audi" selected={this.selectValue === 'audi'}>Audi</option>
+          <option value="volvo" selected={this.selectValue === "volvo"}>
+            Volvo
+          </option>
+          <option value="saab" selected={this.selectValue === "saab"}>
+            Saab
+          </option>
+          <option value="mercedes" selected={this.selectValue === "mercedes"}>
+            Mercedes
+          </option>
+          <option value="audi" selected={this.selectValue === "audi"}>
+            Audi
+          </option>
         </select>
 
         <select onInput={(event) => this.handleSecondSelect(event)}>
-          {this.avOptions.map(recipient => (
-            <option value={recipient.id} selected={this.selectedReceiverIds.indexOf(recipient.id) !== -1}>{recipient.name}</option>
+          {this.avOptions.map((recipient) => (
+            <option
+              value={recipient.id}
+              selected={this.selectedReceiverIds.indexOf(recipient.id) !== -1}
+            >
+              {recipient.name}
+            </option>
           ))}
         </select>
 

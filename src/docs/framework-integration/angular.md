@@ -1,8 +1,5 @@
 ---
-title: Angular Integration with Stencil
-sidebar_label: Angular
 description: Learn how to wrap your components so that people can use them natively in Angular
-slug: /angular
 ---
 
 # Angular Integration

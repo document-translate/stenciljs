@@ -1,8 +1,5 @@
 ---
-title: VueJS Integration with Stencil
-sidebar_label: Vue
 description: Learn how to wrap your components so that people can use them natively in Vue
-slug: /vue
 ---
 
 # Vue Integration

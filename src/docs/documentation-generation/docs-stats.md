@@ -1,8 +1,5 @@
 ---
-title: Docs Stats Auto-Generation
-sidebar_label: Stats (stats)
 description: Stats Generation
-slug: /stats
 ---
 
 # Stats
@@ -11,7 +8,7 @@ Often it's very helpful to understand the state of your libraries generated file
 
 ```tsx
   scripts: {
-    "docs.data": "stencil build --stats" 
+    "docs.data": "stencil build --stats"
     "docs.data-with-optional-file": "stencil build --stats path/to/stats.json"
   }
 ```
@@ -19,22 +16,21 @@ Often it's very helpful to understand the state of your libraries generated file
 Another option would be to add the `stats` output target to the `stencil.config.ts` in order to auto-generate this file with every build:
 
 ```tsx
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
 
 export const config: Config = {
   outputTargets: [
     {
-      type: 'stats',
-      file: 'path/to/stats.json' // optional
-    }
-  ]
+      type: "stats",
+      file: "path/to/stats.json", // optional
+    },
+  ],
 };
 ```
 
 If you don't pass a file name to the `--stats` flag or the output target's `file` key, the file will be output to the root directory of your project as `stencil-stats.json`
 
 Check out the typescript declarations for the JSON output: https://github.com/ionic-team/stencil/blob/main/src/declarations/stencil-public-docs.ts
-
 
 ## Data Model
 
@@ -58,24 +54,22 @@ The file that's generated will produce data similar to this:
         "name": "dist-collection",
         "files": 3,
         "generatedFiles": [
-          "./dist/collection/components/my-component/my-component.js",
-           // etc...
+          "./dist/collection/components/my-component/my-component.js"
+          // etc...
         ]
       },
       {
         "name": "dist-lazy",
         "files": 26,
         "generatedFiles": [
-          "./dist/cjs/example-stencil-library.cjs.js",
-           // etc...
+          "./dist/cjs/example-stencil-library.cjs.js"
+          // etc...
         ]
       },
       {
         "name": "dist-types",
         "files": 1,
-        "generatedFiles": [
-          "./dist/types/stencil-public-runtime.d.ts"
-        ]
+        "generatedFiles": ["./dist/types/stencil-public-runtime.d.ts"]
       }
     ]
   },
@@ -90,14 +84,10 @@ The file that's generated will produce data similar to this:
     "esmBrowser": [
       {
         "key": "my-component.entry",
-        "components": [
-          "my-component"
-        ],
+        "components": ["my-component"],
         "bundleId": "p-12cc1edd",
         "fileName": "p-12cc1edd.entry.js",
-        "imports": [
-          "p-24af5948.js"
-        ],
+        "imports": ["p-24af5948.js"],
         "originalByteSize": 562
       }
     ],
@@ -158,27 +148,23 @@ The file that's generated will produce data similar to this:
             "text": "The first name"
           },
           "internal": false
-        },
-      ],
-    },
+        }
+      ]
+    }
   ],
   "entries": [
     {
       "cmps": [
-       // Expanded component details are produced here
+        // Expanded component details are produced here
       ],
       "entryKey": "my-component.entry"
     }
   ],
   "componentGraph": {
-    "sc-my-component": [
-      "p-24af5948.js"
-    ]
+    "sc-my-component": ["p-24af5948.js"]
   },
   "sourceGraph": {
-    "./src/components/my-component/my-component.tsx": [
-      "./src/utils/utils"
-    ],
+    "./src/components/my-component/my-component.tsx": ["./src/utils/utils"],
     "./src/index.ts": [],
     "./src/utils/utils.ts": []
   },
@@ -190,5 +176,4 @@ The file that's generated will produce data similar to this:
 
 ### Preload tags
 
-One example of usage with this file is to automatically create preload tags automatically. [Here's a link to a gist](https://gist.github.com/splitinfinities/8dcd1b4acf315632cd1e1dd9891fe8f1) containing some code samples about how to set up preloading to improve performance 
-
+One example of usage with this file is to automatically create preload tags automatically. [Here's a link to a gist](https://gist.github.com/splitinfinities/8dcd1b4acf315632cd1e1dd9891fe8f1) containing some code samples about how to set up preloading to improve performance

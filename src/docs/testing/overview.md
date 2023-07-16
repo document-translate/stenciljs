@@ -1,8 +1,5 @@
 ---
-title: Testing
-sidebar_label: Overview
 description: Testing overview.
-slug: /testing-overview
 ---
 
 # Testing
@@ -14,7 +11,7 @@ box. Stencil offers both unit testing and end-to-end testing capabilities.
 
 Testing within Stencil is broken up into two distinct types: Unit tests and End-to-end (e2e) tests.
 
-There are several philosophies on how testing should be done, and how to differentiate what should be considered a unit 
+There are several philosophies on how testing should be done, and how to differentiate what should be considered a unit
 test versus an end-to-end test. Stencil takes an opinionated stance so developers have a description of each to better
 choose when to use each type of testing:
 
@@ -37,12 +34,13 @@ developers to install both libraries using their preferred package manager.
 If you created a project using `npm init stencil`, these libraries were installed for you. Depending on when your
 project was created, you may or may not have the latest supported version installed.
 
-To view current version support for both Jest and Puppeteer, please see the 
+To view current version support for both Jest and Puppeteer, please see the
 [Stencil support policy for testing libraries](../reference/support-policy.md#testing-libraries).
 
 ## Testing Commands
 
 Stencil tests are run using the command `stencil test`, followed by one or more optional flags:
+
 - `--spec` to run unit tests
 - `--e2e` to run end-to-end tests
 - `--watchAll` to watch the file system for changes, and rerun tests when changes are detected
@@ -53,19 +51,20 @@ Below a series of example `npm` scripts which can be added to the project's `pac
 
 ```json
 {
-    "scripts": {
-      "test": "stencil test --spec",
-      "test.watch": "stencil test --spec --watchAll",
-      "test.end-to-end": "stencil test --e2e"
-    }
+  "scripts": {
+    "test": "stencil test --spec",
+    "test.watch": "stencil test --spec --watchAll",
+    "test.end-to-end": "stencil test --e2e"
+  }
 }
 ```
 
-Each command above begins with `stencil test`, which tells Stencil to run tests. Note that each `stencil test` command 
+Each command above begins with `stencil test`, which tells Stencil to run tests. Note that each `stencil test` command
 in example above is followed one or more of the optional flags. Looking at each script, one at a time:
+
 - the `test` script runs unit tests for our Stencil project.
 - the `test.watch` script runs unit tests for our Stencil project. It watches the filesystem for changes, and reruns
-tests when changes are detected.
+  tests when changes are detected.
 - the `test.end-to-end` script runs the end-to-end tests for our Stencil project.
 
 If you created a project using `npm init stencil`, these scripts are provided to you automatically.
@@ -93,6 +92,7 @@ export const config: Config = {
 Adding the following configurations to `.vscode/launch.json` will allow you to use the VS Code Debugger to run the Stencil test runner for the currently active file in your editor.
 
 To use the below configuration:
+
 1. Ensure the test file you want to run is open and in the current active window in VS Code.
 2. Select the debug configuration to run:
    1. 'E2E Test Current File' will run the end-to-end tests in the active test file

@@ -1,8 +1,5 @@
 ---
-title: Framework Integration
-sidebar_label: Overview
 description: Framework Integration
-slug: /overview
 ---
 
 # Framework Integration

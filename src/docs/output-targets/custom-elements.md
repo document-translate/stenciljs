@@ -1,8 +1,5 @@
 ---
-title: Custom Elements with Stencil
-sidebar_label: dist-custom-elements
 description: Custom Elements with Stencil
-slug: /custom-elements
 ---
 
 # Custom Elements

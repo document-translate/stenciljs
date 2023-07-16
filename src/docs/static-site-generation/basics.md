@@ -1,8 +1,5 @@
 ---
-title: Static Site Generation Basics in Stencil
-sidebar_label: Basics
 description: Quick introduction to configuring and using Static Site Generation in Stencil
-slug: /static-site-generation-basics
 ---
 
 # Static Site Generation Basics
@@ -48,7 +45,6 @@ By default, Stencil crawls your app starting at base URL of `/` and discovers al
 As each page is generated and new links are found, Stencil will continue to crawl and prerender pages.
 
 See the [prerender config](./prerender-config.md) docs to see how this can be customized further.
-
 
 ## Things to Watch For
 

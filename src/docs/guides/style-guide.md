@@ -1,8 +1,5 @@
 ---
-title: Stencil Style Guide
-sidebar_label: Style Guide
 description: Stencil Style Guide
-slug: /style-guide
 ---
 
 # Stencil Style Guide

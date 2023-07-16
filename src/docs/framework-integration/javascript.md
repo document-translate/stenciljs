@@ -1,8 +1,5 @@
 ---
-title: Components without a Framework
-sidebar_label: JavaScript
 description: Components without a Framework
-slug: /javascript
 ---
 
 # Components without a Framework

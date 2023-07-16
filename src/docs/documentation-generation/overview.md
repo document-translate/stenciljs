@@ -1,8 +1,5 @@
 ---
-title: Stencil Documentation Generation
-sidebar_label: Overview
 description: Stencil Documentation Generation
-slug: /doc-generation
 ---
 
 # Documentation Generation
@@ -19,7 +16,6 @@ As apps scale with more and more components, and team size and members continue 
 
 Throughout the build process, the compiler is able to extract documentation from each component, to include JSDocs comments, types of each member on the component (thanks TypeScript!) and CSS Variables (CSS Custom Properties).
 
-
 ### Component Property Docs Example:
 
 To add a description to a `@Prop`, simply add a comment on the previous line:
@@ -34,10 +30,10 @@ To add a description to a `@Prop`, simply add a comment on the previous line:
 Stencil will also document CSS variables when you specify them via jsdoc-style comments inside your css or scss files:
 
 ```css
- :root {
-   /**
+:root {
+  /**
     * @prop --primary: Primary header color.
     */
-   --primary: blue;
- }
+  --primary: blue;
+}
 ```
