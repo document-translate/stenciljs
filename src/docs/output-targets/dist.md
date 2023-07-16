@@ -1,8 +1,5 @@
 ---
-title: Distributing Web Components Built with Stencil
-sidebar_label: dist
 description: Distributing Web Components Built with Stencil
-slug: /distribution
 ---
 
 # Distribution Output Target
@@ -52,7 +49,7 @@ _default: `false`_
 If `true`, this output target will be used to validate `package.json` fields for your project's distribution. See the overview of [primary package output target validation](./overview#primary-package-output-target-validation)
 for more information.
 
-### transformAliasedImportPathsInCollection
+### transformAliasedImportPathsInCollection{#transformaliasedimportpathsincollection}
 
 _default: `true`_
 

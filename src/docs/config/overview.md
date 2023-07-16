@@ -293,7 +293,7 @@ taskQueue: "async";
 
 Please see the [testing config docs](../testing/config.md).
 
-## transformAliasedImportPaths
+## transformAliasedImportPaths{#transformaliasedimportpaths}
 
 _default: `true`_
 

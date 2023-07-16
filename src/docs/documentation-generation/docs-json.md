@@ -1,8 +1,5 @@
 ---
-title: Docs JSON Data Output Target
-sidebar_label: JSON Docs (docs-json)
 description: JSON Docs
-slug: /docs-json
 ---
 
 # Generating Documentation in JSON format
@@ -23,7 +20,9 @@ stencil build --docs-json path/to/docs.json
 You can also add the `docs-json` output target to your project's configuration
 file in order to auto-generate this file every time you build:
 
-```tsx title="stencil.config.ts"
+:::code-group
+
+```tsx [stencil.config.ts]
 import { Config } from "@stencil/core";
 
 export const config: Config = {
@@ -36,11 +35,13 @@ export const config: Config = {
 };
 ```
 
+:::
+
 The JSON file output by Stencil conforms to the [`JsonDocs` interface in
 Stencil's public TypeScript
 declarations](https://github.com/ionic-team/stencil/blob/main/src/declarations/stencil-public-docs.ts).
 
-## `supplementalPublicTypes`
+## `supplementalPublicTypes`{#supplementalpublictypes}
 
 As of Stencil v4 the JSON documentation generation functionality in Stencil
 supports a new configuration option, `supplementalPublicTypes`.
@@ -65,7 +66,9 @@ declarations](https://github.com/ionic-team/stencil/blob/main/src/declarations/s
 
 Using this option could look something like this:
 
-```ts title="stencil.config.ts"
+:::code-group
+
+```ts [stencil.config.ts]
 import { Config } from "@stencil/core";
 
 export const config: Config = {
@@ -78,6 +81,8 @@ export const config: Config = {
   ],
 };
 ```
+
+:::
 
 ## CSS Variables
 
@@ -137,7 +142,9 @@ component's comment.
 For instance, if you had a `my-button` component with a slot you might document
 it like so:
 
-```tsx title="src/components/my-button/my-button.tsx"
+:::code-group
+
+```tsx [src/components/my-button/my-button.tsx]
 import { Component, h } from "@stencil/core";
 
 /**
@@ -159,6 +166,8 @@ export class MyButton {
 }
 ```
 
+:::
+
 This would show up in the generated JSON file like so:
 
 ```json
@@ -168,7 +177,7 @@ This would show up in the generated JSON file like so:
 }
 ```
 
-:::caution
+:::warning 警告
 Stencil does not check that the slots you document in a component's JSDoc
 comment using the `@slot` tag are actually present in the JSX returned by the
 component's `render` function.
@@ -185,7 +194,7 @@ that component's directory. The content of these files will be added to the
 next to the code, making it easy to include them in a documentation site or
 other downstream consumer(s) of your docs.
 
-:::caution
+:::warning 警告
 Stencil doesn't check that your usage examples are up-to-date! If you make any
 changes to your component's API you'll need to remember to update your usage
 examples manually.
@@ -193,7 +202,9 @@ examples manually.
 
 If, for instance, you had a usage example like this:
 
-````md title="src/components/my-button/usage/my-button-usage.md"
+:::code-group
+
+````md [src/components/my-button/usage/my-button-usage.md]
 # How to use `my-button`
 
 A button is often a great help in adding interactivity to an app!
@@ -204,6 +215,8 @@ You could use it like this:
 <my-button>My Button!</my-button>
 ```
 ````
+
+:::
 
 You'd get the following in the JSON output under the `"usage"` key:
 
