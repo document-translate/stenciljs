@@ -1,8 +1,5 @@
 ---
-title: Support Policy
-sidebar_label: Support Policy
 description: Support Policy
-slug: /support-policy
 ---
 
 # Support Policy
@@ -23,7 +20,7 @@ recommends updating to the newest version of the Stencil for the latest features
 The current status of each Stencil version is:
 
 | Version |     Status     |   Released   | Maintenance Ends | Ext. Support Ends |
-|:-------:|:--------------:|:------------:|:----------------:|:-----------------:|
+| :-----: | :------------: | :----------: | :--------------: | :---------------: |
 |   V4    |   **Active**   | Jun 26, 2023 |       TBD        |        TBD        |
 |   V3    |  Maintenance   | Jan 25, 2023 |   Dec 26, 2023   |   Jun 26, 2024    |
 |   V2    |  Maintenance   | Aug 08, 2020 |   Jul 25, 2023   |   Jan 25, 2024    |
@@ -48,7 +45,7 @@ version.
 The table below describes a theoretical timeline of releases:
 
 | Version |        Status         |   Released   | Maintenance Ends | Ext. Support Ends |
-|:-------:|:---------------------:|:------------:|:----------------:|:-----------------:|
+| :-----: | :-------------------: | :----------: | :--------------: | :---------------: |
 |    D    |        Active         | Jan 01, 2022 |       TBD        |        TBD        |
 |    C    |      Maintenance      | Jul 07, 2021 |   Jul 01, 2022   |   Jan 01, 2023    |
 |    B    | Extended Support Only | Jan 01, 2021 |   Jan 07, 2022   |   Jul 07, 2022    |
@@ -59,7 +56,7 @@ In the example above, when Version D is released, Version C enters maintenance m
 After July 1st 2022, Version C will be in extended support until Jun 1st, 2023, twelve months after the release of
 Version D.
 
-## Browser Support
+## Browser Support{#browser-support}
 
 Stencil builds Web Components that run natively in all widely used desktop and mobile browsers.
 Custom Elements are natively supported in Chrome, Edge, Firefox, and Safari (including iOS)!
@@ -67,7 +64,7 @@ Custom Elements are natively supported in Chrome, Edge, Firefox, and Safari (inc
 Stencil supports the following browsers:
 
 | Stencil Version | Chrome | Edge | Firefox | Safari | Internet Explorer | Pre-Chromium Edge |
-|:---------------:|:------:|:----:|:-------:|:------:|:-----------------:|:-----------------:|
+| :-------------: | :----: | :--: | :-----: | :----: | :---------------: | :---------------: |
 |       V4        |  v79+  | v79+ |  v70+   |  v14+  |     &#10060;      |     &#10060;      |
 |       V3        |  v79+  | v79+ |  v70+   |  v14+  |      &#9989;      |      &#9989;      |
 |       V2        |  v60+  | v79+ |  v63+   | v10.1+ |      &#9989;      |      &#9989;      |
@@ -78,14 +75,14 @@ Stencil acts as a compiler for a project's web components, and works closely wit
 TSX to vanilla JavaScript. To ensure compatibility between the two, Stencil takes an opinionated stance on which version
 of the TypeScript compiler must be used.
 
-Stencil includes a recent copy of the TypeScript compiler in its distributable* to guarantee this compatibility. 
+Stencil includes a recent copy of the TypeScript compiler in its distributable\* to guarantee this compatibility.
 The Stencil team is committed to keeping its version of TypeScript up to date and, as of Stencil v2.10.0, attempts to be
 within one minor version of the latest TypeScript release.
 
 The table below describes recent versions of Stencil and the version of TypeScript each version shipped with.
 
 | Stencil Version | TypeScript Version |
-|:---------------:|:------------------:|
+| :-------------: | :----------------: |
 |     v3.3.0      |       v5.0.4       |
 |     v3.0.0      |       v4.9.4       |
 |     v2.21.0     |       v4.9.3       |
@@ -105,7 +102,7 @@ TypeScript once every three months as well. Updates to the version of TypeScript
 The Stencil team acknowledges that TypeScript minor version releases may contain breaking changes. The Stencil team will
 do everything in its power to avoid propagating breaking changes to its user base.
 
-\* The TypeScript compiler is never included in the output of your Stencil project, and is only used for compilation 
+\* The TypeScript compiler is never included in the output of your Stencil project, and is only used for compilation
 and type checking purposes.
 
 ## Compatibility Recommendations
@@ -115,10 +112,10 @@ components as quickly as possible. There are a few pieces of software that Stenc
 their team, organizational structure, and existing technical stack. The Stencil team has compiled a series of
 compatibility tables to describe the interoperability requirements of these pieces of software and Stencil.
 
-### JavaScript Runtime
+### JavaScript Runtime{#javascript-runtime}
 
 | Stencil Version | Node v10 | Node v12 | Node v14 | Node v16 | Node v18 | Node v20 |
-|:---------------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| :-------------: | :------: | :------: | :------: | :------: | :------: | :------: |
 |       V4        | &#10060; | &#10060; | &#10060; | &#9989;  | &#9989;  | &#9989;  |
 |       V3        | &#10060; | &#10060; | &#9989;  | &#9989;  | &#9989;  | &#9989;  |
 |       V2        | &#10060; | &#9989;  | &#9989;  | &#9989;  | &#9888;  | &#10060; |
@@ -128,19 +125,19 @@ compatibility tables to describe the interoperability requirements of these piec
 
 #### Jest
 
-| Stencil Version | Jest v24 | Jest v25 | Jest v26 | Jest v27 | Jest v28+ * |
-|:---------------:|:--------:|:--------:|:--------:|:--------:|:-----------:|
-|       V4        | &#9989;  | &#9989;  | &#9989;  | &#9989;  |  &#10060;   |
-|       V3        | &#9989;  | &#9989;  | &#9989;  | &#9989;  |  &#10060;   |
-|       V2        | &#9989;  | &#9989;  | &#9989;  | &#9989;  |  &#10060;   |
-|       V1        | &#9989;  | &#9989;  | &#9989;  | &#10060; |  &#10060;   |
+| Stencil Version | Jest v24 | Jest v25 | Jest v26 | Jest v27 | Jest v28+ \* |
+| :-------------: | :------: | :------: | :------: | :------: | :----------: |
+|       V4        | &#9989;  | &#9989;  | &#9989;  | &#9989;  |   &#10060;   |
+|       V3        | &#9989;  | &#9989;  | &#9989;  | &#9989;  |   &#10060;   |
+|       V2        | &#9989;  | &#9989;  | &#9989;  | &#9989;  |   &#10060;   |
+|       V1        | &#9989;  | &#9989;  | &#9989;  | &#10060; |   &#10060;   |
 
 \* Support for Jest 28+ will be released in an upcoming version of Stencil v4.
 
 #### Puppeteer
 
 | Stencil Version | Puppeteer v5-9 | Puppeteer v10 | Puppeteer v11-19 | Puppeteer v20 |
-|:---------------:|:--------------:|:-------------:|:----------------:|:-------------:|
+| :-------------: | :------------: | :-----------: | :--------------: | :-----------: |
 |       V4        |    &#10060;    |    &#9989;    |     &#9989;      |    &#9989;    |
 |       V3        |    &#10060;    |    &#9989;    |     &#9989;      |    &#9989;    |
 |       V2        |    &#9989;     |    &#9989;    |     &#10060;     |   &#10060;    |

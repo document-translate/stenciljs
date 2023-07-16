@@ -348,7 +348,7 @@ export default [
         link: "/docs/reference/faq",
       },
       {
-        text: "Support Policy",
+        text: "支持政策",
         link: "/docs/reference/support-policy",
       },
       {
