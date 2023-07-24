@@ -1,12 +1,12 @@
 ---
-description: Stencil Config
+description: Stencil 配置
 ---
 
-# Stencil Config
+# Stencil 配置{#stencil-config}
 
 In most cases, the `stencil.config.ts` file does not require any customization since Stencil comes with great default values out-of-the-box. In general, it's preferred to keep the config as minimal as possible. In fact, you could even delete the `stencil.config.ts` file entirely and an app would compile just fine. But at the same time, the compiler can be configured at the lowest levels using this config. Below are the many _optional_ config properties.
 
-例如 `stencil.config.ts`:
+示例 `stencil.config.ts`:
 
 ```tsx
 import { Config } from "@stencil/core";
@@ -46,11 +46,13 @@ bundles: [
 _default: '.stencil'_
 
 The directory where sub-directories will be created for caching when [`enableCache`](#enablecache) is set `true` or if using
-[Stencil's Screenshot Connector](../testing/screenshot-connector.md).
+[Stencil's Screenshot Connector](../testing/screenshot-connector).
 
 A Stencil config like the following:
 
-```ts title='stencil.config.ts'
+:::code-group
+
+```ts [stencil.config.ts]
 import { Config } from '@stencil/core';
 
 export const config: Config = {
@@ -62,6 +64,8 @@ export const config: Config = {
   }
 }
 ```
+
+:::
 
 Will result in the following file structure:
 
@@ -75,13 +79,13 @@ stencil-project-root
 
 ## devServer
 
-Please see the [Dev-Server docs](./dev-server.md).
+请查看 [Dev-Server 文档](./dev-server).
 
-## enableCache
+## enableCache{#enablecache}
 
 _default: `true`_
 
-Stencil will cache build results in order to speed up rebuilds. To disable this feature, set `enableCache` to `false`.
+Stencil 将缓存构建结果，以加快重建速度。要禁用此功能，请将 `enableCache` 设置为 `false`。
 
 ```tsx
 enableCache: true;
@@ -107,7 +111,7 @@ export default function () {
 ```
 
 :::info 提示
-The exported function can also be `async`.
+导出的函数也可以是 `async`。
 :::
 
 ## globalStyle{#globalstyle}
@@ -131,7 +135,7 @@ The global style config takes a file path as a string. The output from this buil
 globalStyle: "src/global/app.css";
 ```
 
-Check out the [styling docs](../components/styling.md#global-styles) of how to use global styles in your app.
+在 [styling docs](../components/styling#global-styles) 中查看如何在应用中使用全局样式。
 
 ## hashedFileNameLength
 
@@ -191,11 +195,11 @@ namespace: "Ionic";
 
 ## outputTargets
 
-Please see the [Output Target docs](../output-targets/overview).
+请查看 [Output Target 文档](../output-targets/overview).
 
 ## plugins
 
-Please see the [Plugin docs](./plugins.md).
+请查看 [插件文档](./plugins).
 
 ## preamble
 
@@ -264,7 +268,7 @@ across the frames to efficiently render and reduce layout thrashing. By default,
 `async` is used. It's recommended to also try each setting to decide which works
 best for your use-case. In all cases, if your app has many CPU intensive tasks causing the
 main thread to periodically lock-up, it's always recommended to try
-[Web Workers](../guides/workers.md) for those tasks.
+[Web Workers](../guides/workers) for those tasks.
 
 - `congestionAsync`: DOM reads and writes are scheduled in the next frame to prevent layout
   thrashing. When the app is heavily tasked and the queue becomes congested it will then
@@ -276,14 +280,14 @@ main thread to periodically lock-up, it's always recommended to try
 - `async`: DOM read and writes are scheduled in the next frame to prevent layout thrashing.
   During intensive CPU tasks it will not reschedule rendering to happen in the next frame.
   `async` is ideal for most apps, and if the app has many intensive tasks causing the main
-  thread to lock-up, it's recommended to try [Web Workers](../guides/workers.md)
+  thread to lock-up, it's recommended to try [Web Workers](../guides/workers)
   rather than the congestion async queue.
 
 - `immediate`: Makes writeTask() and readTask() callbacks to be executed synchronously. Tasks
   are not scheduled to run in the next frame, but do note there is at least one microtask.
   The `immediate` setting is ideal for apps that do not provide long-running and smooth
   animations. Like the async setting, if the app has intensive tasks causing the main thread
-  to lock-up, it's recommended to try [Web Workers](../guides/workers.md).
+  to lock-up, it's recommended to try [Web Workers](../guides/workers).
 
 ```tsx
 taskQueue: "async";
@@ -291,7 +295,7 @@ taskQueue: "async";
 
 ## testing
 
-Please see the [testing config docs](../testing/config.md).
+请查看 [testing config 文档](../testing/config).
 
 ## transformAliasedImportPaths{#transformaliasedimportpaths}
 
@@ -309,7 +313,9 @@ An example of path transformation could look something like the following.
 
 First, a set of `paths` aliases in `tsconfig.json`:
 
-```json title="tsconfig.json"
+:::code-group
+
+```json [tsconfig.json]
 {
   "compilerOptions": {
     "paths": {
@@ -319,9 +325,13 @@ First, a set of `paths` aliases in `tsconfig.json`:
 }
 ```
 
+:::
+
 Then with the following input:
 
-```ts title="src/my-module.ts"
+:::code-group
+
+```ts [src/my-module.ts]
 import { utilFunc, UtilInterface } from "@utils";
 
 export function util(arg: UtilInterface) {
@@ -329,19 +339,28 @@ export function util(arg: UtilInterface) {
 }
 ```
 
-Stencil will produce the following output:
+:::
 
-```js title="dist/my-module.js"
+Stencil will produce the following output:
+:::code-group
+
+```js [dist/my-module.js]
 import { utilFunc } from "../path/to/utils";
 export function util(arg) {
   utilFunc(arg);
 }
 ```
 
-```ts title="dist/my-module.d.ts"
+:::
+
+:::code-group
+
+```ts [dist/my-module.d.ts]
 import { UtilInterface } from "../path/to/utils";
 export declare function util(arg: UtilInterface): void;
 ```
+
+:::
 
 ## validatePrimaryPackageOutputTarget
 
