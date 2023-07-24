@@ -68,12 +68,12 @@ export const config: Config = {
 };
 ```
 
-| Option                        | Description                                                                                                                                                                                                                                                                     |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `default`                     | No additional re-export or auto-definition behavior will be performed.<br/><br/>This value will be used if no explicit value is set in the config, or if a given value is not a valid option.                                                                                   |
-| `auto-define-custom-elements` | A component and its children will be automatically defined with the `CustomElementRegistry` when the component's module is imported.                                                                                                                                            |
-| `bundle`                      | A utility `defineCustomElements()` function is exported from the `index.js` file of the output directory. This function can be used to quickly define all Stencil components in a project on the custom elements registry.                                                      |
-| `single-export-module`        | All component and custom element definition helper functions will be exported from the `index.js` file in the output directory. This file can be used as the root module when distributing your component library, see [below](#distributing-custom-elements) for more details. |
+| 选项                          | 描述                                                                                                                                                                     |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `default`                     | 不会执行额外的重新导出或自动定义行为。<br/>如果在配置中没有设置显式值，或者给定的值不是有效选项，则使用此值。                                                            |
+| `auto-define-custom-elements` | 当组件的模块被导入时，组件及其子组件将自动使用 `CustomElementRegistry` 定义。                                                                                            |
+| `bundle`                      | 从输出目录的 `index.js` 文件中导出一个实用的 `defineCustomElements()` 函数。此函数可用于在自定义元素注册表上快速定义项目中的所有 Stencil 组件。                          |
+| `single-export-module`        | 所有组件和自定义元素定义的辅助函数都将从输出目录中的`index.js`文件中导出。当分发组件库时，这个文件可以用作根模块，请参阅[下面](#consuming-custom-elements)了解更多细节。 |
 
 :::info 提示
 此时，不使用 JSX 的组件无法自动定义。这是 Stencil 的一个已知限制，用户应该知道。
@@ -182,13 +182,12 @@ import { setAssetPath } from "my-library/dist/components";
 setAssetPath(document.currentScript.src);
 ```
 
-Make sure to copy the assets over to a public directory in your app. This configuration depends on how your script is bundled, or lack of
-bundling, and where your assets can be loaded from. How the files are copied to the production build directory depends on the bundler or tooling.
-The configs below provide examples of how to do this automatically with popular bundlers.
+请确保将资源文件复制到应用程序的公共目录中。这个配置取决于你的脚本是如何打包的，是否打包，以及资源文件从哪里加载。如何将文件复制到生产环境的构建目录取决于打包工具或工具。
+下面的配置提供了如何使用流行的打包工具自动完成此操作的示例。
 
 ## 分发自定义元素{#distributing-custom-elements}
 
-See our docs on [publishing a component library](../guides/publishing) for information on setting up the library's `package.json` file and publishing to a package manager.
+请参阅我们[发布组件库](../guides/publishing)的文档，了解有关设置库的 `package_json` 文件和发布到包管理器的信息。
 
 默认情况下，自定义元素需要从输出目标配置中指定的[输出目录](#dir)中导入：
 
@@ -369,10 +368,10 @@ export default {
 };
 ```
 
-## How is this different from the "dist" output target?
+## 这与 "dist" 输出目标有何不同?
 
-The `dist-custom-elements` builds each component as a stand-alone class that extends `HTMLElement`. The output is a standardized custom element with the styles already attached and without any of Stencil's lazy-loading. This may be preferred for projects that are already handling bundling, lazy-loading and defining the custom elements themselves.
+`dist-custom-elements` 将每个组件构建为一个独立的类，它扩展了 `HTMLElement`。输出是一个标准化的自定义元素，样式已经附加，没有任何 Stencil 的懒加载功能。对于已经处理打包、懒加载和自定义元素的项目来说，这可能是首选。
 
-The `dist` output target, on the other hand, is more for projects that want to allow components to lazy-load themselves, without having to setup bundling configurations to do so.
+另一方面，`dist` 输出目标更多地用于那些希望允许组件自己懒加载的项目，而无需设置打包配置。
 
-Luckily, all builds can be generated at the same time, using the same source code, and shipped in the same distribution. It would be up to the consumer of your component library to decide which build to use.
+幸运的是，所有构建可以同时生成，使用相同的源代码，并在相同的发行版中发布。使用哪个版本将由组件库的使用者决定。
