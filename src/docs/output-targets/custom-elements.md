@@ -2,15 +2,17 @@
 description: Custom Elements with Stencil
 ---
 
-# Custom Elements
+# 自定义元素{#custom-elements}
 
 The `dist-custom-elements` output target creates custom elements that directly extend `HTMLElement` and provides simple utility functions for easily defining these elements on the [Custom Element Registry](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry). This output target excels in use in frontend frameworks and projects that will handle bundling, lazy-loading, and custom element registration themselves.
 
-This target can be used outside of frameworks as well, if lazy-loading functionality is not required or desired. For using lazily loaded Stencil components, please refer to the [dist output target](./dist.md).
+This target can be used outside of frameworks as well, if lazy-loading functionality is not required or desired. For using lazily loaded Stencil components, please refer to the [dist output target](./dist).
 
 To generate components using the `dist-custom-elements` output target, add it to a project's `stencil.config.ts` file like so:
 
-```tsx title="stencil.config.ts"
+:::code-group
+
+```tsx [stencil.config.ts]
 import { Config } from "@stencil/core";
 
 export const config: Config = {
@@ -25,13 +27,15 @@ export const config: Config = {
 };
 ```
 
-## Config
+:::
+
+## 配置{#config}
 
 ### copy
 
 _default: `undefined`_
 
-An array of [copy tasks](./copy-tasks.md) to be executed during the build process.
+在构建过程中执行的[copy tasks](./copy-tasks)数组。
 
 ### customElementsExportBehavior
 
@@ -72,15 +76,14 @@ export const config: Config = {
 | `single-export-module`        | All component and custom element definition helper functions will be exported from the `index.js` file in the output directory. This file can be used as the root module when distributing your component library, see [below](#distributing-custom-elements) for more details. |
 
 :::info 提示
-At this time, components that do not use JSX cannot be automatically
-defined. This is a known limitation of Stencil that users should be aware of.
+此时，不使用 JSX 的组件无法自动定义。这是 Stencil 的一个已知限制，用户应该知道。
 :::
 
 ### dir
 
 _default: `'dist/components'`_
 
-This config option allows you to change the output directory where the compiled output for this output target will be written.
+此配置选项允许您更改将写入此输出目标的编译输出的输出目录。
 
 ### empty
 
@@ -129,14 +132,14 @@ _default: `false`_
 
 Setting this flag to `true` will cause file minification to follow what is specified in the [Stencil config](../config/overview#minifyjs). _However_, if [`externalRuntime`](#externalruntime) is enabled, it will override this option and always result in minification being disabled.
 
-## Consuming Custom Elements
+## 使用自定义元素{#consuming-custom-elements}
 
-By default, the custom elements files will be written to `dist/components/`. This directory can be configured using the output target's [`dir`](#dir) config.
+默认情况下，自定义元素文件将被写入 `dist/components/`。这个目录可以使用输出目标的 [`dir`](#dir) 配置来配置。
 
-The generated files will each export a component class and will already have the styles bundled. However, this build does not define the custom elements or apply any polyfills.
-Static assets referenced within components will need to be set using `setAssetPath` (see [Making Assets Available](#making-assets-available)).
+生成的文件将每个导出一个组件类，并且已经打包了样式。然而，这个版本并没有定义自定义元素或者应用任何 polyfills。
+组件中引用的静态资源需要使用 `setAssetPath` 来设置(请参阅[使资源可用](#making-assets-available))。
 
-Below is an example of defining a custom element:
+下面是定义自定义元素的示例:
 
 ```tsx
 import { defineCustomElement } from "my-library/dist/components/hello-world";
@@ -144,8 +147,7 @@ import { defineCustomElement } from "my-library/dist/components/hello-world";
 defineCustomElement(); // Same as manually calling: customElements.define('hello-world', HelloWorld);
 ```
 
-The output directory will also contain an `index.js` file which exports some helper methods by default. The contents of the file
-will look something like:
+输出目录还将包含一个默认导出一些辅助方法的 `index.js`文件。文件内容看起来像这样：
 
 ```js
 export {
@@ -155,15 +157,15 @@ export {
 ```
 
 :::info 提示
-The contents may look different if [`customElementsExportBehavior`](#customelementsexportbehavior) is specified!
+如果指定了 [`customElementsExportBehavior`](#customelementsexportbehavior)，内容可能看起来不一样!
 :::
 
-## Making Assets Available
+## 使资源可用{#making-assets-available}
 
 For performance reasons, the generated bundle does not include [local assets](../guides/assets.md) built within the JavaScript output,
 but instead it's recommended to keep static assets as external files. By keeping them external this ensures they can be requested on-demand, rather
 than either welding their content into the JS file, or adding many URLs for the bundler to add to the output.
-One method to ensure [assets](../guides/assets.md) are available to external builds and http servers is to set the asset path using `setAssetPath()`.
+One method to ensure [assets](../guides/assets) are available to external builds and http servers is to set the asset path using `setAssetPath()`.
 
 The `setAssetPath()` function is used to manually set the base path where static assets can be found.
 For the lazy-loaded output target the asset path is automatically set and assets copied to the correct
@@ -184,19 +186,21 @@ Make sure to copy the assets over to a public directory in your app. This config
 bundling, and where your assets can be loaded from. How the files are copied to the production build directory depends on the bundler or tooling.
 The configs below provide examples of how to do this automatically with popular bundlers.
 
-## Distributing Custom Elements
+## 分发自定义元素{#distributing-custom-elements}
 
-See our docs on [publishing a component library](../guides/publishing.md) for information on setting up the library's `package.json` file and publishing to a package manager.
+See our docs on [publishing a component library](../guides/publishing) for information on setting up the library's `package.json` file and publishing to a package manager.
 
-By default, custom elements will need to be imported from the [output directory](#dir) specified on the output target config:
+默认情况下，自定义元素需要从输出目标配置中指定的[输出目录](#dir)中导入：
 
 ```tsx
 import { MyComponent } from "best-web-components/dist/components/my-component";
 ```
 
-However, the `module` property in the `package.json` can be modified to point to the custom element output:
+但是 `package_json` 中的 `module` 属性可以被修改为指向自定义元素的输出：
 
-```tsx title="package.json"
+:::code-group
+
+```tsx [package.json]
 {
   "module": "dist/components/index.js",
   "dependencies": {
@@ -206,30 +210,29 @@ However, the `module` property in the `package.json` can be modified to point to
 }
 ```
 
-:::info 提示
-Be sure to set `@stencil/core` as a dependency of the package as well.
 :::
 
-As a result, components can alternatively be imported from the root of the published package:
+:::info 提示
+一定要将 `@stencil/core` 设置为包的依赖项。
+:::
+
+因此，可以选择从已发布包的根目录导入组件：
 
 ```tsx
 import { MyComponent } from "best-web-components";
 ```
 
 :::info 提示
-If you are distributing the output of both the
-[`dist`](./dist.md) and `dist-custom-elements` targets, then
-it's up to you to choose which one of them should be available in the
-`module` entry.
+如果你同时分发 [`dist`](./dist) 和 `dist-custom-elements` 目标的输出，那么由你来选择它们中的哪一个应该出现在 `module` 条目中。
 :::
 
-### Usage in Typescript
+### 在 Typescript 中使用{#usage-in-typescript}
 
-If you plan to support consuming your component library in Typescript you'll
-need to set `generateTypeDeclarations: true` on the your output target in
-`stencil.config.ts`, like so:
+如果你计划支持在 Typescript 中使用组件库，你需要在 `stencil.config.ts` 的输出目标上设置 `generateTypeDeclarations: true`，如下所示：
 
-```tsx title="stencil.config.ts"
+:::code-group
+
+```tsx [stencil.config.ts]
 import { Config } from "@stencil/core";
 
 export const config: Config = {
@@ -244,10 +247,13 @@ export const config: Config = {
 };
 ```
 
-Then you can set the `types` property in `package.json` so that consumers of
-your package can find the type definitions, like so:
+:::
 
-```tsx title="package.json"
+然后你可以在 `package.json` 中设置 `types` 属性，以便你的包的使用者可以找到类型定义，如下所示：
+
+:::code-group
+
+```tsx [package.json]
 {
   "module": "dist/components/index.js",
   "types": "dist/components/index.d.ts",
@@ -258,25 +264,40 @@ your package can find the type definitions, like so:
 }
 ```
 
+:::
+
 :::info 提示
-If you set the `dir` property on the output target config, replace `dist/components` in the above snippet with the path set in the config.
+如果你在输出目标配置文件中设置了 `dir` 属性，用配置文件中设置的路径替换上面代码片段中的 `dist/components`。
 :::
 
 ## Example Bundler Configs
 
-Instructions for consuming the custom elements bundle vary depending on the bundler you're using. These examples will help your users consume your components with webpack and Rollup.
+"根据您使用的打包工具，自定义元素捆绑包的使用方式会有所不同。以下示例将帮助您的用户在 webpack 和 Rollup 中使用您的组件。"
 
-The following examples assume your component library is published to NPM as `my-library`. You should change this to the name you actually publish your library with.
+下面的例子假设你的组件库以 `my-library` 的形式发布到 NPM 上。您应该将其更改为您实际发布库的名称。
 
-Users will need to install your library before importing them.
+用户需要在导入之前安装你的库。
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 npm install my-library
 ```
 
+```bash [yarn]
+npm add my-library
+```
+
+```bash [pnpm]
+npm add my-library
+```
+
+:::
+
 ### webpack.config.js
 
-A webpack config will look something like the one below. Note how assets are copied from the library's `node_module` folder to `dist/assets` via the `CopyPlugin` utility. This is important if your library includes [local assets](../guides/assets.md).
+webpack 配置如下所示。请注意，资源文件是如何通过 `CopyPlugin` 工具从库的 `node_module` 文件夹复制到 `dist/assets`的。
+如果你的库包含[本地资源](../guides/assets)，这很重要。
 
 ```js
 const path = require("path");
@@ -314,7 +335,8 @@ module.exports = {
 
 ### rollup.config.js
 
-A Rollup config will look something like the one below. Note how assets are copied from the library's `node_module` folder to `dist/assets` via the `rollup-copy-plugin` utility. This is important if your library includes [local assets](../guides/assets.md).
+Rollup 配置如下所示。请注意，资源是如何通过 `rollup-copy-plugin` 工具从库的 `node_module` 文件夹复制到 `dist/assets` 的。
+如果你的库包含[本地资源](../guides/assets)，这很重要。
 
 ```js
 import path from "path";
