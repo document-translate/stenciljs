@@ -4,11 +4,11 @@ description: Custom Elements with Stencil
 
 # 自定义元素{#custom-elements}
 
-The `dist-custom-elements` output target creates custom elements that directly extend `HTMLElement` and provides simple utility functions for easily defining these elements on the [Custom Element Registry](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry). This output target excels in use in frontend frameworks and projects that will handle bundling, lazy-loading, and custom element registration themselves.
+`dist-custom-elements` 输出目标创建直接扩展 `HTMLElement` 的自定义元素，并提供简单的实用函数，以便在[自定义元素注册表](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry)上轻松定义这些元素。这个输出目标非常适合用于处理打包、懒加载和自定义元素注册的前端框架和项目。
 
-This target can be used outside of frameworks as well, if lazy-loading functionality is not required or desired. For using lazily loaded Stencil components, please refer to the [dist output target](./dist).
+如果不需要或不需要懒加载功能，这个目标也可以在框架之外使用。要使用惰性加载的 Stencil 组件，请参考[dist 输出目标](./dist)。
 
-To generate components using the `dist-custom-elements` output target, add it to a project's `stencil.config.ts` file like so:
+要使用 `dist-custom-elements` 输出目标生成组件，请将其添加到项目的 `stencil.config.ts` 文件中，如下所示：
 
 :::code-group
 
@@ -33,20 +33,19 @@ export const config: Config = {
 
 ### copy
 
-_default: `undefined`_
+_默认值: `undefined`_
 
-在构建过程中执行的[copy tasks](./copy-tasks)数组。
+在构建过程中执行的 [copy tasks](./copy-tasks) 数组。
 
 ### customElementsExportBehavior
 
-_default: `'default'`_
+_默认值: `'default'`_
 
-By default, the `dist-custom-elements` output target generates a single file per component, and exports each of those files individually.
+默认情况下，`dist-custom-elements` 输出目标为每个组件生成一个文件，并分别导出这些文件。
 
-In some cases, library authors may want to change this behavior, for instance to automatically define component children, provide a single file containing all component exports, etc.
+在某些情况下，库的作者可能想要改变这种行为，例如自动定义组件子组件，提供一个包含所有组件导出的文件，等等。
 
-This config option provides additional behaviors that will alter the default component export _OR_ custom element definition behaviors
-for this target. The desired behavior can be set via the following in a project's Stencil config:
+此配置选项提供其他行为，这些行为将更改此目标的默认组件导出或自定义元素定义行为。在项目的 Stencil 配置文件中，可以通过以下方式设置所需的行为:
 
 ```ts
 // stencil.config.ts
@@ -87,50 +86,52 @@ _default: `'dist/components'`_
 
 ### empty
 
-_default: `true`_
+_默认值: `true`_
 
-Setting this flag to `true` will remove the contents of the [output directory](#dir) between builds.
+将此标志设置为 `true` 将在构建之间删除[输出目录](#dir)的内容。
 
-### externalRuntime
+### externalRuntime{#externalruntime}
 
-_default: `true`_
+_默认值: `true`_
 
-Setting this flag to `true` results in the following behaviors:
+将此标志设置为 `true` 会导致以下行为：
 
-1. Minification will follow what is specified in the [Stencil config](../config/overview#minifyjs).
-2. Filenames will not be hashed.
-3. All imports from packages under `@stencil/core/*` will be marked as external and therefore not included in the generated Rollup bundle.
+1. 压缩将遵循 [Stencil config](../config/overview#minifyjs) 中指定的内容。
+2. 文件名不会被哈希。
+3. 所有从 `@stencil/core/*` 下导入的包都将被标记为外部，因此不会包含在生成的 Rollup 包中。
 
 ### generateTypeDeclarations
 
-_default: `true`_
+_默认值: `true`_
 
-By default, Stencil will generate type declaration files (`.d.ts` files) as a part of the `dist-custom-elements` output target through the `generateTypeDeclarations` field on the target options. Type declaration files will be placed in the `dist/types` directory in the root of a Stencil project. At this time, this output destination is not able to be configured.
+默认情况下，Stencil 将通过目标选项上的 `generateTypeDeclarations` 字段生成类型声明文件(`.d.ts` 文件)，作为 `dist-custom-elements` 输出目标的一部分。
+类型声明文件将放置在 Stencil 项目根目录的 `dist/types` 目录中。此时，无法配置此输出目标。
 
-Setting this flag to `false` will not generate type declaration files for the `dist-custom-elements` output target.
+将此标志设置为 `false` 将不会为 `dist-custom-elements` 输出目标生成类型声明文件。
 
 :::info 提示
-When set to generate type declarations, Stencil respects the export behavior selected via `customElementsExportBehavior` and generates type declarations specific to the content of the generated [output directory's](#dir) `index.js` file.
+当设置为生成类型声明时，Stencil 遵守通过 `customElementsExportBehavior` 选择的导出行为，并生成特定于生成的[输出目录](#dir)内容的类型声明 `index.js` 文件。
 :::
 
 ### includeGlobalScripts
 
-_default: `false`_
+_默认值: `false`_
 
-Setting this flag to `true` will include [global scripts](../config/overview#globalscript) in the bundle and execute them once the bundle entry point in loaded.
+将此标志设置为 `true` 将在打包文件中包含[全局脚本](../config/overview#globalscript)，并在打包文件入口点加载后执行它们。
 
 ### isPrimaryPackageOutputTarget
 
-_default: `false`_
+_默认值: `false`_
 
-If `true`, this output target will be used to validate `package.json` fields for your project's distribution. See the overview of [primary package output target validation](./overview#primary-package-output-target-validation)
-for more information.
+如果为 `true`，则此输出目标将用于验证项目发行版的 `package.json` 字段。
+有关更多信息，请参阅[主包输出目标验证](./overview#primary-package-output-target-validation)的概述。
 
 ### minify
 
-_default: `false`_
+_默认值: `false`_
 
-Setting this flag to `true` will cause file minification to follow what is specified in the [Stencil config](../config/overview#minifyjs). _However_, if [`externalRuntime`](#externalruntime) is enabled, it will override this option and always result in minification being disabled.
+将此标志设置为 `true` 将导致文件压缩遵循 [Stencil 配置](../config/overview#minifyjs)中指定的内容。
+但是，如果启用了 [`externalRuntime`](#externalruntime) ，它将覆盖此选项，并始终导致禁用压缩。
 
 ## 使用自定义元素{#consuming-custom-elements}
 
@@ -162,19 +163,18 @@ export {
 
 ## 使资源可用{#making-assets-available}
 
-For performance reasons, the generated bundle does not include [local assets](../guides/assets.md) built within the JavaScript output,
-but instead it's recommended to keep static assets as external files. By keeping them external this ensures they can be requested on-demand, rather
-than either welding their content into the JS file, or adding many URLs for the bundler to add to the output.
-One method to ensure [assets](../guides/assets) are available to external builds and http servers is to set the asset path using `setAssetPath()`.
+出于性能原因，生成的打包文件不包括 JavaScript 输出中构建的[本地资源](../guides/assets.md)，而是建议将静态资源作为外部文件。
+通过将它们放在外部，可以确保它们可以按需请求，而不是将它们的内容焊接到 JS 文件中，或者为打包工具添加许多 url 以输出。
 
-The `setAssetPath()` function is used to manually set the base path where static assets can be found.
-For the lazy-loaded output target the asset path is automatically set and assets copied to the correct
-build directory. However, for custom elements builds, the `setAssetPath(path)` should be
-used to customize the asset path depending on where they are found on the http server.
+确保 [assets](../guides/assets) 对外部构建和 http 服务器可用的一种方法是使用 `setAssetPath()` 设置资源路径。
 
-If the component's script is a `type="module"`, it's recommended to use `import.meta.url`, such
-as `setAssetPath(import.meta.url)`. Other options include `setAssetPath(document.currentScript.src)`, or using a bundler's replace plugin to
-dynamically set the path at build time, such as `setAssetPath(process.env.ASSET_PATH)`.
+`setAssetPath()` 函数用于手动设置可以找到静态资源的基本路径。
+对于延迟加载的输出目标，资源路径会自动设置，资源会被复制到正确的构建目录中。然而，对于自定义元素的构建，应该使用 `setAssetPath(path)` 来根据 http 服务器上的位置自定义资源路径。
+
+如果组件的脚本是 `type="module"`，则建议使用 `import.meta.url`，例如 `setAssetPath(import.meta.url)`。
+其他选项包括 `setAssetPath(document.currentScript.src)`，或者使用打包工具的替换插件
+
+在构建时动态设置路径，例如`setAssetPath(process.env.ASSET_PATH)`。
 
 ```tsx
 import { setAssetPath } from "my-library/dist/components";

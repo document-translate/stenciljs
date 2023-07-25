@@ -29,7 +29,7 @@ export const config: Config = {
 };
 ```
 
-## Primary Package Output Target Validation
+## Primary Package Output Target Validation{#primary-package-output-target-validation}
 
 If `validatePrimaryPackageOutputTarget: true` is set in your project's [Stencil config](../config/overview#validateprimarypackageoutputtarget) Stencil will
 attempt to validate certain fields in your `package.json` that correspond with the generated distribution code. Because Stencil can output many different formats

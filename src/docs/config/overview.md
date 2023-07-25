@@ -95,7 +95,7 @@ enableCache: true;
 
 请查看 [Extras docs](./extras).
 
-## globalScript
+## globalScript{#globalscript}
 
 The global script config option takes a file path as a string.
 
@@ -177,7 +177,7 @@ _default: `true` in production_
 
 When `true`, the browser CSS file will be minified.
 
-## minifyJs
+## minifyJs{#minifyjs}
 
 _default: `true` in production_
 
