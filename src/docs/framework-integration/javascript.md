@@ -2,9 +2,10 @@
 description: Components without a Framework
 ---
 
-# Components without a Framework
+# 在没有使用框架时使用组件
 
-Integrating a component built with Stencil to a project without a JavaScript framework is straight forward. If you're using a simple HTML page, you can add your component via a script tag. For example, if we published a component to npm, we could load the component through a CDN like this:
+在没有 JavaScript 框架的情况下，将使用 Stencil 构建的组件集成到项目中是很简单的。如果你使用的是一个简单的 HTML 页面，你可以通过一个 script 标签来添加组件。
+例如，如果我们发布了一个组件到 npm，我们可以通过 CDN 这样加载该组件：
 
 ```html
 <html>
@@ -17,7 +18,7 @@ Integrating a component built with Stencil to a project without a JavaScript fra
 </html>
 ```
 
-Alternatively, if you wanted to take advantage of ES Modules, you could include the components using an import statement.
+或者，如果你想利用 ES 模块，可以使用 import 语句包含组件。
 
 ```html
 <html>
@@ -33,9 +34,9 @@ Alternatively, if you wanted to take advantage of ES Modules, you could include 
 </html>
 ```
 
-## Passing object props from a non-JSX element
+## 从非 jsx 元素传递对象类型的 prop{#passing-oobject-pprops-from-a-non-jsx-element}
 
-### Setting the prop manually
+### 手动设置 prop
 
 ```tsx
 import { Prop } from "@stencil/core";
@@ -55,7 +56,7 @@ export class TodoList {
 </script>
 ```
 
-### Watching props changes
+### 监听 prop 更改
 
 ```tsx
 import { Prop, State, Watch } from "@stencil/core";
