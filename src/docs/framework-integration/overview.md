@@ -1,22 +1,22 @@
 ---
-description: Framework Integration
+description: 框架集成
 ---
 
-# Framework Integration
+# 框架集成
 
-Stencil's primary goal is to remove the need for components to be written using a specific framework's API.
-It accomplishes this by using standardized web platform APIs that work across all modern browsers.
-Using the low-level component model that is provided by the browser (which all frameworks are built on) allows Stencil components to work inside a framework or without one.
+Stencil 的主要目标是消除使用特定框架 API 编写组件的需求。
+它通过使用跨所有现代浏览器的标准化 web 平台 api 来实现这一点。
+使用浏览器提供的底层组件模型(所有框架都是基于它构建的)允许 Stencil 组件在框架内或没有框架的情况下工作。
 
-The experience of integrating web components directly into existing applications can be tricky at times, as frameworks have varying support for vanilla web components.
-In order to accommodate the various issues the Stencil team has created Framework Wrappers to make the process simpler.
+将 web 组件直接集成到现有应用程序中有时会很棘手，因为框架对普通 web 组件的支持各不相同。
+为了适应各种问题，Stencil 团队创建了框架包装器，使过程更简单。
 
-The Framework Wrappers are configured like output targets, and emit a native library, just like if your components were originally written using any of these frameworks:
+框架包装器像输出目标一样配置，并发出一个本机库，就像你的组件最初使用这些框架中的任何一个编写一样：
 
-- [Angular](./angular.md)
-- [React](./react.md)
-- [Vue](./vue.md)
-- [Ember (Community)](./ember.md)
+- [Angular](./angular)
+- [React](./react)
+- [Vue](./vue)
+- [Ember (Community)](./ember)
 
-By using Stencil bindings, you can build your components once, and have Stencil emit Angular/React/Vue libraries.
-This way, the consumers of your components can enjoy all the features of their framework of choice.
+通过使用 Stencil 绑定，你只需要构建一次组件，就可以让 Stencil 生成 Angular/React/Vue 库。
+这样，组件的使用者就可以享受他们所选择的框架的所有特性。
