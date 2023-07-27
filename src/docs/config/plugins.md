@@ -17,7 +17,7 @@ export const config: Config = {
 };
 ```
 
-## Rollup 插件{#rollup plugins}
+## Rollup 插件{#rollup-plugins}
 
 `rollupPlugins` 配置可以用来添加你自己的 [Rollup](https://rollupjs.org)插件。
 在底层，stencil 内置了一些插件，包括 `node-resolve` 和 `commonjs`，因为 rollup 插件的执行顺序很重要，所以 stencil 提供了一个 API，

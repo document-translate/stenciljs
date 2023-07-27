@@ -1,45 +1,45 @@
 ---
-description: Learn how to reference assets in your components
+description: 了解如何在组件中引用资产
 ---
 
-# Assets
+# 资源
 
-Stencil components may need one or more static files as a part of their design.
-These types of files are referred to as 'assets', and include images, fonts, etc.
+Stencil 组件可能需要一个或多个静态文件作为其设计的一部分。
+这些类型的文件被称为 '资产'，包括图像、字体等。
 
-In this guide, we describe different strategies for resolving assets on the filesystem.
+在本指南中，我们将描述在文件系统上解析资源的不同策略。
 
 :::info 提示
-CSS files are handled differently than assets; for more on using CSS, please see the [styling documentation](../components/styling.md).
+CSS 文件与资产文件的处理方式不同;有关使用 CSS 的更多信息，请参阅 [styling 文档](../components/styling)。
 :::
 
-## Asset Base Path
+## 资产基础路径{#asset-base-path}
 
-The **asset base path** is the directory that Stencil will use to resolve assets.
-When a component uses an asset, the asset's location is resolved relative to the asset base path.
+**资源基础路径**是 Stencil 将用于解析资产的目录。
+当组件使用资产时，资产的位置相对于资产基路径进行解析。
 
-The asset base path is automatically set for the following output targets:
+资产基路径会自动为以下输出目标设置：
 
-- [dist](../output-targets/dist.md)
-- [hydrate](./hydrate-app.md)
-- [www](../output-targets/www.md)
+- [dist](../output-targets/dist)
+- [hydrate](./hydrate-app)
+- [www](../output-targets/www)
 
-For all other output targets, assets must be [moved](#manually-moving-assets) and the asset base path must be [manually set](#setassetpath).
+对于所有其他输出目标，资源必须被[移动](#manually-moving-assets)并且资产的基础路径必须被[手动设置](#setassetpath)。
 
-For each instance of the Stencil runtime that is loaded, there is a single asset base path.
-Oftentimes, this means there is only one asset base path per application using Stencil.
+对于加载的每个 Stencil 运行时实例，都有一个单一的资产基路径。
+通常，这意味着每个使用 Stencil 的应用程序只有一个资产基路径。
 
-## Resolution Overview
+## 解决方案概览{#resolution-overview}
 
-The process of resolving an asset involves asking Stencil to build a path to the asset on the filesystem.
+解析资产的过程包括要求 Stencil 在文件系统上构建到该资产的路径。
 
-When an asset's path is built, the resolution is always done in a project's compiled output, not the directory containing the original source code.
+当资源的路径被构建时，解析总是在项目的编译输出中完成，而不是在包含原始源代码的目录中。
 
-The example below uses the output of the [`www` output target](../output-targets/www.md) to demonstrate how assets are resolved.
-Although the example uses the output of `www` builds, the general principle of how an asset is found holds for all output targets.
+下面的示例使用 [`www` 输出目标](../output-targets/www)的输出来演示如何解析资源。
+虽然示例使用了 `www` 构建的输出，但如何找到资源的一般原则适用于所有输出目标。
 
-When using the `www` output target, a `build/` directory is automatically created and set as the asset base path.
-An example `build/` directory and the assets it contains can be found below.
+当使用 `www` 输出目标时，会自动创建一个 `build/` 目录并将其设置为资源基路径。
+下面是一个 `build/` 目录及其包含的资源的例子。
 
 ```
 www/
@@ -54,11 +54,11 @@ www/
 └── ...
 ```
 
-To resolve the path to an asset, Stencil's [`getAssetPath()` API](#getassetpath) may be used.
-When using `getAssetPath`, the assets in the directory structure above are resolved relative to `build/`.
+要解析资源的路径，可以使用 Stencil 的 [`getAssetPath()` API](#getassetpath)。
+当使用 `getAssetPath` 时，上述目录结构中的资源将相对于 `build/` 解析。
 
-The code sample below demonstrates the return value of `getAssetPath` for different `path` arguments.
-The return value is a path that Stencil has built to retrieve the asset on the filesystem.
+下面的代码示例演示了 `getAssetPath` 对于不同的 `path` 参数的返回值。
+返回值是 Stencil 构建的路径，用于在文件系统中检索资源。
 
 ```ts
 // with an asset base path of "/build/":
@@ -71,21 +71,21 @@ getAssetPath("assets/scenery/beach.png");
 getAssetPath("other-assets/font.tiff");
 ```
 
-## Making Assets Available
+## 使资产可用{#making-assets-available}
 
-In order to be able to find assets at runtime, they need to be found on the filesystem from the output of a Stencil build.
-In other words, we need to ensure they exist in the distribution directory.
-This section describes how to make assets available under the asset base path.
+为了能够在运行时找到资源，它们需要在文件系统中从 Stencil 的输出中找到。
+换句话说，我们需要确保它们存在于分发目录中。
+本节描述如何使资产在资产基路径下可用。
 
 ### assetsDirs
 
-The `@Component` decorator can be [configured with the `assetsDirs` option](../components/component.md#component-options).
-`assetsDirs` takes an array of strings, where each entry is a relative path from the component to a directory containing the assets the component requires.
+`@Component` 装饰器可以[使用 `assetsDirs` 选项配置](../components/component#component-options)。
+`assetsDirs` 接受一个字符串数组，其中每个条目是一个相对路径，从组件到包含组件所需资源的目录。
 
-When using the `dist` or `www` output targets, setting `assetsDirs` instructs Stencil to copy that folder into the distribution folder.
-When using other output targets, Stencil will not copy assets into the distribution folder.
+当使用 `dist` 或 `www` 输出目标时，设置 `assetsDirs` 会通知 Stencil 将该文件夹复制到分发文件夹中。
+当使用其他输出目标时，Stencil 不会将资源复制到 distribution 文件夹中。
 
-Below is an example project's directory structure containing an example component and an assets directory.
+下面是一个示例项目的目录结构，其中包含一个示例组件和一个 assets 目录。
 
 ```
 src/
@@ -96,7 +96,7 @@ src/
     └── my-component.tsx
 ```
 
-Below, the `my-component` component will correctly load the assets based on it's `image` prop.
+下面，`my-component` 组件将根据它的 `image` 属性正确加载资源。
 
 ```tsx
 // file: my-component.tsx
@@ -121,23 +121,23 @@ export class MyComponent {
 }
 ```
 
-In the example above, the following allows `my-component` to display the provided asset:
+在上面的例子中，以下代码允许 `my-component` 显示提供的资源:
 
-1. [`getAssetPath()`](#getassetpath) is imported from `@stencil/core`
-2. The `my-component`'s component decorator has the `assetsDirs` property, and lists the sibling directory, `assets`. This will copy `assets` over to the distribution directory.
-3. `getAssetPath` is used to retrieve the path to the image to be used in the `<img>` tag
+1. [`getAssetPath()`](#getassetpath) 是从 `@stencil/core` 导入的
+2. `my-component` 的组件装饰器有 `assetsDirs` 属性，并列出兄弟目录 `assets`。这将把 `assets` 复制到分发目录。
+3. `getAssetPath` 用于检索在 `<img>` 标签中使用的图像的路径
 
-### Manually Moving Assets
+### 手动移动资产{#manually-moving-assets}
 
-For the [dist-custom-elements](../output-targets/custom-elements.md) output target, options like `assetsDirs` do not copy assets to the distribution directory.
+对于 [dist-custom-elements](../output-targets/custom-elements) 输出目标，像 `assetsDirs` 这样的选项不会将资源复制到分发目录。
 
-It's recommended that a bundler (such as rollup) or a Stencil `copy` task is used to ensure the static assets are copied to the distribution directory.
+建议使用打包工具(如 rollup)或 Stencil 的 `copy` 任务来确保静态资源被复制到分发目录中。
 
 #### Stencil Copy Task
 
-[Stencil `copy` task](../output-targets/copy-tasks.md)s can be used to define files and folders to be copied over to the distribution directory.
+[Stencil `copy` task](../output-targets/copy-tasks) 可以用来定义要复制到分发目录中的文件和文件夹。
 
-The example below shows how a copy task can be used to find all '.jpg' and '.png' files under a project's `src` directory and copy them to `dist/components/assets` at build time.
+下面的例子展示了如何使用复制任务在项目的 `src` 目录下找到所有 `.jpg` 和 `.png` 文件，并在构建时将它们复制到 `dist/components/assets` 中。
 
 ```ts
 import { Config } from "@stencil/core";
@@ -160,11 +160,12 @@ export const config: Config = {
 };
 ```
 
-#### Rollup Configuration
+#### Rollup 配置
 
-[Rollup Plugins](../config/plugins.md#rollup-plugins)'s can be used to define files and folders to be copied over to the distribution directory.
+[Rollup 插件](../config/plugins#rollup-plugins)可以用来定义要复制到分发目录中的文件和文件夹。
 
-The example below shows how a the `rollup-plugin-copy` NPM module can be used to find all '.jpg' and '.png' files under a project's `src` directory and copy them to `dist/components/assets` at build time.
+下面的例子展示了如何使用 `rollup-plugin-copy` NPM 模块在项目的 `src` 目录下找到所有 `.jpg` 和 `.png` 文件，
+并在构建时将它们复制到 `dist/components/assets` 中。
 
 ```javascript
 import { Config } from "@stencil/core";
@@ -192,11 +193,11 @@ export const config: Config = {
 };
 ```
 
-## API Reference
+## API 参考{#api-reference}
 
 ### getAssetPath{#get-asset-path}
 
-`getAssetPath()` is an API provided by Stencil to build the path to an asset, relative to the asset base path.
+`getAssetPath()` 是 Stencil 提供的一个 API，用于相对于资源基路径构建资源的路径。
 
 ```ts
 /**
@@ -208,7 +209,7 @@ export const config: Config = {
 declare function getAssetPath(path: string): string;
 ```
 
-The code sample below demonstrates the return value of `getAssetPath` for different `path` arguments, when an asset base path of `/build/` has been set.
+下面的代码示例演示了当设置了资源基础路径 `/build/` 时，对于不同的 `path` 参数，`getAssetPath` 的返回值。
 
 ```ts
 // with an asset base path of "/build/":
@@ -226,9 +227,9 @@ getAssetPath("../assets/my-image.png");
 getAssetPath("/assets/my-image.png");
 ```
 
-### setAssetPath
+### setAssetPath{#setassetpath}
 
-`setAssetPath` is an API provided by Stencil to manually set the asset base path where assets can be found.
+`setAssetPath` 是一个由 Stencil 提供的 API，用于手动设置可以找到资源的资源基础路径
 
 ```ts
 /**
@@ -239,13 +240,11 @@ getAssetPath("/assets/my-image.png");
 export declare function setAssetPath(path: string): string;
 ```
 
-Calling this API will set the asset base path for all Stencil components attached to a Stencil runtime.
-As a result, calling `setAssetPath` should not be done from within a component in order to prevent unwanted side effects
-when using a component.
+调用此 API 将为附加到一个 Stencil 运行时的所有 Stencil 组件设置资产基路径。
+因此，为了防止在使用组件时产生不必要的副作用，不应该在组件内部调用 `setAssetPath`。
 
-If the file calling `setAssetPath` is a module, it's recommended to use `import.meta.url`.
+如果调用 `setAssetPath` 的文件是一个模块，建议使用 `import.meta.url`。
 
-Alternatively, one may use [`document.currentScript.src`](https://developer.mozilla.org/en-US/docs/Web/API/Document/currentScript)
-when working in the browser and not using modules or environment variables (e.g. `document.env.ASSET_PATH`) to set the
-asset base path.
-This configuration depends on how your script is bundled, (or lack of bundling), and where your assets can be loaded from.
+或者，当在浏览器中工作时，可以使用 [`document.currentScript.src`](https://developer.mozilla.org/en-US/docs/Web/API/Document/currentScript)，
+而不使用模块或环境变量(例如：`document.env.ASSET_PATH`) 来设置资源基路径。
+这个配置取决于你的脚本是如何打包的(或者没有打包)，以及从哪里加载资源。
