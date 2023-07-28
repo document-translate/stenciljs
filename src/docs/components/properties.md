@@ -7,20 +7,20 @@ Props 是在 HTML 元素上公开的自定义 attributes/properties。它们允�
 Props 使用 Stencil 的`@Prop()`装饰器在组件上声明，如下所示：
 
 ```tsx
-// First, we import Prop from '@stencil/core'
+// 首先, 从 '@stencil/core' 导入 Prop
 import { Component, Prop, h } from "@stencil/core";
 
 @Component({
   tag: "todo-list",
 })
 export class TodoList {
-  // Second, we decorate a class member with @Prop()
+  // 其次, 我们使用 @Prop() 装饰一个类成员
   @Prop() name: string;
 
   render() {
-    // Within the component's class, its props are
-    // accessed via `this`. This allows us to render
-    // the value passed to `todo-list`
+    // 在组件的类中，
+    // 它的 props 可以通过 `this` 来访问。
+    // 这允许我们渲染传递给 `todo-list` 的值。
     return <div>To-Do List Name: {this.name}</div>;
   }
 }
@@ -46,8 +46,7 @@ export class TodoList {
 
 ## Variable Casing
 
-In the JavaScript ecosystem, it's common to use 'camelCase' when naming variables. The example component below has a
-class member, `thingToDo` that is camelCased.
+在 JavaScript 生态系统中，通常使用 'camelCase' 来命名变量。下面的示例组件有一个驼峰格式的类成员 `thingToDo`。
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -65,26 +64,26 @@ export class ToDoListItem {
 }
 ```
 
-Since `thingToDo` is a prop, we can provide a value for it when we use our `todo-list-item` component. Providing a
-value to a camelCased prop like `thingToDo` is nearly identical in TSX and HTML.
+由于 `thingToDo` 是一个属性，我们可以在使用 `todo-list-item` 组件时为它提供一个值。
+在 TSX 和 HTML 中，为驼峰式大小写属性(如`thingToDo`)提供值几乎是相同的。
 
-When we use our component in a TSX file, an attribute uses camelCase:
+当我们在 TSX 文件中使用我们的组件时，一个属性使用 camelCase:
 
 ```tsx
 <todo-list-item thingToDo={"Learn about Stencil Props"}></todo-list-item>
 ```
 
-In HTML, the attribute must use 'dash-case' like so:
+在 HTML 中，属性必须使用 'dash-case'，如下所示:
 
 ```html
 <todo-list-item thing-to-do="Learn about Stencil Props"></todo-list-item>
 ```
 
-## Data Flow
+## 数据流{#data-flow}
 
-Props should be used to pass data down from a parent component to its child component(s).
+应该使用 Props 将数据从父组件传递给它的子组件。
 
-The example below shows how a `todo-list` component uses three `todo-list-item` child components to render a ToDo list.
+下面的例子展示了一个 `todo-list` 组件如何使用三个 `todo-list-item` 子组件来渲染一个待办事项列表。
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
@@ -98,7 +97,7 @@ export class TodoList {
       <div>
         <h1>To-Do List Name: Stencil To Do List</h1>
         <ul>
-          {/* Below are three Stencil components that are children of `todo-list`, each representing an item on our list */}
+          {/* 下面是三个 Stencil 组件，它们是 `todo-list` 的子组件，每个组件代表我们列表中的一个项目 */}
           <todo-list-item
             thingToDo={"Learn about Stencil Props"}
           ></todo-list-item>
@@ -129,15 +128,13 @@ export class ToDoListItem {
 ```
 
 :::info 提示
-Children components should not know about or reference their parent components. This allows Stencil to
-efficiently re-render your components. Passing a reference to a component as a prop may cause unintended side effects.
+子组件不应该知道或引用它们的父组件。这允许 Stencil 高效地重新渲染组件。将组件的引用作为属性传递可能会导致意想不到的副作用。
 :::
 
 ## 可变性{#mutability}
 
-A Prop is by default immutable from inside the component logic. Once a value is set by a user, the component cannot
-update it internally. For more advanced control over the mutability of a prop, please see the
-[mutable option](#prop-mutability-mutable) section of this document.
+默认情况下，Prop 在组件逻辑中是不可变的。一旦用户设置了值，组件就不能在内部更新它。
+有关属性可变性的更高级控制，请参阅本文的[mutable option](#prop-mutability-mutable)部分。
 
 ## 类型{#types}
 
@@ -145,7 +142,7 @@ Props 可以是`boolean`、`number`、`string`，甚至是`Object`或`Array`。�
 
 ```tsx
 import { Component, Prop, h } from "@stencil/core";
-// `MyHttpService` is an `Object` in this example
+// 在这个例子中，`MyHttpService` 是一个 `Object`
 import { MyHttpService } from "../some/local/directory/MyHttpService";
 
 @Component({
@@ -197,7 +194,7 @@ Stencil 处理`boolean`类型属性的几种方式值得注意：
 1. 如果在 HTML 中提供字符串 `"false"`，布尔属性的值将为 `false`
 
 ```html
-<!-- The 'todo-list-item' component will have an isComplete value of `false` -->
+<!-- 'todo-list-item' 组件的 isComplete 值为 `false` -->
 <todo-list-item is-complete="false"></todo-list-item>
 ```
 
@@ -273,22 +270,22 @@ export class ToDoListItem {
 要在 HTML 中使用这个版本的 `todo-list-item`，我们将值作为字符串传递给组件:
 
 ```html
-<!-- Set thingToDo to 'Learn about Stencil Props' -->
+<!-- 设置 thingToDo 为 'Learn about Stencil Props' -->
 <todo-list-item thing-to-do="Learn about Stencil Props"></todo-list-item>
-<!-- Set thingToDo to 'Write some Stencil Code with Props' -->
+<!-- 设置 thingToDo 为 'Write some Stencil Code with Props' -->
 <todo-list-item
   thing-to-do="Write some Stencil Code with Props"
 ></todo-list-item>
 ```
 
-要在 TSX 中使用这个版本的`todo-list-item`，我们将值作为字符串传递给组件。在 TSX 中向 props 提供字符串值时，大括号不是必需的:
+要在 TSX 中使用这个版本的 `todo-list-item`，我们将值作为字符串传递给组件。在 TSX 中向 props 提供字符串值时，大括号不是必需的:
 
 ```tsx
-// Set thingToDo to 'Learn about Stencil Props'
+// 设置 thingToDo 为 'Learn about Stencil Props'
 <todo-list-item thingToDo="Learn about Stencil Props"></todo-list-item>
-// Set thingToDo to 'Write some Stencil Code with Props'
+// 设置 thingToDo 为 'Write some Stencil Code with Props'
 <todo-list-item thingToDo="Write some Stencil Code with Props"></todo-list-item>
-// Set thingToDo to 'Write some Stencil Code with Props' with curly braces
+// 使用大括号蒋 thingToDo 设置为 'Write some Stencil Code with Props'
 <todo-list-item thingToDo={"Learn about Stencil Props"}></todo-list-item>
 ```
 
@@ -673,7 +670,7 @@ export class ComponentWithManyProps {
 }
 ```
 
-## 必填的 prop{#required-property}
+## 必填的 prop{#required-properties}
 
 通过在 prop 名称之后附加 `!`，Stencil 根据需要标记该 attribute/property 为必填。这样可以确保在 TSX 中使用组件时，将使用该属性：
 
