@@ -1,21 +1,22 @@
 ---
-description: Publishing A Component Library
+description: 发布组件库
 ---
 
-# Publishing A Component Library
+# 发布组件库
 
-There are numerous strategies to publish and distribute your component library to be consumed by external projects. One of the benefits of Stencil is that is makes it easy to generate the various [output targets](../output-targets/overview) that are right for your use-case.
+有许多策略可以发布和分发组件库以供外部项目使用。Stencil 的一个好处是可以很容易地生成适合你用例的各种[输出目标](../output-targets/overview)。
 
-## Publishing to Node Package Manager (NPM)
+## 发布到 NPM
 
-The first step and highly recommended step is to
-[publish the component library to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages). NPM is an online software registry for sharing libraries, tools, utilities, packages, etc. Once the library is published to NPM, other projects are able to add your component library as a dependency and use the components within their own projects.
+第一步，也是强烈推荐的一步是[发布组件库到 NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages)。
+NPM 是一个在线软件注册中心，用于共享库、工具、实用程序和包等。一旦这个库发布到 NPM 上，其他项目就可以将你的组件库作为依赖添加到它们自己的项目中，并在自己的项目中使用这些组件。
 
 ## `package.json`
 
-The purpose of the `package.json` file is to give other tools instructions on how to find the package's files, and to provide information about the package. For example, bundlers such as [Rollup](https://rollupjs.org/) and [Webpack](https://webpack.js.org/) use this configuration to locate the project's entry files.
+`package.json` 文件的目的是向其他工具提供如何查找包文件的说明，并提供有关包的信息。
+例如，打包工具如 [Rollup](https://rollupjs.org/) 和 [Webpack](https://webpack.js.org/) 使用此配置来定位项目的入口文件。
 
-An advantage to using the compiler is that it is able to provide help on how to best set up the project for distribution. Below is a common setup found within a project's `package.json` file:
+使用编译器的一个好处是，它能够提供关于如何最好地设置发行版项目的帮助。以下是在项目的 `package.json` 文件中常见的设置:
 
 ```json
 {
@@ -31,18 +32,18 @@ An advantage to using the compiler is that it is able to provide help on how to 
 }
 ```
 
-| Property | Description                                                                                | Recommended                       |
-| -------- | ------------------------------------------------------------------------------------------ | --------------------------------- |
-| `main`   | Entry file in the CommonJS module format.                                                  | `dist/index.cjs.js`               |
-| `module` | Entry file in the ES module format. ES modules is the standardized and recommended format. | `dist/index.js`                   |
-| `es2015` | Commonly used by framework bundling.                                                       | `dist/esm/index.mjs`              |
-| `es2017` | Commonly used by framework bundling.                                                       | `dist/esm/index.mjs`              |
-| `types`  | Entry file to the project's types.                                                         | `dist/types/components.d.ts`      |
-| `unpkg`  | Entry file for requests to the projects [unpkg](https://unpkg.com/) CDN.                   | `dist/{NAMESPACE}/{NAMESPACE}.js` |
-| `files`  | Array of files that should be included in a npm release.                                   | `["dist/", "loader/"]`            |
+| Property | 描述                                                  | 推荐                              |
+| -------- | ----------------------------------------------------- | --------------------------------- |
+| `main`   | CommonJS 模块的入口文件                               | `dist/index.cjs.js`               |
+| `module` | ES 模块的入口文件， ES 模块是标准化的推荐格式         | `dist/index.js`                   |
+| `es2015` | 通常用于框架打包。                                    | `dist/esm/index.mjs`              |
+| `es2017` | 通常用于框架打包。                                    | `dist/esm/index.mjs`              |
+| `types`  | 项目类型的入口文件。                                  | `dist/types/components.d.ts`      |
+| `unpkg`  | 项目 [unpkg](https://unpkg.com/) CDN 请求的入口文件。 | `dist/{NAMESPACE}/{NAMESPACE}.js` |
+| `files`  | npm 发行版中应该包含的文件数组。                      | `["dist/", "loader/"]`            |
 
-The `collection` properties are used to allow lazy loading in other Stencil applications.
+`collection`属性用于在其他 Stencil 应用程序中延迟加载。
 
 :::info 提示
-If you are distributing both the `dist` and `dist-custom-elements`, then it's best to pick one of them as the main entry.
+如果你同时分发了 `dist` 和 `dist-custom-elements`，那么最好选择其中一个作为主要入口。
 :::
