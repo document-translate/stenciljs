@@ -1,13 +1,14 @@
 ---
-description: Deploying a Static Site
+description: 部署一个静态站点
 ---
 
-# Deploying a Stencil Static Site
+# 部署 Stencil 静态站点
 
-Deploying a prerendered static site built with Stencil is exactly like deploying any static site, because the output is just a set of HTML files.
+部署使用 Stencil 构建的预渲染静态网站与部署任何静态网站一样，因为输出只是一组 HTML 文件。
 
-Every path that Stencil detects (or is provided using `entryUrls` in the prerender config) is generated in the `www` output target's directory, with each url given an `index.html` that becomes the root for the app.
+Stencil 检测到的每一个路径(或者在 prerender 配置文件中使用 `entryUrls` 提供的路径)都是在 `www` 输出目标的目录中生成的，每个 url 都有一个 `index.html` 作为应用的根目录。
 
-Think of it as turning every URL in your app into a standalone web page that bootstraps the entire app. No matter what URL a visitor comes to, they will be served an `index.html` file with that page's specific content already rendered, but with the entire app then hydrating and loading.
+将其视为将应用程序中的每个 URL 转换为一个独立的 web 页面，以引导整个应用程序。
+无论访问者访问哪个 URL，他们都将得到一个已经渲染了该页面特定内容的 `index.html` 文件，然后整个应用程序进行 hydration 和加载。
 
-This means you can simply deploy the `www` output target's directory to any static host!
+这意味着你可以简单地将 `www` 输出目标目录部署到任何静态主机!
