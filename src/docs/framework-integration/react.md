@@ -58,7 +58,7 @@ pnpm add --global lerna
 如果您已经有一个 monorepo，请跳过本节。
 :::
 
-::code-group
+:::code-group
 
 ```bash [npm]
 # From your top-most-directory/, initialize a workspace
@@ -367,9 +367,21 @@ This section covers how developers consuming your React component wrappers will 
 
 Before you can consume your React proxy components, you'll need to build your React component library. From `packages/react-library` run:
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 npm run build
 ```
+
+```bash [yarn]
+yarn build
+```
+
+```bash [pnpm]
+pnpm run build
+```
+
+:::
 
 To make use of your React component library in your React application, import your components from your React component library in the file where you want to use them.
 
