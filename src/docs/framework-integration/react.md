@@ -1,27 +1,26 @@
 ---
-description: Learn how to wrap your components so that people can use them natively in React
+description: 学习如何包装组件，以便人们可以在 React 中使用它们
 ---
 
-# React Integration
+# React 集成
 
 **Supports: React v16.7+ • TypeScript 3.7+ • Stencil v2.9.0+**
 
-Stencil can generate React component wrappers for your web components. This allows your Stencil components to be used within
-a React application. The benefits of using Stencil's component wrappers over the standard web components include:
+Stencil 可以为你的 web 组件生成 React 组件包装器。这允许你的 Stencil 组件在 React 应用程序中使用。与标准 web 组件相比，使用 Stencil 的组件包装器的好处包括：
 
-- Custom events will be handled correctly and correctly propagate through the React render tree
-- Properties and attributes that are not a string or number will be correctly bound to the component
+- 自定义事件将被正确处理，并正确地在 React 渲染树中传播
+- 非字符串或数字的属性将被正确地绑定到组件
 
-## Setup
+## 设置{#setup}
 
-### Project Structure
+### 项目结构{#project-structure}
 
-We recommend using a [monorepo](https://www.toptal.com/front-end/guide-to-monorepos) structure for your component library with component
-wrappers. Your project workspace should contain your Stencil component library and the library for the generated React component wrappers.
+我们建议在组件库中使用 [monorepo](https://www.toptal.com/front-end/guide-to-monorepos) 结构和组件包装器。
+你的项目工作区应该包含你的 Stencil 组件库和生成的 React 组件包装库。
 
-An example project set-up may look similar to:
+一个项目设置的示例可能看起来类似于：
 
-```
+```bash
 top-most-directory/
 └── packages/
     ├── stencil-library/
@@ -33,21 +32,35 @@ top-most-directory/
             └── index.ts
 ```
 
-This guide uses Lerna for the monorepo, but you can use other solutions such as Nx, TurboRepo, etc.
+本指南在 monorepo 中使用 Lerna，但你也可以使用其他解决方案，如 Nx、TurboRepo 等。
 
-To use Lerna with this walk through, globally install Lerna:
+要在本教程中使用 Lerna，请全局安装 Lerna:
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 npm install --global lerna
 ```
 
-#### Creating a Monorepo
+```bash [yarn]
+yarn global add lerna
+```
 
-:::info 提示
-If you already have a monorepo, skip this section.
+```bash [pnpm]
+pnpm add --global lerna
+```
+
 :::
 
-```bash npm2yarn
+#### 创建一个 monorepo{#creating-a-monorepo}
+
+:::info 提示
+如果您已经有一个 monorepo，请跳过本节。
+:::
+
+::code-group
+
+```bash [npm]
 # From your top-most-directory/, initialize a workspace
 lerna init
 
@@ -58,25 +71,68 @@ npm install
 npm install typescript @types/node --save-dev
 ```
 
-#### Creating a Stencil Component Library
+```bash [yarn]
+# From your top-most-directory/, initialize a workspace
+lerna init
 
-:::info 提示
-If you already have a Stencil component library, skip this section.
+# install dependencies
+yarn install
+
+# install typescript and node types
+yarn add typescript @types/node --dev
+```
+
+```bash [pnpm]
+# From your top-most-directory/, initialize a workspace
+lerna init
+
+# install dependencies
+pnpm install
+
+# install typescript and node types
+pnpm add typescript @types/node --save-dev
+```
+
 :::
 
-From the `packages/` directory, run the following commands to create a Stencil component library:
+#### 创建一个 Stencil 组件库
 
-```bash npm2yarn
+:::info 提示
+如果您已经有了 Stencil 组件库，请跳过本节。
+:::
+
+:::code-group
+
+```bash [npm]
+cd packages/
 npm init stencil components stencil-library
 cd stencil-library
 # Install dependencies
 npm install
 ```
 
-#### Creating a React Component Library
+```bash [yarn]
+cd packages/
+yarn create stencil components stencil-library
+cd stencil-library
+# Install dependencies
+yarn install
+```
+
+```bash [pnpm]
+cd packages/
+pnpm create stencil components stencil-library
+cd stencil-library
+# Install dependencies
+pnpm install
+```
+
+:::
+
+#### 创建一个 React 组件库
 
 :::info 提示
-If you already have a React component library, skip this section.
+如果您已经有了 React 组件库，请跳过本节。
 :::
 
 The first time you want to create the component wrappers, you will need to have a React library package to write to.
