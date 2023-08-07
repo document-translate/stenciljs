@@ -576,7 +576,7 @@ import { defineCustomElement as defineMyComponent } from "my-component-lib/compo
 **Type: `boolean`**
 
 如果为 `true`，当组件在用户的应用程序内部被导入时，输出目标将导入自定义元素实例并将其注册到自定义元素注册表。
-这只能用于[自定义元素包](../output-targets/custom- Elements)，而不能用于惰性加载组件。
+这只能用于[自定义元素包](../output-targets/custom-elements)，而不能用于惰性加载组件。
 
 ### includePolyfills
 
