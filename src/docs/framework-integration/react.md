@@ -135,11 +135,13 @@ pnpm install
 如果您已经有了 React 组件库，请跳过本节。
 :::
 
-The first time you want to create the component wrappers, you will need to have a React library package to write to.
+当你第一次创建组件包装器时，你需要有一个 React 库来写入。
 
-Run the following commands from the root directory of your monorepo to create a React component library:
+在 monorepo 的根目录下运行以下命令来创建一个 React 组件库:
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 # Create a project
 lerna create react-library # fill out the prompts accordingly
 cd packages/react-library
@@ -148,7 +150,27 @@ cd packages/react-library
 npm install react react-dom typescript @types/react --save-dev
 ```
 
-Lerna does not ship with a TypeScript configuration. At the root of the workspace, create a `tsconfig.json`:
+```bash [yarn]
+# Create a project
+lerna create react-library # fill out the prompts accordingly
+cd packages/react-library
+
+# Install core dependencies
+yarn add react react-dom typescript @types/react --dev
+```
+
+```bash [pnpm]
+# Create a project
+lerna create react-library # fill out the prompts accordingly
+cd packages/react-library
+
+# Install core dependencies
+pnpm add react react-dom typescript @types/react --save-dev
+```
+
+:::
+
+Lerna 没有附带 TypeScript 配置。在工作空间的根目录，创建一个`tsconfig.json`：
 
 ```json
 {
@@ -168,7 +190,7 @@ Lerna does not ship with a TypeScript configuration. At the root of the workspac
 }
 ```
 
-In your `react-library` project, create a project specific `tsconfig.json` that will extend the root config:
+在你的 `react-library` 项目中，创建一个特定于项目的 `tsconfig.json`，它将扩展根配置：
 
 ```json
 {
@@ -189,49 +211,63 @@ In your `react-library` project, create a project specific `tsconfig.json` that 
 }
 ```
 
-Update the generated `package.json` in your `react-library`, adding the following options to the existing config:
+更新 `react-library` 中生成的 `package.json`，在现有配置中添加以下选项：
 
 ```diff
 {
--  "main": "lib/react-library.js",
-+  "main": "dist/index.js",
-+  "module": "dist/index.js",
-+  "types": "dist/types/index.d.ts",
-  "scripts": {
--    "test": "node ./__tests__/react-library.test.js"
-+    "test": "node ./__tests__/react-library.test.js",
-+    "build": "npm run tsc",
-+    "tsc": "tsc -p ."
--  }
-+  },
+   "main": "lib/react-library.js", // [!code --]
+   "main": "dist/index.js", // [!code ++]
+   "module": "dist/index.js", // [!code ++]
+   "types": "dist/types/index.d.ts", // [!code ++]
+   "scripts": {
+     "test": "node ./__tests__/react-library.test.js" // [!code --]
+     "test": "node ./__tests__/react-library.test.js", // [!code ++]
+     "build": "npm run tsc", // [!code ++]
+     "tsc": "tsc -p ." // [!code ++]
+   } // [!code --]
+   }, // [!code ++]
    "files": [
--    "lib"
-+    "dist"
+     "lib" // [!code --]
+     "dist" // [!code ++]
    ]
-+  "publishConfig": {
-+    "access": "public"
-+  },
-+  "dependencies": {
-+    "stencil-library": "*"
-+  }
+   "publishConfig": { // [!code ++]
+     "access": "public" // [!code ++]
+   }, // [!code ++]
+   "dependencies": { // [!code ++]
+     "stencil-library": "*" // [!code ++]
+   } // [!code ++]
 }
 ```
 
 :::info 提示
-The `stencil-library` dependency is how Lerna knows to resolve the internal Stencil library dependency. See Lerna's documentation on
-[package dependency management](https://lerna.js.org/docs/getting-started#package-dependency-management) for more information.
+Lerna 通过`stencil_library`依赖来解决内部 Stencil 库依赖。请参阅 Lerna 的文档
+[包依赖管理](https://lerna.js.org/docs/getting-started#package-dependency-management)了解更多信息。
 :::
 
-### Adding the React Output Target
+### 添加 React 输出目标
 
-Install the `@stencil/react-output-target` dependency to your Stencil component library package.
+安装 `@stencil/react-output-target` 依赖到你的 Stencil 组件库。
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 # Install dependency
 npm install @stencil/react-output-target --save-dev
 ```
 
-In your project's `stencil.config.ts`, add the `reactOutputTarget` configuration to the `outputTargets` array:
+```bash [yarn]
+# Install dependency
+yarn add @stencil/react-output-target --save-dev
+```
+
+```bash [pnpm]
+# Install dependency
+pnpm add @stencil/react-output-target --save-dev
+```
+
+:::
+
+在项目的 `stencil.config.ts`, 添加 `reactOutputTarget` 配置到 `outputTargets` 数组中：
 
 ```ts
 import { reactOutputTarget } from "@stencil/react-output-target";
@@ -256,73 +292,111 @@ export const config: Config = {
 ```
 
 :::tip
-The `proxiesFile` is the relative path to the file that will be generated with all of the React component wrappers. You will replace the
-file path to match your project's structure and respective names. You can generate any file name instead of `index.ts`.
+`proxiesFile` 是所有 React 组件包装器生成的文件的相对路径。您将替换文件路径以匹配项目的结构和各自的名称。你可以生成任何文件名而不是 `components.ts`。
 
-The `componentCorePackage` should match the `name` field in your Stencil project's `package.json`.
+`componentCorePackage` 应该与你的 Stencil 项目的 `package.json` 中的 `name` 字段匹配。
 :::
 
-See the [API section below](#api) for details on each of the output target's options.
+有关每个输出目标选项的详细信息，请参阅下面的 [API 部分](#api)。
 
-You can now build your Stencil component library to generate the component wrappers.
+您现在可以构建您的 Stencil 组件库来生成组件包装器。
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 # Build the library and wrappers
 npm run build
 ```
 
-If the build is successful, you’ll see the new generated file in your React component library at the location specified by the `proxiesFile` argument.
+```bash [yarn]
+# Build the library and wrappers
+yarn build
+```
 
-### Add the Components to your React Component Library's Entry File
+```bash [pnpm]
+# Build the library and wrappers
+pnpm run build
+```
 
-In order to make the generated files available within your React component library and its consumers, you’ll need to export everything from within your entry file. First, rename `react-library.js` to `index.ts`. Then, modify the contents to match the following:
+:::
+
+如果构建成功，你将在 React 组件库中的 `proxiesFile` 参数指定的位置看到新生成的文件。
+
+### 将这些组件添加到 React 组件库的入口文件中
+
+为了让生成的文件在 React 组件库及其使用者中可用，你需要从入口文件中导出所有内容。首先，将 `react-library.js` 重命名为 `index.ts`。然后，修改内容以匹配以下内容:
 
 ```tsx
 export * from "./components/stencil-generated";
 ```
 
-### Registering Custom Elements
+### 注册自定义元素{#registering-custom-elements}
 
-To register your web components for the lazy-loaded (hydrated) bundle, you'll need to expose a method for registering the underlying Stencil
-generated custom elements for the React proxy components to leverage. The easiest way to do this is to modify the React library's entry file
-to re-export the Stencil loader's `defineCustomElements()` method. In your React library's entry file (`packages/react-library/lib/index.ts`),
-add the following:
+要为懒加载(hydrated) bundle 注册 web 组件，你需要暴露一个方法，用于注册底层 Stencil 生成的自定义元素，以便 React 代理组件使用。
+最简单的方法是修改 React 库的入口文件，以重新导出模板加载器的 `defineCustomElements()` 方法。
+在你的 React 库的入口文件( `packages/react-library/lib/index.ts` )中，添加以下内容:
 
-```diff
+```ts
 export * from "./components/stencil-generated";
-+ export { defineCustomElements } from "stencil-library/loader";
+export { defineCustomElements } from "stencil-library/loader"; // [!code ++]
 ```
 
 ### Link Your Packages (Optional)
 
 :::info 提示
-If you are using a monorepo tool (Lerna, Nx, etc.), skip this section.
+如果你已经使用了 monorepo 工具 (Lerna, Nx, etc.), 请跳过本节。
 :::
 
-Before you can successfully build a local version of your React component library, you will need to link the Stencil package to the React package.
+在你成功构建本地版本的 React 组件库之前，你需要将 Stencil 包链接到 React 包。
 
-From your Stencil project's directory, run the following command:
+在你的 Stencil 项目目录中，运行以下命令：
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 # Link the working directory
 npm link
 ```
 
-From your React component library's directory, run the following command:
+```bash [yarn]
+# Link the working directory
+yarn link
+```
 
-```bash npm2yarn
+```bash [pnpm]
+# Link the working directory
+pnpm link
+```
+
+:::
+
+在你的 React 组件库目录下，运行以下命令：
+
+:::code-group
+
+```bash [npm]
 # Link the package name
 npm link name-of-your-stencil-package
 ```
 
-The name of your Stencil package should match the `name` property from the Stencil component library's `package.json`.
+```bash [yarn]
+# Link the package name
+yarn link name-of-your-stencil-package
+```
 
-Your component libraries are now linked together. You can make changes in the Stencil component library and run `npm run build` to propagate the
-changes to the React component library.
+```bash [pnpm]
+# Link the package name
+pnpm link name-of-your-stencil-package
+```
 
-:::tip
-As an alternative to `npm link` , you can also run `npm install` with a relative path to your Stencil component library. This strategy, however, will
-modify your `package.json` so it is important to make sure you do not commit those changes.
+:::
+
+你的 Stencil 包的名称应该与 Stencil 组件库的 `package.json` 中的 `name` 属性匹配。
+
+你的组件库现在已经链接在一起了。你可以在 Stencil 组件库中进行更改，然后运行 `npm run build` 将更改传播到 React 组件库。
+
+:::info 提示
+作为 `npm link` 的替代方法，你也可以使用模板组件库的相对路径运行 `npm install`。然而，这个策略会修改你的 `package_json`，所以确保你不提交这些更改很重要。
 :::
 
 ## Consumer Usage
@@ -330,10 +404,10 @@ modify your `package.json` so it is important to make sure you do not commit tho
 ### Creating a Consumer React App
 
 :::info 提示
-If you already have a React app, skip this section.
+如果你已经有了一个 React 应用，请跳过本节。
 :::
 
-From the `packages/` directory, run the following commands to create a starter React app:
+在 `packages/` 目录下，运行以下命令生成一个 React 应用：
 
 <!-- TODO: see if we can convert this to use `npm2yarn` once related issues are resolved -->
 <!-- See https://github.com/facebook/docusaurus/issues/5861 for more information -->
@@ -352,8 +426,9 @@ npm install
 yarn install
 ```
 
-You'll also need to link your React component library as a dependency. This step makes it so your React app will be able to correctly resolve imports from your React library. This
-is easily done by modifying your React app's `package.json` to include the following:
+你还需要链接你的 React 组件库作为依赖。这一步使您的 React 应用程序能够正确解析从 React 组件库中导入的内容。
+
+通过修改你的 React 应用程序的 `package.json` 来包含以下内容，很容易实现：
 
 ```json
 "dependencies": {
@@ -361,11 +436,11 @@ is easily done by modifying your React app's `package.json` to include the follo
 }
 ```
 
-### Consuming the React Wrapper Components
+### 使用 React 包装器组件
 
-This section covers how developers consuming your React component wrappers will use your package and component wrappers.
+本节将介绍使用 React 组件包装器的开发者如何使用你的包和组件包装器。
 
-Before you can consume your React proxy components, you'll need to build your React component library. From `packages/react-library` run:
+在使用 React 代理组件之前，你需要构建 React 组件库。在 `packages/react-library` 中运行:
 
 :::code-group
 
@@ -383,7 +458,7 @@ pnpm run build
 
 :::
 
-To make use of your React component library in your React application, import your components from your React component library in the file where you want to use them.
+要在 React 应用程序中使用 React 组件库，请在需要使用组件的文件中从 React 组件库中导入组件。
 
 ```tsx
 // App.tsx
@@ -413,16 +488,28 @@ export default App;
 
 **Type: `string`**
 
-The name of the Stencil package where components are available for consumers (i.e. the value of the `name` property in your Stencil component library's `package.json`).
-This is used during compilation to write the correct imports for components.
+消费者可以使用的 Stencil 包的名称(即 Stencil 组件库的 `package.json` 中的 `name` 属性的值)。
+这用于在编译期间为组件编写正确的导入。
 
-For a starter Stencil project generated by running:
+运行以下命令生成一个入门 Stencil 项目:
 
-```bash npm2yarn
+:::code-group
+
+```bash [npm]
 npm init stencil component my-component-lib
 ```
 
-The `componentCorePackage` would be set to:
+```bash [yarn]
+yarn create stencil component my-component-lib
+```
+
+```bash [pnpm]
+pnpm create stencil component my-component-lib
+```
+
+:::
+
+`componentCorePackage` 将被设置为：
 
 ```ts
 // stencil.config.ts
@@ -438,15 +525,14 @@ export const config: Config = {
 }
 ```
 
-Which would result in an import path like:
+导入路径如下所示：
 
 ```js
 import { defineCustomElement as defineMyComponent } from "my-component-lib/components/my-component.js";
 ```
 
 :::info 提示
-Although this field is optional, it is _highly_ recommended that it always be defined to avoid potential issues with paths not being generated correctly
-when combining other API arguments.
+尽管此字段是可选的，但 _强烈_ 建议始终定义它，以避免在组合其他 API 参数时无法正确生成路径的潜在问题。
 :::
 
 ### customElementsDir
@@ -457,9 +543,8 @@ when combining other API arguments.
 
 **Type: `string`**
 
-If [includeImportCustomElements](#includeimportcustomelements) is `true`, this option can be used to specify the directory where the generated
-custom elements live. This value only needs to be set if the `dir` field on the `dist-custom-elements` output target was set to something other than
-the default directory.
+如果 [includeImportCustomElements](#includeimportcustomelements) 为 `true`，此选项可用于指定生成的自定义元素所在的目录。
+只有当 `dist-custom-elements` 输出目标上的 `dir` 字段被设置为默认目录以外的目录时，才需要设置此值。
 
 ### excludeComponents
 
@@ -469,8 +554,8 @@ the default directory.
 
 **Type: `string[]`**
 
-This lets you specify component tag names for which you don't want to generate React wrapper components. This is useful if you need to write framework-specific versions of components. For instance, in Ionic Framework, this is used for routing components - like tabs - so that
-Ionic Framework can integrate better with React Router.
+这可以让你指定不想生成 React 包装组件的组件标签名。如果你需要编写特定于框架的组件版本，这很有用。
+例如，在 Ionic 框架中，它用于路由组件(如选项卡)，以便 Ionic 框架可以更好地与 React Router 集成。
 
 ### includeDefineCustomElements
 
@@ -480,7 +565,7 @@ Ionic Framework can integrate better with React Router.
 
 **Type: `boolean`**
 
-If `true`, all Web Components will automatically be registered with the Custom Elements Registry. This can only be used when lazy loading Web Components and will not work when `includeImportCustomElements` is `true`.
+如果为 `true`，所有的 Web 组件将自动注册到自定义元素注册表。这只能在延迟加载 Web 组件时使用，当 `includeImportCustomElements` 为 `true` 时将不起作用。
 
 ### includeImportCustomElements
 
@@ -490,7 +575,8 @@ If `true`, all Web Components will automatically be registered with the Custom E
 
 **Type: `boolean`**
 
-If `true`, the output target will import the custom element instance and register it with the Custom Elements Registry when the component is imported inside of a user's app. This can only be used with the [Custom Elements](../output-targets/custom-elements.md) output and will not work with lazy loaded components.
+如果为 `true`，当组件在用户的应用程序内部被导入时，输出目标将导入自定义元素实例并将其注册到自定义元素注册表。
+这只能用于[自定义元素包](../output-targets/custom- Elements)，而不能用于惰性加载组件。
 
 ### includePolyfills
 
@@ -500,7 +586,8 @@ If `true`, the output target will import the custom element instance and registe
 
 **Type: `boolean`**
 
-If `true`, polyfills will automatically be imported and the `applyPolyfills` function will be called in your proxies file. This can only be used when lazy loading Web Components and will not work when `includeImportCustomElements` is enabled.
+如果为 `true`， polyfills 将自动导入，`applyPolyfills` 函数将在你的代理文件中被调用。
+这只能在延迟加载 Web 组件时使用，当启用 `includeImportCustomElements` 时将不起作用。
 
 ### loaderDir
 
@@ -510,7 +597,7 @@ If `true`, polyfills will automatically be imported and the `applyPolyfills` fun
 
 **Type: `string`**
 
-The path to where the `defineCustomElements` helper method exists within the built project. This option is only used when `includeDefineCustomElements` is enabled.
+在构建的项目中，`defineCustomElements` 辅助方法存在的路径。此选项仅在启用 `includeDefineCustomElements` 时使用。
 
 ### proxiesFile
 
@@ -518,16 +605,15 @@ The path to where the `defineCustomElements` helper method exists within the bui
 
 **Type: `string`**
 
-This parameter allows you to name the file that contains all the component wrapper definitions produced during the compilation process. This is the first file you should import in your React project.
+此参数允许您命名包含在编译过程中生成的所有组件包装器定义的文件。这是您应该在 React 项目中导入的第一个文件。
 
 ## FAQ's
 
-### Do I have to use the `dist` output target?
+### 我必须使用 dist 输出目标吗?
 
-No! By default, this output target will look to use the `dist` output, but the output from `dist-custom-elements` can be used alternatively.
+不！默认情况下，输出目标将使用 `dist` 输出，但也可以使用 `dist-custom-elements` 的输出。
 
-To do so, simply set the `includeImportCustomElements` option in the output target's config and ensure the
-[custom elements output target](../output-targets/custom-elements.md) is added to the Stencil config's output target array:
+为此，只需在输出目标配置中设置 `includeImportCustomElements` 选项，并确保将[自定义元素输出目标](../output-targets/custom-elements)添加到模板配置的输出目标数组中:
 
 ```ts
 // stencil.config.ts
@@ -549,12 +635,11 @@ export const config: Config = {
 }
 ```
 
-Now, all generated imports will point to the default directory for the custom elements output. If you specified a different directory
-using the `dir` property for `dist-custom-elements`, you need to also specify that directory for the React output target. See
-[the API section](#customelementsdir) for more information.
+现在，所有生成的导入都将指向自定义元素输出的默认目录。如果你使用 `dir` 属性为 `dist-custom-elements` 指定了一个不同的目录，你还需要为 Vue 的输出目标指定该目录。
+查看 [API 部分](#customelementsdir)以获取更多信息。
 
-In addition, all the Web Components will be automatically defined as the generated component modules are bootstrapped.
+此外，当生成的组件模块被引导时，所有的 Web 组件都将被自动定义。
 
-### What is the best format to write event names?
+### 什么是最好的 event 名字的写法?
 
-Event names shouldn’t include special characters when initially written in Stencil. Try to lean on using camelCased event names for interoperability between frameworks.
+最初用模板书写的事件名称不应该包含特殊字符。尝试使用驼峰格式的事件名称来实现框架之间的互操作性。
