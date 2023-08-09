@@ -1,7 +1,8 @@
 {
   "name": "stenciljs",
   "version": "1.0.0",
-  "description": "",
+  "description": "stenciljs 中文站点",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev src",
@@ -17,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@vitejs/plugin-vue-jsx": "^3.0.1",
-    "vitepress": "1.0.0-beta.6",
+    "vitepress": "1.0.0-rc.4",
     "vue": "^3.3.4"
   }
 }
