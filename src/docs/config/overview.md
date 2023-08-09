@@ -4,7 +4,9 @@ description: Stencil 配置
 
 # Stencil 配置{#stencil-config}
 
-In most cases, the `stencil.config.ts` file does not require any customization since Stencil comes with great default values out-of-the-box. In general, it's preferred to keep the config as minimal as possible. In fact, you could even delete the `stencil.config.ts` file entirely and an app would compile just fine. But at the same time, the compiler can be configured at the lowest levels using this config. Below are the many _optional_ config properties.
+在大多数情况下，`stencil.config.ts` 文件不需要任何自定义，因为 Stencil 自带了很多开箱即用的默认值。
+一般来说，最好尽可能少配置。事实上，你甚至可以完全删除 `stencil.config.ts` 文件，应用程序仍然可以正常编译。
+但与此同时，编译器可以使用此配置在最低级别进行配置。下面是许多可选的配置属性。
 
 示例 `stencil.config.ts`:
 
@@ -19,10 +21,10 @@ export const config: Config = {
 
 ## buildEs5
 
-Sets if the ES5 build should be generated or not.
-It defaults to `false`.
-Setting `buildEs5` to `true` will also create ES5 builds for both dev and prod modes.
-Setting `buildEs5` to `prod` will only build ES5 in prod mode.
+设置是否应该生成 ES5 版本。
+默认值为 `false`。
+将 `buildEs5` 设置为 `true` 也将为 dev 和 prod 模式创建 ES5 构建。
+将 `buildEs5` 设置为 `prod` 只会在 prod 模式下构建 ES5。
 
 ```tsx
 buildEs5: boolean | "prod";
@@ -48,7 +50,7 @@ _default: '.stencil'_
 The directory where sub-directories will be created for caching when [`enableCache`](#enablecache) is set `true` or if using
 [Stencil's Screenshot Connector](../testing/screenshot-connector).
 
-A Stencil config like the following:
+Stencil 配置如下：
 
 :::code-group
 
@@ -67,7 +69,7 @@ export const config: Config = {
 
 :::
 
-Will result in the following file structure:
+将产生以下文件结构：
 
 ```txt
 stencil-project-root
@@ -97,11 +99,11 @@ enableCache: true;
 
 ## globalScript{#globalscript}
 
-The global script config option takes a file path as a string.
+全局脚本配置选项接受一个文件路径字符串作为参数。
 
-The global script runs once before your library/app loads, so you can do things like setting up a connection to an external service or configuring a library you are using.
+全局脚本在库/应用加载之前运行一次，所以你可以做一些事情，比如建立到外部服务的连接或配置你正在使用的库。
 
-The code to be executed should be placed within a default function that is exported by the global script. Ensure all of the code in the global script is wrapped in the function that is exported:
+要执行的代码应该放在由全局脚本导出的默认函数中。确保全局脚本中的所有代码都包装在导出的函数中：
 
 ```javascript
 export default function () {
@@ -116,11 +118,12 @@ export default function () {
 
 ## globalStyle{#globalstyle}
 
-Stencil is traditionally used to compile many components into an app, and each component comes with its own compartmentalized styles. However, it's still common to have styles which should be "global" across all components and the website. A global CSS file is often useful to set [CSS Variables](../components/styling.md).
+Stencil 传统上用于将多个组件编译为应用程序，每个组件都有自己的划分样式。
+然而，在所有组件和网站中保持“全局”样式仍然是很常见的。全局 CSS 文件通常用于设置 [CSS 变量](../components/styling)。
 
-Additionally, the `globalStyle` config can be used to precompile styles with Sass, PostCss, etc.
+此外，`globalStyle` 配置可以用来预编译 Sass、PostCss 等等。
 
-Below is an example folder structure containing a webapp's global css file, named `app.css`.
+下面是一个包含 webapp 全局 css 文件`app.css`的示例文件夹结构。
 
 ```bash
 src/
@@ -129,7 +132,7 @@ src/
     app.css
 ```
 
-The global style config takes a file path as a string. The output from this build will go to the `buildDir`. In this example it would be saved to `www/build/app.css`.
+全局样式配置接受一个文件路径字符串作为参数。此构建的输出将转到 `buildDir`。在这个例子中，它将被保存到 `www/build/app.css`。
 
 ```tsx
 globalStyle: "src/global/app.css";
@@ -141,7 +144,7 @@ globalStyle: "src/global/app.css";
 
 _default: `8`_
 
-When the `hashFileNames` config is set to `true`, and it is a production build, the `hashedFileNameLength` config is used to determine how many characters the file name's hash should be.
+当 `hashFileNames` 配置设置为 `true` 时，并且它是一个生产构建，`hashedFileNameLength` 配置将用于确定文件名的哈希值应该是多少个字符。
 
 ```tsx
 hashedFileNameLength: 8;
@@ -151,7 +154,9 @@ hashedFileNameLength: 8;
 
 _default: `true`_
 
-During production builds, the content of each generated file is hashed to represent the content, and the hashed value is used as the filename. If the content isn't updated between builds, then it receives the same filename. When the content is updated, then the filename is different. By doing this, deployed apps can "forever-cache" the build directory and take full advantage of content delivery networks (CDNs) and heavily caching files for faster apps.
+在生产构建过程中，每个生成的文件的内容会被散列以表示内容，散列值会被用作文件名。
+如果内容在构建之间没有更新，那么它会收到相同的文件名。当内容更新时，文件名就不一样了。
+通过这样做，部署的应用程序可以“永久缓存”构建目录，并充分利用内容分发网络(cdn)和大量缓存文件以获得更快的应用程序。
 
 ```tsx
 hashFileNames: true;
@@ -161,10 +166,12 @@ hashFileNames: true;
 
 _default: `true`_
 
-When `true`, `invisiblePrehydration` will visually hide components before they are hydrated by adding an automatically injected style tag to the document's head. Setting `invisiblePrehydration` to `false` will not inject the style tag into the head, allowing you to style your web components pre-hydration.
+当设置为 `true` 时，`prehydration` 将在 hydration 之前通过向文档头部自动注入样式标签来隐藏组件。
+将 `prehydration` 设置为 `false` 将不会将样式标签注入到头部，从而允许你为 web 组件预 hydration 设置样式。
 
 :::info 提示
-Setting `invisiblePrehydration` to `false` will cause everything to be visible when your page is loaded, causing a more prominent Flash of Unstyled Content (FOUC). However, you can style your web component's fallback content to your preference.
+将 `invisiblePrehydration` 设置为 `false` 将导致页面加载时所有内容都可见，导致无样式内容 (FOUC) 的闪烁更加突出。
+但是，您可以根据您的偏好设置 web 组件的备用内容。
 :::
 
 ```tsx
@@ -175,19 +182,21 @@ invisiblePrehydration: true;
 
 _default: `true` in production_
 
-When `true`, the browser CSS file will be minified.
+当设置为 `true` 时，浏览器的 CSS 文件将被压缩。
 
 ## minifyJs{#minifyjs}
 
 _default: `true` in production_
 
-When `true`, the browser JS files will be minified. Stencil uses [Terser](https://terser.org/) under-the-hood for file minification.
+当设置为 `true` 时，浏览器的 JS 文件将被压缩。
+Stencil 在底层使用 [Terser](https://terser.org/) 进行文件压缩。
 
 ## namespace{#namespace}
 
 _default: `App`_
 
-The `namespace` config is a `string` representing a namespace for the app. For apps that are not meant to be a library of reusable components, the default of `App` is just fine. However, if the app is meant to be consumed as a third-party library, such as `Ionic`, a unique namespace is required.
+`namespace` 配置是一个代表应用命名空间的 `string`。对于不打算成为可重用组件库的应用，默认的 `app` 就可以了。
+然而，如果应用程序打算作为第三方库使用，例如 `Ionic`，则需要一个唯一的命名空间。
 
 ```tsx
 namespace: "Ionic";
@@ -205,18 +214,17 @@ namespace: "Ionic";
 
 _default: `undefined`_
 
-Used to help to persist a banner or add relevant information about the resulting build, the `preamble` configuration
-field is a `string` that will be converted into a pinned comment and placed at the top of all emitted JavaScript files,
-with the exception of any emitted polyfills. Escaped newlines may be placed in the provided value for this field and
-will be honored by Stencil.
+`preamble` 配置字段是一个 `string` 类型的字段，用于帮助持久化 banner 或添加关于最终构建的相关信息，
+它将被转换为固定注释，并放置在所有发出的 JavaScript 文件的顶部，任何发出的 polyfills 除外。
+转义的换行符可以放在这个字段提供的值中，并且会被 Stencil 使用。
 
-Example:
+示例：
 
 ```tsx
 preamble: "Built with Stencil\nCopyright (c) SomeCompanyInc.";
 ```
 
-Will generate the following comment:
+将生成以下注释：
 
 ```tsx
 /*!
@@ -229,31 +237,27 @@ Will generate the following comment:
 
 _default: `true`_
 
-When omitted or set to `true`, sourcemaps will be generated for a project.
-When set to `false`, sourcemaps will not be generated.
+当省略或设置为 `true` 时，将为项目生成 sourcemap。
+当设置为 `false` 时，将不会生成 sourcemap。
 
 ```tsx
 sourceMap: true | false;
 ```
 
-Sourcemaps create a translation between Stencil components that are written in TypeScript/JSX and the resulting
-JavaScript that is output by Stencil. Enabling source maps in your project allows for an improved debugging experience
-for Stencil components. For example, they allow external tools (such as an Integrated Development Environment) to add
-breakpoints directly in the original source code, which allows you to 'step through' your code line-by-line, to inspect
-the values held in variables, to observe logic flow, and more.
+Sourcemap 创建了一个用 TypeScript/JSX 编写的 Stencil 组件和由 Stencil 输出的结果 JavaScript 之间的转换。
+在项目中启用源映射可以改善 Stencil 组件的调试体验。
+例如，它们允许外部工具(例如集成开发环境)直接在原始源代码中添加断点，这允许你逐行“单步执行”代码，检查变量中保存的值，观察逻辑流等。
 
-Please note: Stencil will always attempt to minify a component's source code as much as possible during compilation.
-When `sourceMap` is enabled, it is possible that a slightly different minified result will be produced by Stencil when
-compared to the minified result produced when `sourceMap` is not enabled.
+请注意:在编译期间，Stencil 将始终尝试尽可能压缩组件的源代码。
+当启用 `sourceMap` 时，与未启用 `sourceMap` 时生成的压缩结果相比，Stencil 生成的压缩结果可能略有不同。
 
-Developers are responsible for determining whether or not they choose to serve sourcemaps in each environment their
-components are served and implementing their decision accordingly.
+开发人员负责确定他们是否选择在为组件提供服务的每个环境中提供 sourcemap，并相应地实现他们的决定。
 
 ## srcDir
 
 _default: `src`_
 
-The `srcDir` config specifies the directory which should contain the source typescript files for each component. The standard for Stencil apps is to use `src`, which is the default.
+`srcDir` 配置指定了包含每个组件源 typescript 文件的目录。Stencil 应用的标准是默认使用 `src`。
 
 ```tsx
 srcDir: "src";
@@ -263,31 +267,23 @@ srcDir: "src";
 
 _default: `async`_
 
-Sets the task queue used by stencil's runtime. The task queue schedules DOM read and writes
-across the frames to efficiently render and reduce layout thrashing. By default, the
-`async` is used. It's recommended to also try each setting to decide which works
-best for your use-case. In all cases, if your app has many CPU intensive tasks causing the
-main thread to periodically lock-up, it's always recommended to try
-[Web Workers](../guides/workers) for those tasks.
+设置 stencil 运行时使用的任务队列。任务队列调度跨帧的 DOM 读写，以有效地渲染和减少布局抖动。
+默认情况下，使用 `async`。建议您尝试每种设置，以确定哪种最适合您的用例。
+在所有情况下，如果你的应用程序有许多 CPU 密集型任务，导致主线程周期性地锁住，
+总是建议尝试使用 [Web worker](../guides/workers) 来完成这些任务。
 
-- `congestionAsync`: DOM reads and writes are scheduled in the next frame to prevent layout
-  thrashing. When the app is heavily tasked and the queue becomes congested it will then
-  split the work across multiple frames to prevent blocking the main thread. However, it can
-  also introduce unnecessary reflows in some cases, especially during startup. `congestionAsync`
-  is ideal for apps running animations while also simultaneously executing intensive tasks
-  which may lock-up the main thread.
+- `congestionAsync`: DOM 读写被安排在下一帧进行，以防止布局抖动。
+  当应用程序的任务量很大，队列变得拥塞时，它会将工作分配给多个帧，以防止阻塞主线程。
+  然而，在某些情况下，它也会引入不必要的回流，尤其是在启动期间。
+  `congestionAsync` 非常适合应用程序在运行动画的同时执行密集的任务，这些任务可能会锁住主线程。
 
-- `async`: DOM read and writes are scheduled in the next frame to prevent layout thrashing.
-  During intensive CPU tasks it will not reschedule rendering to happen in the next frame.
-  `async` is ideal for most apps, and if the app has many intensive tasks causing the main
-  thread to lock-up, it's recommended to try [Web Workers](../guides/workers)
-  rather than the congestion async queue.
+- `async`: DOM 读写被安排在下一帧进行，以防止布局抖动。在密集的 CPU 任务期间，它不会重新安排在下一帧渲染。
+  `async` 对于大多数应用程序都是理想的，如果应用程序有许多密集的任务导致主线程锁定，
+  建议尝试 [Web worker](../guides/workers) 而不是拥塞的异步队列。
 
-- `immediate`: Makes writeTask() and readTask() callbacks to be executed synchronously. Tasks
-  are not scheduled to run in the next frame, but do note there is at least one microtask.
-  The `immediate` setting is ideal for apps that do not provide long-running and smooth
-  animations. Like the async setting, if the app has intensive tasks causing the main thread
-  to lock-up, it's recommended to try [Web Workers](../guides/workers).
+- `immediate`: 使 writeTask() 和 readTask() 回调同步执行。任务不会被安排在下一帧运行，但至少有一个微任务。
+  `immediate`设置非常适合那些不提供长时间流畅动画的应用程序。
+  和 async 设置一样，如果应用程序有密集的任务导致主线程锁定，建议尝试 [Web Workers](../guides/workers)。
 
 ```tsx
 taskQueue: "async";
@@ -301,17 +297,14 @@ taskQueue: "async";
 
 _default: `true`_
 
-This sets whether or not Stencil should transform [path aliases](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping) set
-in a project's `tsconfig.json` from the assigned module aliases to resolved
-relative paths. This will not transform external imports (like `@stencil/core`) or
-relative imports (like `'../utils'`).
+这设置了 Stencil 是否应该将项目的 `tsconfig.json` 中设置的路径别名从分配的模块别名转换为已解析的相对路径。
+这不会转换外部导入(如 `@stencil/core` )或相对导入(如 `../utils` )。
 
-This option applies globally and will affect all code processed by Stencil,
-including `.d.ts` files and spec tests.
+此选项全局适用，并将影响 Stencil 处理的所有代码。包括 `.d.ts` 文件和规范测试。
 
-An example of path transformation could look something like the following.
+路径转换的示例如下所示。
 
-First, a set of `paths` aliases in `tsconfig.json`:
+首先，在 `tsconfig.json` 中有一组 `paths` 别名:
 
 :::code-group
 
@@ -327,7 +320,7 @@ First, a set of `paths` aliases in `tsconfig.json`:
 
 :::
 
-Then with the following input:
+然后输入以下内容：
 
 :::code-group
 
@@ -341,7 +334,8 @@ export function util(arg: UtilInterface) {
 
 :::
 
-Stencil will produce the following output:
+Stencil 将产生以下输出：
+
 :::code-group
 
 ```js [dist/my-module.js]
@@ -366,5 +360,6 @@ export declare function util(arg: UtilInterface): void;
 
 _default: `false`_
 
-When `true`, validation for common `package.json` fields will occur based on setting an output target's `isPrimaryPackageOutputTarget` flag.
-For more information on package validation, please see the [output target docs](../output-targets/overview#primary-package-output-target-validation).
+当设置为 `true` 时，将根据设置输出目标的 `isPrimaryPackageOutputTarget` 标志来验证常见的 `package.json` 字段。
+
+有关包验证的更多信息，请参阅[output target docs](../output-targets/overview#primary-package-output-target-validation)。
